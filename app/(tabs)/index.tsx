@@ -1,31 +1,53 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { Stack } from 'expo-router';
+import ExploreHeader from '../../components/explore/Header';
+import CategoryTabs from '../../components/explore/CategoryTabs';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+const categoryList = [
+  {
+    name: 'Tiny homes',
+    icon: 'home'
+  },
+  {
+    name: 'Cabins',
+    icon: 'house-siding'
+  },
+  {
+    name: 'Trending',
+    icon: 'local-fire-department'
+  },
+  {
+    name: 'Play',
+    icon: 'videogame-asset'
+  },
+  {
+    name: 'City',
+    icon: 'apartment'
+  },
+  {
+    name: 'Beachfront',
+    icon: 'beach-access'
+  },
+  {
+    name: 'Countryside',
+    icon: 'nature-people'
+  }
+];
 
-export default function TabOneScreen() {
+export default function Page() {
+  const [category, setCategory] = useState<string>(categoryList[0].name);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    <View>
+      <Stack.Screen
+        options={{
+          header: () => <ExploreHeader />
+        }}
+      />
+      <CategoryTabs category={category} categoryList={categoryList} onChange={setCategory} />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+const styles = StyleSheet.create({});
