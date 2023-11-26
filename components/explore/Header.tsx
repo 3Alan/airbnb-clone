@@ -13,10 +13,12 @@ const ExploreHeader = () => {
         <Link href="/(modals)/booking" asChild>
           {/* 巨坑：react-native-gesture-handler 的 TouchableOpacity flex 没有效果 */}
           <TouchableOpacity style={styles.searchContainer}>
-            <Ionicons name="search" size={24} />
+            <Ionicons name="search" size={20} />
             <View>
-              <Text style={{ fontFamily: 'MonSB' }}>Where to?</Text>
-              <Text style={{ fontFamily: 'Mon', color: Colors.grey }}>Anywhere · Any week</Text>
+              <Text style={{ fontFamily: 'MonSB', fontSize: 12 }}>Where to?</Text>
+              <Text style={{ fontFamily: 'Mon', color: Colors.grey, fontSize: 12 }}>
+                Anywhere · Any week
+              </Text>
             </View>
           </TouchableOpacity>
         </Link>
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 24,
-    paddingBottom: 20
+    paddingBottom: 10
   },
   searchContainer: {
     alignSelf: 'flex-start',
@@ -46,7 +48,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: '#c2c2c2',
     borderWidth: StyleSheet.hairlineWidth,
-    padding: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
     borderRadius: 30,
     shadowColor: '#000',
     shadowRadius: 8,
@@ -63,6 +66,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#A2A0A2',
     borderRadius: 24,
-    padding: 10
+    padding: 6
   }
 });

@@ -42,6 +42,7 @@ const CategoryTabs: FC<CategoryTabsProps> = ({ category, categoryList, onChange 
 
   return (
     <ScrollView
+      style={{ flexGrow: 0 }}
       ref={scrollRef}
       horizontal
       showsHorizontalScrollIndicator={false}
@@ -56,7 +57,7 @@ const CategoryTabs: FC<CategoryTabsProps> = ({ category, categoryList, onChange 
         >
           <MaterialIcons
             name={item.icon as any}
-            size={24}
+            size={20}
             style={[styles.tabIcon, category === item.name ? styles.activeIcon : null]}
           />
           <Text style={[styles.tabText, category === item.name ? styles.activeText : null]}>
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     color: Colors.grey
   },
   tabText: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'MonSB',
     color: Colors.grey
   }
