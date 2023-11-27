@@ -2,20 +2,45 @@ import { StyleSheet, Text, View, ViewStyle } from 'react-native';
 import React, { FC, ReactElement } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Colors from '../../constants/Colors';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface ButtonProps {
   onPress?: () => void;
   children: string;
   theme?: 'primary' | 'standard';
   icon?: ReactElement;
+  iconCenter?: boolean;
   style?: ViewStyle;
+  colors?: string[];
 }
 
-const Button: FC<ButtonProps> = ({ onPress, children, theme = 'primary', icon, style }) => {
+const Button: FC<ButtonProps> = ({
+  onPress,
+  children,
+  theme = 'primary',
+  icon,
+  style,
+  iconCenter,
+  colors
+}) => {
   return (
-    <TouchableOpacity style={[styles[`${theme}Btn`], styles.container, style]} onPress={onPress}>
-      <View style={styles.iconContainer}>{icon}</View>
-      <Text style={styles[`${theme}Text`]}>{children}</Text>
+    <TouchableOpacity onPress={onPress}>
+      {colors ? (
+        <LinearGradient
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
+          style={[styles[`${theme}Btn`], styles.container, style]}
+          colors={colors}
+        >
+          {iconCenter ? icon : <View style={styles.iconContainer}>{icon}</View>}
+          <Text style={styles[`${theme}Text`]}>{children}</Text>
+        </LinearGradient>
+      ) : (
+        <View style={[styles[`${theme}Btn`], styles.container, style]}>
+          {iconCenter ? icon : <View style={styles.iconContainer}>{icon}</View>}
+          <Text style={styles[`${theme}Text`]}>{children}</Text>
+        </View>
+      )}
     </TouchableOpacity>
   );
 };
@@ -24,7 +49,8 @@ export default Button;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   iconContainer: {
     position: 'absolute',

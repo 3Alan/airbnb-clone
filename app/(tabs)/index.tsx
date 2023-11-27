@@ -1,81 +1,92 @@
-import { StyleSheet, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
 import { Stack } from 'expo-router';
-import ExploreHeader from '../../components/explore/Header';
-import CategoryTabs from '../../components/explore/CategoryTabs';
+import ExploreBackground from '../../components/explore/Background';
 import Listing from '../../components/explore/Listing';
-import listingData from '../../assets/data/airbnb-listings.json';
-import { ListingItem } from '../../interface/Listing';
-
-const categoryList = [
-  {
-    name: 'Tiny homes',
-    icon: 'home'
-  },
-  {
-    name: 'Cabins',
-    icon: 'house-siding'
-  },
-  {
-    name: 'Trending',
-    icon: 'local-fire-department'
-  },
-  {
-    name: 'Play',
-    icon: 'videogame-asset'
-  },
-  {
-    name: 'City',
-    icon: 'apartment'
-  },
-  {
-    name: 'Beachfront',
-    icon: 'beach-access'
-  },
-  {
-    name: 'Countryside',
-    icon: 'nature-people'
-  }
-];
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
+import Colors from '../../constants/Colors';
 
 export default function Page() {
-  const [category, setCategory] = useState<string>(categoryList[0].name);
-  const [listing, setListing] = useState<ListingItem[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [showHeader, setShowHeader] = useState<boolean>(false);
+  const insets = useSafeAreaInsets();
 
-  useEffect(() => {
-    onLoadMoreListing();
-  }, []);
-
-  const onLoadMoreListing = () => {
-    const start = (currentPage - 1) * 20;
-    const newListing = listingData.slice(start, start + 20) as ListingItem[];
-    setListing([...listing, ...newListing]);
-    setCurrentPage(currentPage + 1);
-  };
-
-  const onRefresh = () => {
-    const newListing = listingData.slice(0, 20) as ListingItem[];
-    setListing(newListing);
-    setCurrentPage(1);
+  const handleListingScroll = (y: number) => {
+    setShowHeader(y > 280);
   };
 
   return (
     <View style={{ flex: 1 }}>
       <Stack.Screen
         options={{
-          header: () => <ExploreHeader />
+          headerTitle: '',
+          headerTransparent: true
         }}
       />
-      <CategoryTabs category={category} categoryList={categoryList} onChange={setCategory} />
-      <Listing
-        category={category}
-        onRefresh={onRefresh}
-        onLoadMore={onLoadMoreListing}
-        items={listing}
-      />
+      <ExploreBackground />
+      {showHeader && (
+        <Animated.View
+          entering={FadeIn}
+          exiting={FadeOut}
+          style={{
+            paddingHorizontal: 20,
+            paddingTop: insets.top + 10,
+            paddingBottom: 18,
+            shadowColor: '#000',
+            shadowRadius: 4,
+            shadowOpacity: 0.12,
+            elevation: 6,
+            shadowOffset: {
+              width: 2,
+              height: 2
+            },
+            backgroundColor: '#fff',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            zIndex: 2
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: '#f7f7f7',
+              flexDirection: 'row',
+              padding: 12,
+              borderRadius: 10,
+              alignContent: 'center'
+            }}
+          >
+            <View style={{ flex: 2, paddingVertical: 3 }}>
+              <Text style={{ color: '#333', fontWeight: '700' }}>全球</Text>
+            </View>
+            <View style={[styles.filterItem, { flex: 3 }]}>
+              <Text style={{ color: '#707070', fontWeight: '700' }} numberOfLines={1}>
+                入住退房日期
+              </Text>
+            </View>
+            <View style={[styles.filterItem, { flex: 3 }]}>
+              <Text style={{ color: '#707070', fontWeight: '700' }} numberOfLines={1}>
+                景点/地址/关键词
+              </Text>
+            </View>
+            <View style={{ flex: 1, paddingVertical: 3 }}>
+              <Ionicons name="search" size={18} />
+            </View>
+          </View>
+        </Animated.View>
+      )}
+      <Listing onScroll={handleListingScroll} />
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  filterItem: {
+    borderLeftWidth: 1,
+    borderLeftColor: Colors.borderColor,
+    paddingHorizontal: 10,
+    paddingVertical: 3
+  }
+});
