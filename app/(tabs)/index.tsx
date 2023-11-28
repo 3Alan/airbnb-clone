@@ -20,8 +20,8 @@ export default function Page() {
     <View style={{ flex: 1 }}>
       <Stack.Screen
         options={{
-          headerTitle: '',
-          headerTransparent: true
+          // 不显示header
+          headerShown: false
         }}
       />
       <ExploreBackground />
