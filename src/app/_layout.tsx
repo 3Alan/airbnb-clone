@@ -41,9 +41,9 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    Mon: require('../assets/fonts/Montserrat-Regular.ttf'),
-    MonSB: require('../assets/fonts/Montserrat-SemiBold.ttf'),
-    MonB: require('../assets/fonts/Montserrat-Bold.ttf'),
+    Mon: require('../../assets/fonts/Montserrat-Regular.ttf'),
+    MonSB: require('../../assets/fonts/Montserrat-SemiBold.ttf'),
+    MonB: require('../../assets/fonts/Montserrat-Bold.ttf'),
     ...FontAwesome.font
   });
 
@@ -75,7 +75,7 @@ function RootLayoutNav() {
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
-      // router.push('/(modals)/login');
+      router.push('/(modals)/login');
     }
   }, [isLoaded]);
 

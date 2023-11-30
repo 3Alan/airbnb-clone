@@ -6,7 +6,7 @@ import Search from './Search';
 import Wave from './Wave';
 import CategoryTabs from './CategoryTabs';
 import { View } from 'react-native';
-import listingData from '../../assets/data/airbnb-listings.json';
+import listingData from '../../../assets/data/airbnb-listings.json';
 
 const categoryList = [
   {

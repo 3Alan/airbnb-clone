@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 import { useOAuth } from '@clerk/clerk-expo';
 import { useRouter } from 'expo-router';
+import * as Linking from 'expo-linking';
 
 enum AuthType {
   Github = 'oauth_github',
@@ -40,8 +41,8 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <TextInput placeholder="Email" style={{ marginBottom: 30 }} />
-      <Button>Continue</Button>
+      <TextInput keyboardType="email-address" placeholder="Email" style={{ marginBottom: 30 }} />
+      <Button colors={['#e51e4d', '#d70465']}>Continue</Button>
 
       <View style={styles.separatorContainer}>
         <View
@@ -77,6 +78,13 @@ export default function Login() {
           onPress={() => onLogin(AuthType.Google)}
         >
           Continue with Google
+        </Button>
+        <Button
+          theme="standard"
+          icon={<Ionicons size={24} name="md-logo-facebook" />}
+          onPress={() => Linking.openURL('https://www.facebook.com/')}
+        >
+          Continue with Facebook
         </Button>
       </View>
     </View>
