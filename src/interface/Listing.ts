@@ -4,7 +4,7 @@ export interface ListingItem {
   scrape_id: string;
   last_scraped: string;
   name: string;
-  summary: string;
+  summary: string | null;
   space: string | null;
   description: string;
   experiences_offered: string;

@@ -14,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 const ListingCard = ({ item, style }: { item: ListingItem; style: StyleProp<ViewStyle> }) => {
   return (
-    <Link href={`/listing/${item.id}`} asChild>
+    <Link href={`/detail/${item.id}`} asChild>
       <TouchableOpacity>
         <View style={[styles.card, style]}>
           <Image
