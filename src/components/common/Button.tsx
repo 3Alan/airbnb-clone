@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 import React, { FC, ReactElement } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 import Colors from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -11,6 +11,7 @@ interface ButtonProps {
   icon?: ReactElement;
   iconCenter?: boolean;
   style?: ViewStyle;
+  textStyle?: TextStyle;
   colors?: string[];
 }
 
@@ -20,6 +21,7 @@ const Button: FC<ButtonProps> = ({
   theme = 'primary',
   icon,
   style,
+  textStyle,
   iconCenter,
   colors
 }) => {
@@ -33,12 +35,12 @@ const Button: FC<ButtonProps> = ({
           colors={colors}
         >
           {iconCenter ? icon : <View style={styles.iconContainer}>{icon}</View>}
-          <Text style={styles[`${theme}Text`]}>{children}</Text>
+          <Text style={[styles[`${theme}Text`], textStyle]}>{children}</Text>
         </LinearGradient>
       ) : (
         <View style={[styles[`${theme}Btn`], styles.container, style]}>
           {iconCenter ? icon : <View style={styles.iconContainer}>{icon}</View>}
-          <Text style={styles[`${theme}Text`]}>{children}</Text>
+          <Text style={[styles[`${theme}Text`], textStyle]}>{children}</Text>
         </View>
       )}
     </TouchableOpacity>
@@ -76,11 +78,11 @@ const styles = StyleSheet.create({
   primaryText: {
     color: '#fff',
     fontSize: 16,
-    fontFamily: 'MonB'
+    fontFamily: 'Mon'
   },
   standardText: {
     color: '#000',
     fontSize: 16,
-    fontFamily: 'MonSB'
+    fontFamily: 'Mon'
   }
 });

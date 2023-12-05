@@ -13,15 +13,14 @@ import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
 const ListingCard = ({ item, style }: { item: ListingItem; style: StyleProp<ViewStyle> }) => {
+  const height = Math.floor(Math.random() * (300 - 100 + 1)) + 180;
+  const mockBeautifulImg = `https://source.unsplash.com/random/200x${height}/?room`;
+
   return (
     <Link href={`/detail/${item.id}`} asChild>
-      <TouchableOpacity>
+      <TouchableOpacity activeOpacity={0.8}>
         <View style={[styles.card, style]}>
-          <Image
-            resizeMode="cover"
-            source={{ uri: item.medium_url }}
-            height={item.picture_url.height / 2 > 260 ? 260 : item.picture_url.height / 2}
-          />
+          <Image resizeMode="cover" source={{ uri: mockBeautifulImg }} height={height} />
           <TouchableOpacity style={{ position: 'absolute', right: 6, top: 6 }}>
             <Ionicons name="heart-outline" size={20} color="#eee" />
           </TouchableOpacity>
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 10,
     overflow: 'hidden',
-    backgroundColor: '#fff'
+    backgroundColor: '#eee'
   },
   desc: {
     paddingTop: 4,
