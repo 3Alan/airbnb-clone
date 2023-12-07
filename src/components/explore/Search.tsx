@@ -3,8 +3,15 @@ import React from 'react';
 import Button from '../common/Button';
 import Colors from '../../constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 const Search = () => {
+  const router = useRouter();
+
+  const handleSearch = () => {
+    router.push('/search');
+  };
+
   return (
     <View style={styles.searchContainer}>
       <View style={styles.locationContainer}>
@@ -40,6 +47,7 @@ const Search = () => {
         style={styles.searchBtn}
         iconCenter
         colors={['#e51e4d', '#d70465']}
+        onPress={handleSearch}
         icon={
           <Ionicons
             color="#fff"

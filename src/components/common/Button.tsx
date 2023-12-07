@@ -26,7 +26,7 @@ const Button: FC<ButtonProps> = ({
   colors
 }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
       {colors ? (
         <LinearGradient
           start={{ x: 0, y: 0.5 }}

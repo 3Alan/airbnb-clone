@@ -4,27 +4,7 @@ import Button from '../common/Button';
 import Colors from '../../constants/Colors';
 import { ListingItem } from '../../interface/Listing';
 import { Ionicons } from '@expo/vector-icons';
-
-function getPriceInfo(item: ListingItem) {
-  if (item.price) {
-    return {
-      price: item.price,
-      unit: '晚'
-    };
-  }
-
-  if (item.weekly_price) {
-    return {
-      price: item.weekly_price,
-      unit: '周'
-    };
-  }
-
-  return {
-    price: item.monthly_price,
-    unit: '月'
-  };
-}
+import getPriceInfo from '../../utils/getPriceInfo';
 
 const DetailFooter = ({ item }: { item: ListingItem }) => {
   const { price, unit } = getPriceInfo(item);
