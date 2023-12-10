@@ -1,13 +1,12 @@
-import MasonryList from '@react-native-seoul/masonry-list';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { ListingItem } from '../../interface/Listing';
 import ListingCard from './ListingCard';
-import Search from './Search';
-import Wave from './Wave';
-import CategoryTabs from '../common/CategoryTabs';
-import { View } from 'react-native';
 import listingData from '../../../assets/data/airbnb-listings.json';
 import categoryList from '../../constants/catetoryList';
+import { FlashList } from '@shopify/flash-list';
+import { Text } from 'react-native';
+import BottomSheet from '@gorhom/bottom-sheet';
+import { View } from 'react-native';
 
 interface ListingProps {
   onScroll?: (y: number) => void;
@@ -17,6 +16,7 @@ const Listing: FC<ListingProps> = ({ onScroll }) => {
   const [category, setCategory] = useState<string>(categoryList[0].name);
   const [listing, setListing] = useState<ListingItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const snapPoints = useMemo(() => ['10%', '100%'], []);
 
   useEffect(() => {
     onLoadMoreListing();
@@ -29,16 +29,8 @@ const Listing: FC<ListingProps> = ({ onScroll }) => {
     setCurrentPage(currentPage + 1);
   };
 
-  const onRefresh = () => {
-    const newListing = listingData.slice(0, 20) as ListingItem[];
-    setListing(newListing);
-    setCurrentPage(1);
-  };
-
-  const renderItem = ({ item, i }: any) => {
-    return (
-      <ListingCard item={item} style={{ marginLeft: i % 2 === 0 ? 0 : 6, marginBottom: 10 }} />
-    );
+  const renderItem = ({ item }: any) => {
+    return <ListingCard item={item} />;
   };
 
   const handleScroll = (event: any) => {
@@ -47,29 +39,13 @@ const Listing: FC<ListingProps> = ({ onScroll }) => {
   };
 
   return (
-    <MasonryList
-      style={{ padding: 20, backgroundColor: '#fff' }}
-      keyExtractor={(item): string => item.id}
-      scrollEventThrottle={100}
-      onScroll={handleScroll}
-      ListHeaderComponent={
-        <View
-          style={{
-            marginTop: 170
-          }}
-        >
-          <Search />
-          <Wave />
-          <CategoryTabs category={category} categoryList={categoryList} onChange={setCategory} />
-        </View>
-      }
+    <FlashList
       contentContainerStyle={{
-        backgroundColor: 'transparent'
+        backgroundColor: '#fff'
       }}
       showsVerticalScrollIndicator={false}
-      onRefresh={onRefresh}
       onEndReached={onLoadMoreListing}
-      numColumns={2}
+      estimatedItemSize={300}
       data={listing as ListingItem[]}
       renderItem={renderItem}
     />

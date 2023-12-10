@@ -43,7 +43,7 @@ const Wave = () => {
       <View
         style={{
           backgroundColor: '#fff',
-          height: 100
+          height: 90
         }}
       ></View>
     </View>

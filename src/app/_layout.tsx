@@ -75,7 +75,7 @@ function RootLayoutNav() {
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
-      router.push('/(modals)/login');
+      // router.push('/(modals)/login');
     }
   }, [isLoaded]);
 

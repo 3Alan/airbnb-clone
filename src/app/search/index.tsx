@@ -1,8 +1,13 @@
 import { StyleSheet, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import Map from '../../components/common/Map';
 import listingData from '../../../assets/data/airbnb-listings.json';
-import { ListingItem } from '../../interface/Listing';
+import FilterHeader from '../../components/common/FilterHeader';
+import { Stack } from 'expo-router';
+import FilterBar from '../../components/search/FilterBar';
+import CategoryTabs from '../../components/common/CategoryTabs';
+import categoryList from '../../constants/catetoryList';
+import Listing from '../../components/search/Listing';
 
 const list = listingData.map(item => ({
   id: item.id,
@@ -13,10 +18,12 @@ const list = listingData.map(item => ({
   monthly_price: item.monthly_price
 }));
 
-const index = () => {
+const Search = () => {
+  const [category, setCategory] = useState<string>(categoryList[0].name);
+
   return (
-    <View>
-      <Map
+    <View style={{ flex: 1 }}>
+      {/* <Map
         // Hong Kong
         initialRegion={{
           latitude: 22.3193,
@@ -25,11 +32,23 @@ const index = () => {
           longitudeDelta: 0.0421
         }}
         listing={list as ListingItem[]}
+      /> */}
+      <Stack.Screen
+        options={{
+          header: () => (
+            <View>
+              <FilterHeader showBack />
+              <FilterBar />
+            </View>
+          )
+        }}
       />
+      <CategoryTabs category={category} categoryList={categoryList} />
+      <Listing />
     </View>
   );
 };
 
-export default index;
+export default Search;
 
 const styles = StyleSheet.create({});
