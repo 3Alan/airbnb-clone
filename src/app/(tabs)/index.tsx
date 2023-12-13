@@ -4,7 +4,6 @@ import { Stack } from 'expo-router';
 import ExploreBackground from '../../components/explore/Background';
 import Listing from '../../components/explore/Listing';
 import { interpolate, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
-import Colors from '../../constants/Colors';
 import FilterHeader from '../../components/common/FilterHeader';
 
 export default function Page() {

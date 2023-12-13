@@ -1,12 +1,18 @@
 import { StyleSheet, Text, TouchableOpacity, ScrollView, View, ViewStyle } from 'react-native';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useRef } from 'react';
 import * as Haptics from 'expo-haptics';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
+import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Image } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface CategoryItem {
   name: string;
   icon: string;
+  img: string;
+  color: string;
 }
 
 interface CategoryTabsProps {
@@ -16,9 +22,54 @@ interface CategoryTabsProps {
   style?: ViewStyle;
 }
 
+const CategoryCard: FC<CategoryItem & { style?: ViewStyle }> = ({
+  name,
+  icon,
+  img,
+  color,
+  style
+}) => {
+  return (
+    <LinearGradient
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0.8, y: 0.8 }}
+      colors={[color, '#fff']}
+      style={[style, cardStyles.container]}
+    >
+      <View style={cardStyles.header}>
+        <Text>{name}</Text>
+        <Ionicons name={icon as any} size={16} />
+      </View>
+      <Image style={cardStyles.img} source={{ uri: img }} />
+    </LinearGradient>
+  );
+};
+
+const cardStyles = StyleSheet.create({
+  container: {
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: Colors.borderColor,
+    padding: 6
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  img: {
+    width: '100%',
+    height: 80,
+    backgroundColor: '#eee',
+    marginTop: 20,
+    borderRadius: 6
+  }
+});
+
 const CategoryTabs: FC<CategoryTabsProps> = ({ category, categoryList, style, onChange }) => {
   const itemsRef = useRef<{ [category: string]: TouchableOpacity | null }>({});
   const scrollRef = useRef<ScrollView>(null);
+  const sheetRef = useRef<BottomSheetModal>(null);
+  const { top } = useSafeAreaInsets();
 
   const onCategoryPress = (category: string) => {
     const currentTab = itemsRef.current[category];
@@ -38,6 +89,14 @@ const CategoryTabs: FC<CategoryTabsProps> = ({ category, categoryList, style, on
 
     // 点击震动效果
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  };
+
+  const handleViewMorePress = () => {
+    sheetRef.current?.present();
+  };
+
+  const handleCloseSheet = () => {
+    sheetRef.current?.dismiss();
   };
 
   return (
@@ -67,10 +126,44 @@ const CategoryTabs: FC<CategoryTabsProps> = ({ category, categoryList, style, on
         ))}
       </ScrollView>
       <View style={styles.more}>
-        <TouchableOpacity activeOpacity={0.9} style={styles.moreIcon}>
+        <TouchableOpacity activeOpacity={0.9} style={styles.moreIcon} onPress={handleViewMorePress}>
           <Ionicons name="chevron-down" size={22} color="#222222" />
         </TouchableOpacity>
       </View>
+
+      <BottomSheetModal
+        ref={sheetRef}
+        handleComponent={() => (
+          <View style={styles.handle}>
+            <Ionicons size={22} name="close" onPress={handleCloseSheet} />
+            <Text style={{ fontSize: 16, paddingLeft: 10 }}>选择你感兴趣的内容</Text>
+          </View>
+        )}
+        enablePanDownToClose
+        topInset={top}
+        index={0}
+        snapPoints={['100%']}
+      >
+        <BottomSheetScrollView
+          contentContainerStyle={{
+            padding: 10,
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            rowGap: 20
+          }}
+        >
+          {categoryList.map(item => (
+            <CategoryCard
+              key={item.name}
+              {...item}
+              style={{
+                flexBasis: '48%'
+              }}
+            />
+          ))}
+        </BottomSheetScrollView>
+      </BottomSheetModal>
     </View>
   );
 };
@@ -78,6 +171,14 @@ const CategoryTabs: FC<CategoryTabsProps> = ({ category, categoryList, style, on
 export default CategoryTabs;
 
 const styles = StyleSheet.create({
+  handle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.borderColor
+  },
   wrap: {
     paddingTop: 14,
     flexDirection: 'row',

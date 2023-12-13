@@ -6,6 +6,7 @@ import { SplashScreen, Stack, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -64,7 +65,9 @@ export default function RootLayout() {
 
   return (
     <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
-      <RootLayoutNav />
+      <BottomSheetModalProvider>
+        <RootLayoutNav />
+      </BottomSheetModalProvider>
     </ClerkProvider>
   );
 }
