@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, ScrollView, View, ViewStyle } from 'react-native';
 import React, { FC, useRef } from 'react';
 import * as Haptics from 'expo-haptics';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -114,7 +114,7 @@ const CategoryTabs: FC<CategoryTabsProps> = ({ category, categoryList, style, on
             style={[styles.tab, category === item.name ? styles.activeTab : null]}
             onPress={() => onCategoryPress(item.name)}
           >
-            <MaterialIcons
+            <Ionicons
               name={item.icon as any}
               size={20}
               style={[styles.tabIcon, category === item.name ? styles.activeIcon : null]}

@@ -5,7 +5,6 @@ import listingData from '../../../assets/data/airbnb-listings.json';
 import FilterHeader from '../../components/common/FilterHeader';
 import { Stack } from 'expo-router';
 import FilterBar from '../../components/search/FilterBar';
-import CategoryTabs from '../../components/common/CategoryTabs';
 import categoryList from '../../constants/catetoryList';
 import Listing from '../../components/search/Listing';
 
@@ -43,7 +42,6 @@ const Search = () => {
           )
         }}
       />
-      <CategoryTabs category={category} categoryList={categoryList} />
       <Listing />
     </View>
   );

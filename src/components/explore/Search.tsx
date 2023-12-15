@@ -12,6 +12,10 @@ const Search = () => {
     router.push('/search');
   };
 
+  const handleDatePress = () => {
+    router.push('/(modals)/calendar');
+  };
+
   return (
     <View style={styles.searchContainer}>
       <View style={styles.locationContainer}>
@@ -24,7 +28,7 @@ const Search = () => {
         </Pressable>
       </View>
       <View style={styles.inputContainer}>
-        <Pressable style={styles.time}>
+        <Pressable style={styles.time} onPress={handleDatePress}>
           <Text style={[styles.inputText]}>入住退房时间</Text>
         </Pressable>
         <Pressable style={styles.people}>
