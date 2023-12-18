@@ -1,12 +1,5 @@
 # AriBnb Clone
 
-## Screenshots
-
-![](./screenshots/首页1.jpg)
-![](./screenshots/首页2.jpg)
-![](./screenshots/详情页1.jpg)
-![](./screenshots/详情页2.jpg)
-
 ## Tech Stack
 
 - Expo
@@ -19,7 +12,12 @@
 - 数据来自 opendatasoft
 - 所有图片来自 unsplash
 
-## TODO
+## Screenshots
 
-- [ ] 骨架屏
-- [ ] Redux
+<img src="./screenshots/首页1.png" width="280" />
+<img src="./screenshots/首页2.png" width="280" />
+<img src="./screenshots/calendar.png" width="280" />
+<img src="./screenshots/categorySheet.png" width="280" />
+<img src="./screenshots/search.png" width="280" />
+<img src="./screenshots/详情页1.jpg" width="280" />
+<img src="./screenshots/详情页2.jpg" width="280" />

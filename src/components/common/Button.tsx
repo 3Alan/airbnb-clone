@@ -7,12 +7,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 interface ButtonProps {
   onPress?: () => void;
   children: string;
-  theme?: 'primary' | 'standard';
+  theme?: 'primary' | 'standard' | 'secondary';
   icon?: ReactElement;
   iconCenter?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
   colors?: string[];
+  disabled?: boolean;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -23,10 +24,11 @@ const Button: FC<ButtonProps> = ({
   style,
   textStyle,
   iconCenter,
-  colors
+  colors,
+  disabled
 }) => {
   return (
-    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
+    <TouchableOpacity disabled={disabled} activeOpacity={0.8} onPress={onPress}>
       {colors ? (
         <LinearGradient
           start={{ x: 0, y: 0.5 }}
@@ -38,7 +40,7 @@ const Button: FC<ButtonProps> = ({
           <Text style={[styles[`${theme}Text`], textStyle]}>{children}</Text>
         </LinearGradient>
       ) : (
-        <View style={[styles[`${theme}Btn`], styles.container, style]}>
+        <View style={[styles[`${theme}Btn`], styles.container, disabled && styles.disabled, style]}>
           {iconCenter ? icon : <View style={styles.iconContainer}>{icon}</View>}
           <Text style={[styles[`${theme}Text`], textStyle]}>{children}</Text>
         </View>
@@ -50,6 +52,9 @@ const Button: FC<ButtonProps> = ({
 export default Button;
 
 const styles = StyleSheet.create({
+  disabled: {
+    backgroundColor: '#dddddd'
+  },
   container: {
     flexDirection: 'row',
     alignItems: 'center'
@@ -60,6 +65,13 @@ const styles = StyleSheet.create({
   },
   primaryBtn: {
     backgroundColor: Colors.primary,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8
+  },
+  secondaryBtn: {
+    backgroundColor: '#222222',
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
@@ -82,6 +94,11 @@ const styles = StyleSheet.create({
   },
   standardText: {
     color: '#000',
+    fontSize: 16,
+    fontFamily: 'Mon'
+  },
+  secondaryText: {
+    color: '#fff',
     fontSize: 16,
     fontFamily: 'Mon'
   }

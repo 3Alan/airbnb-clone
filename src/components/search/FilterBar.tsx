@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { FC, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
-import Animated, { interpolate, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 interface FilterItemProps {
   name: string;
