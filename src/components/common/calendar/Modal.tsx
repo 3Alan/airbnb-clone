@@ -1,34 +1,74 @@
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
-import React, { FC, useState } from 'react';
-import Calendar from './Calendar';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import Calendar, { CalendarRef } from './Calendar';
 import Button from '../Button';
 import Tabs from './Tabs';
+
+function isDateSame(prev?: string[], next?: string[]) {
+  if (!prev || !next) {
+    return false;
+  }
+
+  if (prev.length !== next.length) {
+    return false;
+  }
+
+  return prev.every((item, index) => item === next[index]);
+}
 
 interface CalendarModalProps {
   visible: boolean;
   onClose: () => void;
   date?: string[];
   onChange?: (date: string[]) => void;
-  onCleanDate?: () => void;
 }
 
-const CalendarModal: FC<CalendarModalProps> = ({
-  visible,
-  date,
-  onClose,
-  onChange,
-  onCleanDate
-}) => {
+const CalendarModal: FC<CalendarModalProps> = ({ visible, date, onClose, onChange }) => {
+  const calendarRef = useRef<CalendarRef>(null);
   const [currentTab, setCurrentTab] = useState<string>('短租');
+  const [tempValue, setTempValue] = useState<string[]>(date || []);
+
+  useEffect(() => {
+    setTempValue(date || []);
+  }, [date]);
+
+  const handleCleanDate = () => {
+    calendarRef.current?.clean();
+    setTempValue([]);
+  };
+
+  const handleDateChange = (date: string[]) => {
+    setTempValue(date);
+  };
+
+  const handleClose = () => {
+    setTempValue([]);
+    onClose();
+  };
+
+  const handleSavePress = () => {
+    onChange?.(tempValue);
+    handleClose();
+  };
 
   return (
-    <Modal animationType="fade" visible={visible} transparent statusBarTranslucent>
-      <Pressable style={styles.mask} onPress={onClose}></Pressable>
+    <Modal
+      onRequestClose={handleClose}
+      animationType="fade"
+      visible={visible}
+      transparent
+      statusBarTranslucent
+    >
+      <Pressable style={styles.mask} onPress={handleClose}></Pressable>
 
       <View style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title}>选择日期</Text>
-          <Pressable style={styles.close} disabled={currentTab === '月租'} onPress={onCleanDate}>
+          <Pressable
+            style={styles.close}
+            disabled={currentTab === '月租'}
+            onPress={handleCleanDate}
+          >
             <Text
               style={{
                 color: currentTab === '月租' ? '#999' : '#333'
@@ -42,39 +82,18 @@ const CalendarModal: FC<CalendarModalProps> = ({
         <Tabs
           currentTab={currentTab}
           tabs={[
-            { label: '短租', children: <Calendar date={date} onChange={onChange} /> },
+            {
+              label: '短租',
+              children: <Calendar ref={calendarRef} date={date} onChange={handleDateChange} />
+            },
             { label: '月租', children: <Text>开发中</Text> }
           ]}
           onChange={setCurrentTab}
           tabContainerStyle={styles.tabPanel}
         />
 
-        {/* <View style={styles.tabPanel}>
-          <View
-            style={[
-              styles.tabItem,
-              {
-                display: currentTab === '短租' ? 'flex' : 'none'
-              }
-            ]}
-          >
-            <Calendar date={date} onChange={onChange} />
-          </View>
-
-          <View
-            style={[
-              styles.tabItem,
-              {
-                display: currentTab === '月租' ? 'flex' : 'none'
-              }
-            ]}
-          >
-            <Text>开发中</Text>
-          </View>
-        </View> */}
-
         <View style={styles.action}>
-          <Button theme="secondary" disabled={date?.length === 0}>
+          <Button onPress={handleSavePress} theme="secondary" disabled={tempValue.length === 1}>
             保存
           </Button>
         </View>

@@ -1,4 +1,12 @@
-import { StyleSheet, Text, TouchableOpacity, ScrollView, View, ViewStyle } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  View,
+  ViewStyle,
+  Pressable
+} from 'react-native';
 import React, { FC, useRef } from 'react';
 import * as Haptics from 'expo-haptics';
 import { Ionicons } from '@expo/vector-icons';
@@ -22,33 +30,34 @@ interface CategoryTabsProps {
   style?: ViewStyle;
 }
 
-const CategoryCard: FC<CategoryItem & { style?: ViewStyle }> = ({
-  name,
-  icon,
-  img,
-  color,
-  style
-}) => {
+const CategoryCard: FC<
+  CategoryItem & { style?: ViewStyle; active?: boolean; onPress: () => void }
+> = ({ name, icon, img, color, style, active, onPress }) => {
   return (
     <LinearGradient
       start={{ x: 0, y: 0 }}
       end={{ x: 0.8, y: 0.8 }}
       colors={[color, '#fff']}
-      style={[style, cardStyles.container]}
+      style={[style, cardStyles.container, active && cardStyles.active]}
     >
-      <View style={cardStyles.header}>
-        <Text>{name}</Text>
-        <Ionicons name={icon as any} size={16} />
-      </View>
-      <Image style={cardStyles.img} source={{ uri: img }} />
+      <Pressable onPress={onPress}>
+        <View style={cardStyles.header}>
+          <Text>{name}</Text>
+          <Ionicons name={icon as any} size={16} />
+        </View>
+        <Image style={cardStyles.img} source={{ uri: img }} />
+      </Pressable>
     </LinearGradient>
   );
 };
 
 const cardStyles = StyleSheet.create({
+  active: {
+    borderColor: '#333'
+  },
   container: {
     borderRadius: 6,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: Colors.borderColor,
     padding: 6
   },
@@ -97,6 +106,11 @@ const CategoryTabs: FC<CategoryTabsProps> = ({ category, categoryList, style, on
 
   const handleCloseSheet = () => {
     sheetRef.current?.dismiss();
+  };
+
+  const handleCategoryCardPress = (category: string) => {
+    onCategoryPress(category);
+    handleCloseSheet();
   };
 
   return (
@@ -156,6 +170,8 @@ const CategoryTabs: FC<CategoryTabsProps> = ({ category, categoryList, style, on
           {categoryList.map(item => (
             <CategoryCard
               key={item.name}
+              active={category === item.name}
+              onPress={() => handleCategoryCardPress(item.name)}
               {...item}
               style={{
                 flexBasis: '48%'

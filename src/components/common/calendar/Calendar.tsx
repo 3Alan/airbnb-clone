@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { Calendar as BaseCalendar, LocaleConfig, DateData } from 'react-native-calendars';
 import dayjs from 'dayjs';
 import CalendarDay, { CalendarDayProps } from './Day';
@@ -99,13 +99,28 @@ interface CalendarProps {
   onChange?: (date: string[]) => void;
 }
 
-const Calendar: FC<CalendarProps> = ({ onChange, date }) => {
+export interface CalendarRef {
+  clean: () => void;
+}
+
+const Calendar = forwardRef<CalendarRef, CalendarProps>(({ onChange, date }, ref) => {
   const [dateRange, setDateRange] = useState<MarkedDatesEnhanced>(null);
   const [disableArrowLeft, setDisableArrowLeft] = useState(false);
 
   useEffect(() => {
     setDateRange(getRangeMarking(date?.[0], date?.[1]));
   }, [date]);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      clean() {
+        setDateRange(null);
+        onChange?.([]);
+      }
+    }),
+    []
+  );
 
   const handleDayPress = (date: DateData) => {
     // 一个也没有选中或者选中了2个，这时清空之前的选中，选中当前的
@@ -115,6 +130,7 @@ const Calendar: FC<CalendarProps> = ({ onChange, date }) => {
           selected: true
         }
       });
+      onChange?.([dayjs(date.dateString).format('YYYY-MM-DD')]);
 
       return;
     }
@@ -126,6 +142,7 @@ const Calendar: FC<CalendarProps> = ({ onChange, date }) => {
           selected: true
         }
       });
+      onChange?.([dayjs(date.dateString).format('YYYY-MM-DD')]);
 
       return;
     }
@@ -170,6 +187,6 @@ const Calendar: FC<CalendarProps> = ({ onChange, date }) => {
       markedDates={markedDates as MarkedDates}
     />
   );
-};
+});
 
 export default Calendar;

@@ -4,19 +4,13 @@ import Button from '../common/Button';
 import Colors from '../../constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { CalendarModal } from '../common/calendar';
+import FilterDate from '../common/filter/Date';
 
 const Search = () => {
   const router = useRouter();
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [date, setDate] = useState<string[]>([]);
 
   const handleSearch = () => {
     router.push('/search');
-  };
-
-  const handleDatePress = () => {
-    setShowCalendar(true);
   };
 
   return (
@@ -32,9 +26,7 @@ const Search = () => {
           </Pressable>
         </View>
         <View style={styles.inputContainer}>
-          <Pressable style={styles.time} onPress={handleDatePress}>
-            <Text style={[styles.inputText]}>入住退房时间</Text>
-          </Pressable>
+          <FilterDate contentStyle={styles.time} />
           <Pressable style={styles.people}>
             <Text
               style={[
@@ -70,14 +62,6 @@ const Search = () => {
           搜索房源
         </Button>
       </View>
-
-      <CalendarModal
-        date={date}
-        visible={showCalendar}
-        onChange={setDate}
-        onCleanDate={() => setDate([])}
-        onClose={() => setShowCalendar(false)}
-      />
     </>
   );
 };
@@ -115,6 +99,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.borderColor
   },
   inputContainer: {
+    paddingBottom: 14,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
@@ -135,7 +120,6 @@ const styles = StyleSheet.create({
   },
   inputText: {
     fontSize: 15,
-    marginBottom: 14,
     color: Colors.textGrey
   },
   searchContainer: {

@@ -7,6 +7,8 @@ import { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { Provider } from 'react-redux';
+import { store } from '../store/store';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -64,11 +66,13 @@ export default function RootLayout() {
   }
 
   return (
-    <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
-      <BottomSheetModalProvider>
-        <RootLayoutNav />
-      </BottomSheetModalProvider>
-    </ClerkProvider>
+    <Provider store={store}>
+      <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
+        <BottomSheetModalProvider>
+          <RootLayoutNav />
+        </BottomSheetModalProvider>
+      </ClerkProvider>
+    </Provider>
   );
 }
 

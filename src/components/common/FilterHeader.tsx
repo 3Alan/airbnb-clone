@@ -6,6 +6,7 @@ import Animated from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
+import FilterDate from './filter/Date';
 
 interface FilterHeaderProps {
   showBack?: boolean;
@@ -37,9 +38,15 @@ const FilterHeader: FC<FilterHeaderProps> = ({ style, showBack, hasShadow }) => 
           <Text style={{ color: '#333', fontWeight: '700' }}>全球</Text>
         </View>
         <View style={[styles.filterItem, { flex: 3 }]}>
-          <Text style={{ color: '#707070', fontWeight: '700' }} numberOfLines={1}>
-            入住退房日期
-          </Text>
+          <FilterDate
+            dateFormat="MM/DD"
+            showDuration={false}
+            rangeStyle={{
+              color: Colors.textColor,
+              fontSize: 14,
+              fontWeight: '300'
+            }}
+          />
         </View>
         <View style={[styles.filterItem, { flex: 3 }]}>
           <Text style={{ color: '#707070', fontWeight: '700' }} numberOfLines={1}>
