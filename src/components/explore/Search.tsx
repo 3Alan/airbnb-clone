@@ -4,7 +4,8 @@ import Button from '../common/Button';
 import Colors from '../../constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import FilterDate from '../common/filter/Date';
+import DateFilter from '../common/filter/Date';
+import GuestFilter from '../common/filter/Guest';
 
 const Search = () => {
   const router = useRouter();
@@ -25,22 +26,10 @@ const Search = () => {
             <Text style={styles.searchText}>景点/地址/关键词</Text>
           </Pressable>
         </View>
+
         <View style={styles.inputContainer}>
-          <FilterDate contentStyle={styles.time} />
-          <Pressable style={styles.people}>
-            <Text
-              style={[
-                styles.inputText,
-                {
-                  paddingLeft: 10,
-                  borderLeftWidth: 1,
-                  borderLeftColor: Colors.borderColor
-                }
-              ]}
-            >
-              房客人数
-            </Text>
-          </Pressable>
+          <DateFilter contentStyle={styles.time} />
+          <GuestFilter contentStyle={styles.guest} />
         </View>
 
         <Button
@@ -115,8 +104,11 @@ const styles = StyleSheet.create({
   time: {
     flex: 3
   },
-  people: {
-    flex: 1
+  guest: {
+    flex: 1,
+    paddingLeft: 10,
+    borderLeftWidth: 1,
+    borderLeftColor: Colors.borderColor
   },
   inputText: {
     fontSize: 15,

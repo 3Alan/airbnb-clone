@@ -1,5 +1,5 @@
 import MasonryList from '@react-native-seoul/masonry-list';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, forwardRef, useEffect, useState } from 'react';
 import { ListingItem } from '../../interface/Listing';
 import ListingCard from './ListingCard';
 import Search from './Search';
@@ -13,7 +13,7 @@ interface ListingProps {
   onScroll?: (y: number) => void;
 }
 
-const Listing: FC<ListingProps> = ({ onScroll }) => {
+const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
   const [category, setCategory] = useState<string>(categoryList[0].name);
   const [listing, setListing] = useState<ListingItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,8 +46,10 @@ const Listing: FC<ListingProps> = ({ onScroll }) => {
     onScroll?.(scrollPosition);
   };
 
+  // TODO: 自己实现，和airbnb的不一样
   return (
     <MasonryList
+      innerRef={ref as any}
       style={{ padding: 20, backgroundColor: '#fff' }}
       keyExtractor={(item): string => item.id}
       scrollEventThrottle={100}
@@ -74,6 +76,6 @@ const Listing: FC<ListingProps> = ({ onScroll }) => {
       renderItem={renderItem}
     />
   );
-};
+});
 
 export default Listing;

@@ -1468,58 +1468,10 @@
     xcode "^3.0.1"
     xml2js "0.6.0"
 
-"@expo/config-plugins@~7.3.0":
-  version "7.3.1"
-  resolved "https://registry.npmjs.org/@expo/config-plugins/-/config-plugins-7.3.1.tgz#001b72ac2e51e56c4bf574452ac76b106fa95adc"
-  integrity sha512-TkDtAP3P/rrjhr7GBQtyYH/l1SQUGAO/gByBCwHjfRa4RIPFs+iiq7hocytAl+oSmVsB28ipZCC3O1IPg1OZ7g==
-  dependencies:
-    "@expo/config-types" "^49.0.0-alpha.1"
-    "@expo/json-file" "~8.2.37"
-    "@expo/plist" "^0.0.20"
-    "@expo/sdk-runtime-versions" "^1.0.0"
-    "@react-native/normalize-color" "^2.0.0"
-    chalk "^4.1.2"
-    debug "^4.3.1"
-    find-up "~5.0.0"
-    getenv "^1.0.0"
-    glob "7.1.6"
-    resolve-from "^5.0.0"
-    semver "^7.5.3"
-    slash "^3.0.0"
-    xcode "^3.0.1"
-    xml2js "0.6.0"
-
-"@expo/config-plugins@~7.5.0":
-  version "7.5.0"
-  resolved "https://registry.npmjs.org/@expo/config-plugins/-/config-plugins-7.5.0.tgz#323d70d50ce46fc45d10f5e4fbc8b5e1fc55c091"
-  integrity sha512-qOKjmgbddLh1vj9ytUT6AduhEans2cHgS42nopVgh5Wz8X+QUvPcCr1Yc8MvLM3OlbswBMCJceeosZa463i0uA==
-  dependencies:
-    "@expo/config-types" "^50.0.0-alpha.1"
-    "@expo/fingerprint" "^0.2.0"
-    "@expo/json-file" "~8.2.37"
-    "@expo/plist" "^0.0.20"
-    "@expo/sdk-runtime-versions" "^1.0.0"
-    "@react-native/normalize-color" "^2.0.0"
-    chalk "^4.1.2"
-    debug "^4.3.1"
-    find-up "~5.0.0"
-    getenv "^1.0.0"
-    glob "7.1.6"
-    resolve-from "^5.0.0"
-    semver "^7.5.3"
-    slash "^3.0.0"
-    xcode "^3.0.1"
-    xml2js "0.6.0"
-
 "@expo/config-types@^49.0.0-alpha.1":
   version "49.0.0"
   resolved "https://registry.npmjs.org/@expo/config-types/-/config-types-49.0.0.tgz#15ffef715285c06703f6fb7ec0cda853f645cc09"
   integrity sha512-8eyREVi+K2acnMBe/rTIu1dOfyR2+AMnTLHlut+YpMV9OZPdeKV0Bs9BxAewGqBA2slslbQ9N39IS2CuTKpXkA==
-
-"@expo/config-types@^50.0.0-alpha.1":
-  version "50.0.0-alpha.3"
-  resolved "https://registry.npmjs.org/@expo/config-types/-/config-types-50.0.0-alpha.3.tgz#730a9d2ff824a422fa7dbb9c995fb80019e66c2d"
-  integrity sha512-dzJ49GOqFxcJX8WMn4zNc7ffEQEgJ93EfhwQZ6BHqkCgvnnkoBl8sO0a8Y+UzLCD1nGOV6j3vLvzLyRkD6buaA==
 
 "@expo/config@8.1.2", "@expo/config@~8.1.0":
   version "8.1.2"
@@ -1529,40 +1481,6 @@
     "@babel/code-frame" "~7.10.4"
     "@expo/config-plugins" "~7.2.0"
     "@expo/config-types" "^49.0.0-alpha.1"
-    "@expo/json-file" "^8.2.37"
-    getenv "^1.0.0"
-    glob "7.1.6"
-    require-from-string "^2.0.2"
-    resolve-from "^5.0.0"
-    semver "7.5.3"
-    slugify "^1.3.4"
-    sucrase "^3.20.0"
-
-"@expo/config@~8.2.0":
-  version "8.2.1"
-  resolved "https://registry.npmjs.org/@expo/config/-/config-8.2.1.tgz#ca84025f8869add12c13a1eb0615cc59b66523a2"
-  integrity sha512-15XjV0WrSb5hChRM5pAEK5uyh55njfgFOEZpov3YKYBeMd9D6QT/azWWqnaFuuCWKzgzyxD9HaYgGo5VbnOU1g==
-  dependencies:
-    "@babel/code-frame" "~7.10.4"
-    "@expo/config-plugins" "~7.3.0"
-    "@expo/config-types" "^49.0.0-alpha.1"
-    "@expo/json-file" "^8.2.37"
-    getenv "^1.0.0"
-    glob "7.1.6"
-    require-from-string "^2.0.2"
-    resolve-from "^5.0.0"
-    semver "7.5.3"
-    slugify "^1.3.4"
-    sucrase "^3.20.0"
-
-"@expo/config@~8.3.0":
-  version "8.3.1"
-  resolved "https://registry.npmjs.org/@expo/config/-/config-8.3.1.tgz#2b417ddb81891d4b65be91469e7f4b830b430645"
-  integrity sha512-5fNGAw5h/MDOc8Ulv9nonafPtOT042B7dF6vrVxSP3CY5qiVu0tCsmbL412wEcrAZ8MY7UMv9e6IzpGTgleYgg==
-  dependencies:
-    "@babel/code-frame" "~7.10.4"
-    "@expo/config-plugins" "~7.5.0"
-    "@expo/config-types" "^50.0.0-alpha.1"
     "@expo/json-file" "^8.2.37"
     getenv "^1.0.0"
     glob "7.1.6"
@@ -1622,19 +1540,6 @@
     dotenv "~16.0.3"
     dotenv-expand "~10.0.0"
     getenv "^1.0.0"
-
-"@expo/fingerprint@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/@expo/fingerprint/-/fingerprint-0.2.0.tgz#ea8b41ba2bfa94cc8815d758b60d57764e47aef4"
-  integrity sha512-k6MhJTrX4CYEwsyGemiLT8rnBwjRBYe0eKYAM3kqw0WbSHzkOJm739sgdswGLmA53iiX6FbB1TsiLnqt+h2U2w==
-  dependencies:
-    "@expo/spawn-async" "^1.5.0"
-    chalk "^4.1.2"
-    debug "^4.3.4"
-    find-up "^5.0.0"
-    minimatch "^3.0.4"
-    p-limit "^3.1.0"
-    resolve-from "^5.0.0"
 
 "@expo/image-utils@0.3.22":
   version "0.3.22"
@@ -4256,15 +4161,15 @@ expo-asset@~8.10.1:
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
 
-expo-auth-session@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.npmjs.org/expo-auth-session/-/expo-auth-session-5.2.0.tgz#63668ae77dcfa2cb82c0ae99b13cf9b5fc2ede08"
-  integrity sha512-IihmXSBbytPUgUvq7Gj+v4Q8wcQNsAQ8Tbp5OklNLfO/6OZRDkGp/mM+aI0+tlmDrZabZ2cTLDVMBqi30b5eKg==
+expo-auth-session@~5.0.2:
+  version "5.0.2"
+  resolved "https://registry.npmjs.org/expo-auth-session/-/expo-auth-session-5.0.2.tgz#1e9e6e7ef4d6784e77d770f0d3ea3a4adfc0e0b4"
+  integrity sha512-hzuIGATiyZ4ICuzSnCTTQLUA74eHGd1aaPydsSAQEAkMnNT2bMoIYLq1rp971xF+eqWz0lzMVboRYTnxuvEKJg==
   dependencies:
-    expo-constants "~15.0.0"
-    expo-crypto "~12.6.0"
-    expo-linking "~6.0.0"
-    expo-web-browser "~12.5.0"
+    expo-constants "~14.4.2"
+    expo-crypto "~12.4.0"
+    expo-linking "~5.0.0"
+    expo-web-browser "~12.3.0"
     invariant "^2.2.4"
     qs "^6.11.0"
 
@@ -4276,26 +4181,10 @@ expo-constants@~14.4.2:
     "@expo/config" "~8.1.0"
     uuid "^3.3.2"
 
-expo-constants@~14.5.0:
-  version "14.5.1"
-  resolved "https://registry.npmjs.org/expo-constants/-/expo-constants-14.5.1.tgz#2b996604dc5ec642d29fc16380daa0a61a66472d"
-  integrity sha512-06OKXQmKI0vuje++6lm7w1kO3rKsZAHio/4d9hwQuVAtExJ6RM92BnpzkDAV16ZheVN/FHKzNyY1BYLqXfujMw==
-  dependencies:
-    "@expo/config" "~8.2.0"
-    uuid "^3.3.2"
-
-expo-constants@~15.0.0:
-  version "15.0.0"
-  resolved "https://registry.npmjs.org/expo-constants/-/expo-constants-15.0.0.tgz#5ad892054308c95fe8c9172efd2ebf95107b2170"
-  integrity sha512-HDg5irjqv3GWDmVtaVV+tjhEKgYuiN8V2tb6l1R22SfVvka3rb1qMA+/mqO5unaBOVaWZ3kRCrA5qn9buUoeJw==
-  dependencies:
-    "@expo/config" "~8.3.0"
-    uuid "^3.3.2"
-
-expo-crypto@~12.6.0:
-  version "12.6.0"
-  resolved "https://registry.npmjs.org/expo-crypto/-/expo-crypto-12.6.0.tgz#2b648ab4832338122460f4444ff15de1d35dd026"
-  integrity sha512-wSq64eIJxk4lQBidtcW9wNF5AgO/UvV8W8mDhb7bo6P3xH41yvu/P4FcxevQY1taGA8VHD+fO+xQDrhPiHzFqQ==
+expo-crypto@~12.4.0:
+  version "12.4.1"
+  resolved "https://registry.npmjs.org/expo-crypto/-/expo-crypto-12.4.1.tgz#f3ee7156fd8167c3c3304b6e21dcfb0dc8a44bba"
+  integrity sha512-/en03oPNAX6gP0bKpwA1EyLBnGG9uv0+Q7uvGYyOXaQQEvj31a+8cEvNPkv75x6GuK1hcaBfO25RtX9AGOMwVA==
   dependencies:
     base64-js "^1.3.0"
 
@@ -4373,24 +4262,13 @@ expo-linear-gradient@~12.3.0:
   resolved "https://registry.npmjs.org/expo-linear-gradient/-/expo-linear-gradient-12.3.0.tgz#7abd8fedbf0138c86805aebbdfbbf5e5fa865f19"
   integrity sha512-f9e+Oxe5z7fNQarTBZXilMyswlkbYWQHONVfq8MqmiEnW3h9XsxxmVJLG8uVQSQPUsbW+x1UUT/tnU6mkMWeLg==
 
-expo-linking@~5.0.2:
+expo-linking@~5.0.0, expo-linking@~5.0.2:
   version "5.0.2"
   resolved "https://registry.npmjs.org/expo-linking/-/expo-linking-5.0.2.tgz#273c9dfec0c5542a13638bd422ef9acbf4638bc5"
   integrity sha512-SPQus0+tYGx9c69Uw4wmdo3rkKX8vRT1vyJz/mvkpSlZN986s0NmP/V0M5vDv5Zv2qZzVdqJyuITFe0Pg5aI+A==
   dependencies:
     "@types/qs" "^6.9.7"
     expo-constants "~14.4.2"
-    invariant "^2.2.4"
-    qs "^6.11.0"
-    url-parse "^1.5.9"
-
-expo-linking@~6.0.0:
-  version "6.0.0"
-  resolved "https://registry.npmjs.org/expo-linking/-/expo-linking-6.0.0.tgz#1d441b5bd8cff3ece4d10ad01ec0db1ca10f0ef9"
-  integrity sha512-BVj+9yfMfQg1r23uQOES3Y47XdigKV0Qg0jJ5zP+3SO/mZ98s3r5wASOGLhujvO9/SqOh/BdotcTsO9sasxCag==
-  dependencies:
-    "@types/qs" "^6.9.7"
-    expo-constants "~14.5.0"
     invariant "^2.2.4"
     qs "^6.11.0"
     url-parse "^1.5.9"
@@ -4470,18 +4348,10 @@ expo-updates-interface@~0.10.0:
   resolved "https://registry.npmjs.org/expo-updates-interface/-/expo-updates-interface-0.10.1.tgz#cab075641cd381718ccd9264bf133dc393430a44"
   integrity sha512-I6JMR7EgjXwckrydDmrkBEX/iw750dcqpzQVsjznYWfi0HTEOxajLHB90fBFqQkUV5i5s4Fd3hYQ1Cn0oMzUbA==
 
-expo-web-browser@~12.3.2:
+expo-web-browser@~12.3.0, expo-web-browser@~12.3.2:
   version "12.3.2"
   resolved "https://registry.npmjs.org/expo-web-browser/-/expo-web-browser-12.3.2.tgz#45ac727a5d8462d7faa403ea2fa1db160ed8e4b5"
   integrity sha512-ohBf+vnRnGzlTleY8EQ2XQU0vRdRwqMJtKkzM9MZRPDOK5QyJYPJjpk6ixGhxdeoUG2Ogj0InvhhgX9NUn4jkg==
-  dependencies:
-    compare-urls "^2.0.0"
-    url "^0.11.0"
-
-expo-web-browser@~12.5.0:
-  version "12.5.0"
-  resolved "https://registry.npmjs.org/expo-web-browser/-/expo-web-browser-12.5.0.tgz#69949c50ef0ef8d2889435ed9e595206cfbcf68b"
-  integrity sha512-3uDzP19DqcEicLOB4ZH6pGWzxlCQ8mLHSmWMmfXEBhZjooUkHUrysbzkNvQQa24ijy3uoUybX4jW0xPss594kA==
   dependencies:
     compare-urls "^2.0.0"
     url "^0.11.0"

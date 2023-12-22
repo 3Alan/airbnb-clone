@@ -22,7 +22,7 @@
     "@shopify/flash-list": "1.4.3",
     "dayjs": "^1.11.10",
     "expo": "~49.0.15",
-    "expo-auth-session": "^5.2.0",
+    "expo-auth-session": "~5.0.2",
     "expo-dev-client": "~2.4.12",
     "expo-font": "~11.4.0",
     "expo-haptics": "~12.4.0",

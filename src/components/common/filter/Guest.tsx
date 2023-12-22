@@ -7,25 +7,25 @@ import { changeDateRange } from '../../../store/slices/filterSlice';
 import Colors from '../../../constants/Colors';
 import dayjs from 'dayjs';
 
-interface DateFilterProps {
+interface GuestFilterProps {
   contentStyle?: ViewStyle;
   dateFormat?: string;
   showDuration?: boolean;
   rangeStyle?: TextStyle;
 }
 
-const DateFilter: FC<DateFilterProps> = ({
+const GuestFilter: FC<GuestFilterProps> = ({
   contentStyle,
   dateFormat = 'MM月DD日',
   showDuration = true,
   rangeStyle
 }) => {
-  const [showCalendar, setShowCalendar] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const { dateRange } = useSelector((state: RootState) => state.filter);
 
   const handleDatePress = () => {
-    setShowCalendar(true);
+    setShowModal(true);
   };
 
   return (
@@ -45,23 +45,23 @@ const DateFilter: FC<DateFilterProps> = ({
           </View>
         ) : (
           <Text style={styles.placeholder} numberOfLines={1}>
-            入住退房时间
+            房客人数
           </Text>
         )}
       </Pressable>
       <CalendarModal
         date={dateRange}
-        visible={showCalendar}
+        visible={showModal}
         onChange={date => {
           dispatch(changeDateRange(date));
         }}
-        onClose={() => setShowCalendar(false)}
+        onClose={() => setShowModal(false)}
       />
     </>
   );
 };
 
-export default DateFilter;
+export default GuestFilter;
 
 const styles = StyleSheet.create({
   row: {
