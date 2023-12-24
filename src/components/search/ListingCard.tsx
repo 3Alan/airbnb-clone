@@ -1,3 +1,6 @@
+import { Ionicons } from '@expo/vector-icons';
+import { Link } from 'expo-router';
+import React from 'react';
 import {
   Image,
   StyleProp,
@@ -8,14 +11,12 @@ import {
   ViewStyle,
   useWindowDimensions
 } from 'react-native';
-import React from 'react';
-import { ListingItem } from '../../interface/Listing';
-import { Link } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
-import Carousel from 'react-native-reanimated-carousel';
-import Colors from '../../constants/Colors';
-import getPriceInfo from '../../utils/getPriceInfo';
 import Animated from 'react-native-reanimated';
+import Carousel from 'react-native-reanimated-carousel';
+
+import Colors from '../../constants/Colors';
+import { ListingItem } from '../../interface/Listing';
+import getPriceInfo from '../../utils/getPriceInfo';
 
 const FeatureItem = ({ text, type }: { text: string; type: 'primary' | 'standard' }) => {
   return (

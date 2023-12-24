@@ -1,8 +1,9 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { ListingItem } from '../../interface/Listing';
-import Colors from '../../constants/Colors';
 import { MaterialIcons } from '@expo/vector-icons';
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+
+import Colors from '../../constants/Colors';
+import { ListingItem } from '../../interface/Listing';
 
 function getYearsSince(date: string) {
   const currentDate = new Date();

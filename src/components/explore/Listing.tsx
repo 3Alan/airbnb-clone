@@ -1,13 +1,14 @@
 import MasonryList from '@react-native-seoul/masonry-list';
-import React, { FC, forwardRef, useEffect, useState } from 'react';
-import { ListingItem } from '../../interface/Listing';
+import React, { forwardRef, useEffect, useState } from 'react';
+import { View } from 'react-native';
+
 import ListingCard from './ListingCard';
 import Search from './Search';
 import Wave from './Wave';
-import CategoryTabs from '../common/CategoryTabs';
-import { View } from 'react-native';
 import listingData from '../../../assets/data/airbnb-listings.json';
 import categoryList from '../../constants/catetoryList';
+import { ListingItem } from '../../interface/Listing';
+import CategoryTabs from '../common/CategoryTabs';
 
 interface ListingProps {
   onScroll?: (y: number) => void;

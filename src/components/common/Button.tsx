@@ -1,8 +1,8 @@
-import { StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
-import React, { FC, ReactElement } from 'react';
-import { TouchableOpacity } from 'react-native';
-import Colors from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
+import React, { FC, ReactElement } from 'react';
+import { StyleSheet, Text, TextStyle, View, ViewStyle, TouchableOpacity } from 'react-native';
+
+import Colors from '../../constants/Colors';
 
 interface ButtonProps {
   onPress?: () => void;

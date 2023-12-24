@@ -1,9 +1,10 @@
-import React, { FC, forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react';
-import { Calendar as BaseCalendar, LocaleConfig, DateData } from 'react-native-calendars';
-import dayjs from 'dayjs';
-import CalendarDay, { CalendarDayProps } from './Day';
-import { MarkedDates } from 'react-native-calendars/src/types';
 import { Ionicons } from '@expo/vector-icons';
+import dayjs from 'dayjs';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import { Calendar as BaseCalendar, LocaleConfig, DateData } from 'react-native-calendars';
+import { MarkedDates } from 'react-native-calendars/src/types';
+
+import CalendarDay, { CalendarDayProps } from './Day';
 
 type MarkedDatesEnhanced = {
   [key: string]: CalendarDayProps['marking'];

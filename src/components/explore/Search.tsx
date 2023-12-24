@@ -1,11 +1,12 @@
-import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
-import Button from '../common/Button';
-import Colors from '../../constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import DateFilter from '../common/filter/Date';
-import GuestFilter from '../common/filter/Guest';
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+
+import Colors from '../../constants/Colors';
+import Button from '../common/Button';
+import DateTextInput from '../common/filter/calendar/TextInput';
+import GuestInput from '../common/filter/guest/TextInput';
 
 const Search = () => {
   const router = useRouter();
@@ -20,7 +21,7 @@ const Search = () => {
         <View style={styles.locationContainer}>
           <Pressable style={styles.locationLeftContainer}>
             <Text style={styles.location}>全球</Text>
-            <View style={styles.triangle}></View>
+            <View style={styles.triangle} />
           </Pressable>
           <Pressable>
             <Text style={styles.searchText}>景点/地址/关键词</Text>
@@ -28,8 +29,8 @@ const Search = () => {
         </View>
 
         <View style={styles.inputContainer}>
-          <DateFilter contentStyle={styles.time} />
-          <GuestFilter contentStyle={styles.guest} />
+          <DateTextInput contentStyle={styles.time} />
+          <GuestInput contentStyle={styles.guest} />
         </View>
 
         <Button

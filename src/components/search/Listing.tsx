@@ -1,12 +1,10 @@
+import { FlashList } from '@shopify/flash-list';
 import React, { FC, useEffect, useMemo, useState } from 'react';
-import { ListingItem } from '../../interface/Listing';
+
 import ListingCard from './ListingCard';
 import listingData from '../../../assets/data/airbnb-listings.json';
 import categoryList from '../../constants/catetoryList';
-import { FlashList } from '@shopify/flash-list';
-import { Text } from 'react-native';
-import BottomSheet from '@gorhom/bottom-sheet';
-import { View } from 'react-native';
+import { ListingItem } from '../../interface/Listing';
 
 interface ListingProps {
   onScroll?: (y: number) => void;

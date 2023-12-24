@@ -1,13 +1,15 @@
-import { View, StyleSheet, Text } from 'react-native';
-import React from 'react';
-import useWarmUpBrowser from '@/hooks/useWarmUpBrowser';
-import TextInput from '../../components/common/TextInput';
-import Button from '../../components/common/Button';
-import { Ionicons } from '@expo/vector-icons';
-import Colors from '../../constants/Colors';
 import { useOAuth } from '@clerk/clerk-expo';
-import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+
+import Button from '../../components/common/Button';
+import TextInput from '../../components/common/TextInput';
+import Colors from '../../constants/Colors';
+
+import useWarmUpBrowser from '@/hooks/useWarmUpBrowser';
 
 enum AuthType {
   Github = 'oauth_github',
@@ -52,7 +54,7 @@ export default function Login() {
             // 根据平台设置的最小宽度
             borderBottomWidth: StyleSheet.hairlineWidth
           }}
-        ></View>
+        />
         <Text style={styles.separator}>OR</Text>
         <View
           style={{
@@ -61,7 +63,7 @@ export default function Login() {
             // 根据平台设置的最小宽度
             borderBottomWidth: StyleSheet.hairlineWidth
           }}
-        ></View>
+        />
       </View>
 
       <View style={{ gap: 20 }}>

@@ -1,5 +1,5 @@
-import { StyleSheet, View } from 'react-native';
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { Path, Svg } from 'react-native-svg';
 
 const Wave = () => {
@@ -45,7 +45,7 @@ const Wave = () => {
           backgroundColor: '#fff',
           height: 90
         }}
-      ></View>
+      />
     </View>
   );
 };

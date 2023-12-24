@@ -1,7 +1,8 @@
-import React from 'react';
-import { Tabs } from 'expo-router';
-import Colors from '@/constants/Colors';
 import { FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
+import React from 'react';
+
+import Colors from '@/constants/Colors';
 
 export default function Layout() {
   return (

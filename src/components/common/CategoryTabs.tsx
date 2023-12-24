@@ -1,4 +1,10 @@
+import { Ionicons } from '@expo/vector-icons';
+import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import * as Haptics from 'expo-haptics';
+import { LinearGradient } from 'expo-linear-gradient';
+import React, { FC, useRef } from 'react';
 import {
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -7,14 +13,9 @@ import {
   ViewStyle,
   Pressable
 } from 'react-native';
-import React, { FC, useRef } from 'react';
-import * as Haptics from 'expo-haptics';
-import { Ionicons } from '@expo/vector-icons';
-import Colors from '../../constants/Colors';
-import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Image } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+
+import Colors from '../../constants/Colors';
 
 interface CategoryItem {
   name: string;

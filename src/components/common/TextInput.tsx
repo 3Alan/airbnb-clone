@@ -1,5 +1,5 @@
-import { StyleSheet, TextInput as DefaultTextInput, TextInputProps } from 'react-native';
 import React, { FC } from 'react';
+import { StyleSheet, TextInput as DefaultTextInput, TextInputProps } from 'react-native';
 
 const TextInput: FC<TextInputProps> = props => {
   const { style, ...restProps } = props;

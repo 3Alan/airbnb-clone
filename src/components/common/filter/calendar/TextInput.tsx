@@ -1,31 +1,32 @@
-import { Pressable, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
-import React, { FC, useState } from 'react';
-import { CalendarModal } from '../calendar';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../store/store';
-import { changeDateRange } from '../../../store/slices/filterSlice';
-import Colors from '../../../constants/Colors';
 import dayjs from 'dayjs';
+import React, { FC, useState } from 'react';
+import { Pressable, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-interface GuestFilterProps {
+import CalendarModal from './Modal';
+import Colors from '../../../../constants/Colors';
+import { changeDateRange } from '../../../../store/slices/filterSlice';
+import { RootState } from '../../../../store/store';
+
+interface DateTextInputProps {
   contentStyle?: ViewStyle;
   dateFormat?: string;
   showDuration?: boolean;
   rangeStyle?: TextStyle;
 }
 
-const GuestFilter: FC<GuestFilterProps> = ({
+const DateTextInput: FC<DateTextInputProps> = ({
   contentStyle,
   dateFormat = 'MM月DD日',
   showDuration = true,
   rangeStyle
 }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   const dispatch = useDispatch();
   const { dateRange } = useSelector((state: RootState) => state.filter);
 
   const handleDatePress = () => {
-    setShowModal(true);
+    setShowCalendar(true);
   };
 
   return (
@@ -45,23 +46,23 @@ const GuestFilter: FC<GuestFilterProps> = ({
           </View>
         ) : (
           <Text style={styles.placeholder} numberOfLines={1}>
-            房客人数
+            入住退房时间
           </Text>
         )}
       </Pressable>
       <CalendarModal
         date={dateRange}
-        visible={showModal}
+        visible={showCalendar}
         onChange={date => {
           dispatch(changeDateRange(date));
         }}
-        onClose={() => setShowModal(false)}
+        onClose={() => setShowCalendar(false)}
       />
     </>
   );
 };
 
-export default GuestFilter;
+export default DateTextInput;
 
 const styles = StyleSheet.create({
   row: {

@@ -1,3 +1,6 @@
+import { Ionicons } from '@expo/vector-icons';
+import { Link } from 'expo-router';
+import React from 'react';
 import {
   Image,
   StyleProp,
@@ -7,10 +10,8 @@ import {
   View,
   ViewStyle
 } from 'react-native';
-import React from 'react';
+
 import { ListingItem } from '../../interface/Listing';
-import { Link } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
 
 const ListingCard = ({ item, style }: { item: ListingItem; style: StyleProp<ViewStyle> }) => {
   const height = Math.floor(Math.random() * (300 - 100 + 1)) + 180;

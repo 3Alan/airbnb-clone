@@ -1,12 +1,13 @@
-import { StyleSheet, Text, View, ViewStyle } from 'react-native';
-import React, { FC } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import Colors from '../../constants/Colors';
+import { useRouter } from 'expo-router';
+import React, { FC } from 'react';
+import { StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useRouter } from 'expo-router';
-import DateFilter from './filter/Date';
+
+import DateTextInput from './filter/calendar/TextInput';
+import Colors from '../../constants/Colors';
 
 interface FilterHeaderProps {
   showBack?: boolean;
@@ -38,7 +39,7 @@ const FilterHeader: FC<FilterHeaderProps> = ({ style, showBack, hasShadow }) => 
           <Text style={{ color: '#333', fontWeight: '700' }}>全球</Text>
         </View>
         <View style={[styles.filterItem, { flex: 3 }]}>
-          <DateFilter
+          <DateTextInput
             dateFormat="MM/DD"
             showDuration={false}
             rangeStyle={{

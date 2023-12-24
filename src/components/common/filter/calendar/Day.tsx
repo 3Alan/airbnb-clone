@@ -1,8 +1,8 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import React, { FC } from 'react';
-import { BasicDayProps } from 'react-native-calendars/src/calendar/day/basic';
-import { DateData } from 'react-native-calendars';
 import { LinearGradient } from 'expo-linear-gradient';
+import React, { FC } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { DateData } from 'react-native-calendars';
+import { BasicDayProps } from 'react-native-calendars/src/calendar/day/basic';
 
 export type CalendarDayProps = Omit<BasicDayProps, 'marking'> & {
   date: DateData;

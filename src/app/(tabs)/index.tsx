@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import React, { useRef, useState } from 'react';
+import { Entypo } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
+import React, { useRef } from 'react';
+import { View, StyleSheet, Pressable } from 'react-native';
+import Animated, { interpolate, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+
+import FilterHeader from '../../components/common/FilterHeader';
 import ExploreBackground from '../../components/explore/Background';
 import Listing from '../../components/explore/Listing';
-import Animated, { interpolate, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
-import FilterHeader from '../../components/common/FilterHeader';
-import { Entypo } from '@expo/vector-icons';
 
 export default function Page() {
   const translationY = useSharedValue(0);

@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import Button from '../common/Button';
+import { StyleSheet, Text, View } from 'react-native';
+
 import Colors from '../../constants/Colors';
 import { ListingItem } from '../../interface/Listing';
-import { Ionicons } from '@expo/vector-icons';
 import getPriceInfo from '../../utils/getPriceInfo';
+import Button from '../common/Button';
 
 const DetailFooter = ({ item }: { item: ListingItem }) => {
   const { price, unit } = getPriceInfo(item);

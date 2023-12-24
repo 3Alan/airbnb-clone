@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React, { FC } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+
 import { ListingItem } from '../../interface/Listing';
 import getPriceInfo from '../../utils/getPriceInfo';
 

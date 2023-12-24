@@ -1,3 +1,6 @@
+import { Ionicons } from '@expo/vector-icons';
+import { Stack, useLocalSearchParams, useNavigation } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   Share,
@@ -7,23 +10,20 @@ import {
   View,
   useWindowDimensions
 } from 'react-native';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Stack, useLocalSearchParams, useNavigation } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { getDetail } from '../../api/detail';
-import { ListingItem } from '../../interface/Listing';
-import Carousel from 'react-native-reanimated-carousel';
-import OverView from '../../components/detail/OverView';
-import HostInfo from '../../components/detail/HostInfo';
-import Colors from '../../constants/Colors';
-import Features from '../../components/detail/Features';
-import DetailFooter from '../../components/detail/Footer';
-import { Ionicons } from '@expo/vector-icons';
 import Animated, {
   interpolate,
   useAnimatedStyle,
   useScrollViewOffset
 } from 'react-native-reanimated';
+import Carousel from 'react-native-reanimated-carousel';
+
+import { getDetail } from '../../api/detail';
+import Features from '../../components/detail/Features';
+import DetailFooter from '../../components/detail/Footer';
+import HostInfo from '../../components/detail/HostInfo';
+import OverView from '../../components/detail/OverView';
+import Colors from '../../constants/Colors';
+import { ListingItem } from '../../interface/Listing';
 
 const CAROUSEL_HEIGHT = 240;
 

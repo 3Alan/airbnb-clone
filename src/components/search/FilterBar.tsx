@@ -1,8 +1,9 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { FC, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import Colors from '../../constants/Colors';
+import React, { FC, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated from 'react-native-reanimated';
+
+import Colors from '../../constants/Colors';
 
 interface FilterItemProps {
   name: string;
@@ -42,7 +43,7 @@ const FilterBar = () => {
   return (
     <View style={styles.container}>
       <FilterItem name="人数" />
-      <View style={styles.separate}></View>
+      <View style={styles.separate} />
       <FilterItem name="筛选" />
     </View>
   );

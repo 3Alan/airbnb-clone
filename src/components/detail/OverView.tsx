@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { ListingItem } from '../../interface/Listing';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { IconProps } from '@expo/vector-icons/build/createIconSet';
+import { StyleSheet, Text, View } from 'react-native';
+
 import Colors from '../../constants/Colors';
+import { ListingItem } from '../../interface/Listing';
 
 function OverviewItem({ name, text }: { name: any; text: string }) {
   return (
