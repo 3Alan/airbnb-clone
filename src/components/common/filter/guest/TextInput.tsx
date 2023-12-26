@@ -2,7 +2,10 @@ import React, { FC, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
+import GuestModal from './Modal';
+
 import Colors from '@/constants/Colors';
+import { GuestNumber, changeGuestNumber } from '@/store/slices/filterSlice';
 import { RootState } from '@/store/store';
 
 interface GuestInputProps {
@@ -12,37 +15,60 @@ interface GuestInputProps {
   rangeStyle?: TextStyle;
 }
 
-const GuestInput: FC<GuestInputProps> = ({
-  contentStyle,
-  dateFormat = 'MM月DD日',
-  showDuration = true,
-  rangeStyle
-}) => {
+const GuestInput: FC<GuestInputProps> = ({ contentStyle }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const { adultNumber, infantNumber, childrenNumber } = useSelector(
-    (state: RootState) => state.filter
-  );
+  const { guestNumber } = useSelector((state: RootState) => state.filter);
 
-  const hasGuest = adultNumber + infantNumber + childrenNumber > 0;
+  const hasGuest =
+    guestNumber.adultNumber + guestNumber.childrenNumber + guestNumber.infantNumber > 0;
 
-  const handleDatePress = () => {
+  const handleGuestPress = () => {
     setShowModal(true);
+  };
+
+  const handleGuestChange = (value: GuestNumber) => {
+    dispatch(changeGuestNumber(value));
   };
 
   return (
     <>
-      <Pressable style={contentStyle} onPress={handleDatePress}>
+      <Pressable style={contentStyle} onPress={handleGuestPress}>
         {hasGuest ? (
-          <View style={styles.row}>
-            <Text>1</Text>
-          </View>
+          <>
+            {guestNumber.infantNumber > 0 ? (
+              <View>
+                <Text
+                  style={{
+                    fontSize: 10
+                  }}
+                >
+                  {guestNumber.adultNumber + guestNumber.childrenNumber}位房客
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 10
+                  }}
+                >
+                  {guestNumber.infantNumber}位婴儿
+                </Text>
+              </View>
+            ) : (
+              <Text>{guestNumber.adultNumber + guestNumber.childrenNumber}位房客</Text>
+            )}
+          </>
         ) : (
           <Text style={styles.placeholder} numberOfLines={1}>
             房客人数
           </Text>
         )}
       </Pressable>
+      <GuestModal
+        value={guestNumber}
+        visible={showModal}
+        onClose={() => setShowModal(false)}
+        onChange={handleGuestChange}
+      />
     </>
   );
 };
@@ -50,10 +76,6 @@ const GuestInput: FC<GuestInputProps> = ({
 export default GuestInput;
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   dateRange: {
     fontSize: 15,
     fontWeight: '700',

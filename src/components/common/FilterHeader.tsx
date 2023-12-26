@@ -35,7 +35,7 @@ const FilterHeader: FC<FilterHeaderProps> = ({ style, showBack, hasShadow }) => 
       )}
 
       <View style={styles.content}>
-        <View style={{ flex: 2, paddingVertical: 3 }}>
+        <View style={{ width: 45, paddingVertical: 3 }}>
           <Text style={{ color: '#333', fontWeight: '700' }}>全球</Text>
         </View>
         <View style={[styles.filterItem, { flex: 3 }]}>
@@ -44,17 +44,17 @@ const FilterHeader: FC<FilterHeaderProps> = ({ style, showBack, hasShadow }) => 
             showDuration={false}
             rangeStyle={{
               color: Colors.textColor,
-              fontSize: 14,
-              fontWeight: '300'
+              fontSize: 13,
+              fontWeight: '500'
             }}
           />
         </View>
-        <View style={[styles.filterItem, { flex: 3 }]}>
-          <Text style={{ color: '#707070', fontWeight: '700' }} numberOfLines={1}>
+        <View style={[styles.filterItem, { flex: 2 }]}>
+          <Text style={{ color: '#707070', fontWeight: '500' }} numberOfLines={1}>
             景点/地址/关键词
           </Text>
         </View>
-        <TouchableOpacity style={{ flex: 1, paddingVertical: 3 }}>
+        <TouchableOpacity style={{ width: 20, paddingVertical: 3 }}>
           <Ionicons name="search" size={18} />
         </TouchableOpacity>
       </View>

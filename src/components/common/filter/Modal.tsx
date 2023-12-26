@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Modal, Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import Button from '../Button';
 
@@ -8,21 +8,21 @@ interface FilterModalProps {
   visible: boolean;
   saveDisabled?: boolean;
   clearDisabled?: boolean;
-  top?: number;
-  bottom?: number;
   onClear: () => void;
   onClose: () => void;
   onSave: () => void;
+  modalStyle?: ViewStyle;
+  contentStyle?: ViewStyle;
 }
 
 const FilterModal: FC<PropsWithChildren<FilterModalProps>> = ({
   title,
-  top,
-  bottom,
   children,
   saveDisabled,
   clearDisabled,
   visible,
+  modalStyle,
+  contentStyle,
   onClear,
   onClose,
   onSave
@@ -37,7 +37,7 @@ const FilterModal: FC<PropsWithChildren<FilterModalProps>> = ({
     >
       <Pressable style={styles.mask} onPress={onClose} />
 
-      <View style={styles.content}>
+      <View style={[styles.content, modalStyle]}>
         <View style={styles.header}>
           <Text style={styles.title}>{title}</Text>
           <Pressable style={styles.close} disabled={clearDisabled} onPress={onClear}>
@@ -50,7 +50,7 @@ const FilterModal: FC<PropsWithChildren<FilterModalProps>> = ({
             </Text>
           </Pressable>
         </View>
-        <View style={styles.contentContainer}>{children}</View>
+        <View style={[styles.contentContainer, contentStyle]}>{children}</View>
 
         <View style={styles.action}>
           <Button onPress={onSave} theme="secondary" disabled={saveDisabled}>
@@ -103,6 +103,6 @@ const styles = StyleSheet.create({
     right: 14
   },
   contentContainer: {
-    paddingHorizontal: 15
+    padding: 15
   }
 });
