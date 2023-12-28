@@ -6,7 +6,9 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack, useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ToastProvider } from 'react-native-toast-notifications';
 import { Provider } from 'react-redux';
 
 import { store } from '../store/store';
@@ -42,6 +44,8 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const { bottom } = useSafeAreaInsets();
+  const tabBarHeight = 50;
   const [loaded, error] = useFonts({
     Mon: require('../../assets/fonts/Montserrat-Regular.ttf'),
     MonSB: require('../../assets/fonts/Montserrat-SemiBold.ttf'),
@@ -68,7 +72,20 @@ export default function RootLayout() {
     <Provider store={store}>
       <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
         <BottomSheetModalProvider>
-          <RootLayoutNav />
+          <ToastProvider
+            duration={2000}
+            offsetBottom={bottom + tabBarHeight}
+            renderToast={toastOptions => {
+              return (
+                // TODO:
+                <View>
+                  <Text>{toastOptions.message}</Text>
+                </View>
+              );
+            }}
+          >
+            <RootLayoutNav />
+          </ToastProvider>
         </BottomSheetModalProvider>
       </ClerkProvider>
     </Provider>
