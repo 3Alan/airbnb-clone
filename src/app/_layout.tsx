@@ -6,12 +6,14 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack, useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ToastProvider } from 'react-native-toast-notifications';
 import { Provider } from 'react-redux';
 
 import { store } from '../store/store';
+
+import Toast from '@/components/common/Toast';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -74,14 +76,14 @@ export default function RootLayout() {
         <BottomSheetModalProvider>
           <ToastProvider
             duration={2000}
-            offsetBottom={bottom + tabBarHeight}
-            renderToast={toastOptions => {
-              return (
-                // TODO:
-                <View>
-                  <Text>{toastOptions.message}</Text>
-                </View>
-              );
+            offsetBottom={bottom + tabBarHeight + 16}
+            renderType={{
+              save: options => (
+                <Toast type="save" img={options.data.img} listName={options.message as string} />
+              ),
+              delete: options => (
+                <Toast type="delete" img={options.data.img} listName={options.message as string} />
+              )
             }}
           >
             <RootLayoutNav />

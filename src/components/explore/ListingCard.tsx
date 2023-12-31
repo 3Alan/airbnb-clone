@@ -1,5 +1,5 @@
 import { Link } from 'expo-router';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import {
   Image,
   StyleProp,
@@ -9,21 +9,13 @@ import {
   View,
   ViewStyle
 } from 'react-native';
-import { useToast } from 'react-native-toast-notifications';
 
 import { ListingItem } from '../../interface/Listing';
 import Heart from '../common/Heart';
 
 const ListingCard = ({ item, style }: { item: ListingItem; style: StyleProp<ViewStyle> }) => {
-  const [active, setActive] = useState(false);
-  const toast = useToast();
   const height = useMemo(() => Math.floor(Math.random() * (300 - 100 + 1)) + 180, []);
   const mockBeautifulImg = `https://source.unsplash.com/random/200x${height}/?room`;
-
-  const handleFavorite = (active: boolean) => {
-    toast.show(item.name);
-    setActive(active);
-  };
 
   return (
     <Link href={`/detail/${item.id}`} asChild>
@@ -31,8 +23,9 @@ const ListingCard = ({ item, style }: { item: ListingItem; style: StyleProp<View
         <View style={[styles.card, style]}>
           <Image resizeMode="cover" source={{ uri: mockBeautifulImg }} height={height} />
           <Heart
-            active={active}
-            onChange={handleFavorite}
+            id={item.id}
+            img={item.thumbnail_url}
+            active={item.favorite}
             style={{ position: 'absolute', right: 6, top: 6 }}
           />
           <Text numberOfLines={2} style={styles.desc}>

@@ -1,17 +1,21 @@
 import { FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Colors from '@/constants/Colors';
 
 export default function Layout() {
+  const { bottom } = useSafeAreaInsets();
+
   return (
     <Tabs
+      // TODO: 自定义tabBar
+      // tabBar={}
       screenOptions={{
-        // TODO: 安卓底部需要处理
         tabBarStyle: {
-          // paddingBottom: 6
-          // height: 54
+          paddingBottom: bottom || 10,
+          height: bottom + 54
         },
         tabBarActiveTintColor: Colors.primary,
         tabBarLabelStyle: {
@@ -30,6 +34,7 @@ export default function Layout() {
         name="wishlists"
         options={{
           tabBarLabel: '心愿单',
+          headerShown: false,
           tabBarIcon: ({ color, size }) => <FontAwesome5 name="heart" color={color} size={size} />
         }}
       />

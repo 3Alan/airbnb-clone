@@ -102,4 +102,5 @@ export interface ListingItem {
     lat: number;
   };
   features: string[];
+  favorite?: boolean;
 }

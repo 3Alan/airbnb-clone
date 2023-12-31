@@ -1,18 +1,39 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { TouchableOpacity, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
+import { useToast } from 'react-native-toast-notifications';
 
 interface HeartProps {
-  active: boolean;
-  onChange: (active: boolean) => void;
+  id: string;
+  img: string;
+  listName?: string;
+  active?: boolean;
+  onChange?: (active: boolean) => void;
   style?: ViewStyle;
 }
 
 // TODO: 动画
-const Heart: FC<HeartProps> = ({ active, onChange, style }) => {
+const Heart: FC<HeartProps> = ({ active: activeProps, img, listName, onChange, style }) => {
+  const toast = useToast();
+  const [active, setActive] = useState(activeProps);
+
+  useEffect(() => {
+    setActive(activeProps);
+  }, [activeProps]);
+
   const handlePress = () => {
+    setActive(!active);
     onChange?.(!active);
+
+    toast.hideAll();
+    toast.show('香港,2024', {
+      type: active ? 'delete' : 'save',
+      data: {
+        img,
+        listName
+      }
+    });
   };
 
   return (
