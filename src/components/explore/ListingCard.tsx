@@ -1,21 +1,21 @@
 import { Link } from 'expo-router';
 import React, { useMemo } from 'react';
-import {
-  Image,
-  StyleProp,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewStyle
-} from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { ListingItem } from '../../interface/Listing';
 import Heart from '../common/Heart';
 
-const ListingCard = ({ item, style }: { item: ListingItem; style: StyleProp<ViewStyle> }) => {
-  const height = useMemo(() => Math.floor(Math.random() * (300 - 100 + 1)) + 180, []);
-  const mockBeautifulImg = `https://source.unsplash.com/random/200x${height}/?room`;
+const ListingCard = ({
+  item,
+  style,
+  height
+}: {
+  item: ListingItem;
+  height: number;
+  style?: ViewStyle;
+}) => {
+  const mockHeight = useMemo(() => height + Math.random() * 10 || 300, []);
+  const mockBeautifulImg = `https://source.unsplash.com/random/200x${mockHeight}/?room`;
 
   return (
     <Link href={`/detail/${item.id}`} asChild>

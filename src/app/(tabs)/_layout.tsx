@@ -1,5 +1,5 @@
 import { FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
+import { Tabs } from 'expo-router/tabs';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -10,8 +10,6 @@ export default function Layout() {
 
   return (
     <Tabs
-      // TODO: 自定义tabBar
-      // tabBar={}
       screenOptions={{
         tabBarStyle: {
           paddingBottom: bottom || 10,
@@ -49,6 +47,7 @@ export default function Layout() {
         name="inbox"
         options={{
           tabBarLabel: '收件箱',
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="message-outline" color={color} size={size} />
           )

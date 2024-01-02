@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { Path, Svg } from 'react-native-svg';
 
 const Wave = () => {
@@ -51,5 +51,3 @@ const Wave = () => {
 };
 
 export default Wave;
-
-const styles = StyleSheet.create({});
