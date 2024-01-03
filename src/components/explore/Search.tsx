@@ -12,7 +12,7 @@ const Search = () => {
   const router = useRouter();
 
   const handleSearch = () => {
-    router.push('/search');
+    router.navigate('/search');
   };
 
   return (
