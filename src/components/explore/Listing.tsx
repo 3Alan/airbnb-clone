@@ -5,11 +5,12 @@ import { View } from 'react-native';
 import ListingGroup from './ListingGroup';
 import Search from './Search';
 import Wave from './Wave';
-import listingData from '../../../assets/data/airbnb-listings.json';
 import categoryList from '../../constants/catetoryList';
 import { ListingItem } from '../../interface/Listing';
 import CategoryTabs from '../common/CategoryTabs';
 import Spin from '../common/Spin';
+
+import listingData from '@/data/airbnb-listings.json';
 
 interface ListingProps {
   onScroll?: (y: number) => void;

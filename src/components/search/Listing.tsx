@@ -2,9 +2,10 @@ import { FlashList } from '@shopify/flash-list';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 
 import ListingCard from './ListingCard';
-import listingData from '../../../assets/data/airbnb-listings.json';
 import categoryList from '../../constants/catetoryList';
 import { ListingItem } from '../../interface/Listing';
+
+import listingData from '@/data/airbnb-listings.json';
 
 interface ListingProps {
   onScroll?: (y: number) => void;

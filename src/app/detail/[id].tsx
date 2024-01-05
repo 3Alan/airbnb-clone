@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams, useNavigation } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Image,
   Share,
@@ -17,44 +17,36 @@ import Animated, {
 } from 'react-native-reanimated';
 import Carousel from 'react-native-reanimated-carousel';
 
-import { getDetail } from '../../api/detail';
-import Features from '../../components/detail/Features';
-import DetailFooter from '../../components/detail/Footer';
-import HostInfo from '../../components/detail/HostInfo';
-import OverView from '../../components/detail/OverView';
 import Colors from '../../constants/Colors';
-import { ListingItem } from '../../interface/Listing';
+
+import Features from '@/components/detail/Features';
+import DetailFooter from '@/components/detail/Footer';
+import HostInfo from '@/components/detail/HostInfo';
+import OverView from '@/components/detail/OverView';
+import { useGetListingQuery } from '@/store/services/api';
 
 const CAROUSEL_HEIGHT = 240;
 
 const Detail = () => {
   const navigation = useNavigation();
   const { id } = useLocalSearchParams<{ id: string }>();
+
   // 骨架屏优化一下
-  // @ts-ignore
-  const [detail, setDetail] = useState<ListingItem>({});
+  const { data = {} } = useGetListingQuery(id);
+
   const { width } = useWindowDimensions();
   const scrollViewRef = React.useRef<Animated.ScrollView>(null);
   const scrollHandler = useScrollViewOffset(scrollViewRef);
-
   const headerAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity: interpolate(scrollHandler.value, [0, CAROUSEL_HEIGHT], [0, 1])
     };
   }, []);
 
-  useEffect(() => {
-    async function getData() {
-      const data = await getDetail(id);
-      setDetail(data);
-    }
-    getData();
-  }, []);
-
   const handleShare = async () => {
     await Share.share({
-      title: detail.name,
-      url: detail.listing_url
+      title: data.name,
+      url: data.listing_url
     });
   };
 
@@ -84,6 +76,7 @@ const Detail = () => {
           )
         }}
       />
+
       <Animated.ScrollView ref={scrollViewRef} contentContainerStyle={{ paddingBottom: 90 }}>
         <Carousel
           loop
@@ -92,7 +85,7 @@ const Detail = () => {
           pagingEnabled
           width={width}
           height={CAROUSEL_HEIGHT}
-          data={[detail?.xl_picture_url]}
+          data={[data?.xl_picture_url]}
           renderItem={({ item }) => {
             return (
               <Image
@@ -109,18 +102,18 @@ const Detail = () => {
 
         <View>
           <View style={styles.intro}>
-            <Text style={styles.roomType}>{`${detail.smart_location} 的 ${detail.room_type}`}</Text>
-            <Text style={styles.name}>{detail.name}</Text>
+            <Text style={styles.roomType}>{`${data.smart_location} 的 ${data.room_type}`}</Text>
+            <Text style={styles.name}>{data.name}</Text>
 
-            <Features item={detail} />
+            <Features item={data} />
           </View>
 
-          <OverView item={detail} />
-          <HostInfo item={detail} />
+          <OverView item={data} />
+          <HostInfo item={data} />
         </View>
       </Animated.ScrollView>
 
-      <DetailFooter item={detail} />
+      <DetailFooter item={data} />
     </View>
   );
 };
