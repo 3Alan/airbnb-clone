@@ -71,10 +71,13 @@ const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
           <CategoryTabs category={category} categoryList={categoryList} onChange={setCategory} />
         </View>
       }
-      ListFooterComponent={<Spin />}
+      ListFooterComponent={
+        <View style={{ backgroundColor: '#fff', alignItems: 'center', paddingVertical: 15 }}>
+          <Spin />
+        </View>
+      }
       contentContainerStyle={{
-        backgroundColor: 'transparent',
-        paddingBottom: 30
+        backgroundColor: 'transparent'
       }}
       showsVerticalScrollIndicator={false}
       onEndReached={onLoadMoreListing}
