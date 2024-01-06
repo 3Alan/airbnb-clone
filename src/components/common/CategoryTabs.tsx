@@ -17,7 +17,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Colors from '../../constants/Colors';
 
-interface CategoryItem {
+export interface CategoryItem {
   name: string;
   icon: string;
   img: string;

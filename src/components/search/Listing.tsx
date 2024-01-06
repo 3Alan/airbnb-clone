@@ -2,7 +2,6 @@ import { FlashList } from '@shopify/flash-list';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 
 import ListingCard from './ListingCard';
-import categoryList from '../../constants/catetoryList';
 import { ListingItem } from '../../interface/Listing';
 
 import listingData from '@/data/airbnb-listings.json';
@@ -12,7 +11,6 @@ interface ListingProps {
 }
 
 const Listing: FC<ListingProps> = ({ onScroll }) => {
-  const [category, setCategory] = useState<string>(categoryList[0].name);
   const [listing, setListing] = useState<ListingItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const snapPoints = useMemo(() => ['10%', '100%'], []);

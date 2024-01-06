@@ -61,7 +61,7 @@ const ListingCard = ({ item }: { item: ListingItem; style?: StyleProp<ViewStyle>
                 <View>
                   {index === 0 && (
                     <Animated.View style={styles.review}>
-                      <Ionicons name="md-star" size={14} color="#ff385c" />
+                      <Ionicons name="star" size={14} color="#ff385c" />
                       <Text style={{ fontSize: 13, paddingLeft: 3 }}>5.0</Text>
                       <Text style={{ fontSize: 12, color: '#898986', paddingLeft: 3 }}>
                         (116 条评价)

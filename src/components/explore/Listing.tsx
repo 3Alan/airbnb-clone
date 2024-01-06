@@ -5,12 +5,12 @@ import { View } from 'react-native';
 import ListingGroup from './ListingGroup';
 import Search from './Search';
 import Wave from './Wave';
-import categoryList from '../../constants/catetoryList';
 import { ListingItem } from '../../interface/Listing';
 import CategoryTabs from '../common/CategoryTabs';
 import Spin from '../common/Spin';
 
 import listingData from '@/data/airbnb-listings.json';
+import { useGetCategoriesQuery } from '@/store/services/api';
 
 interface ListingProps {
   onScroll?: (y: number) => void;
@@ -23,9 +23,16 @@ const simpleListingData = listingData.map(item => ({
 }));
 
 const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
-  const [category, setCategory] = useState<string>(categoryList[0].name);
   const [listing, setListing] = useState<ListingItem[][]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const { data: categories = [] } = useGetCategoriesQuery();
+  const [category, setCategory] = useState<string>('');
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      setCategory(categories[0]?.name);
+    }
+  }, [categories]);
 
   useEffect(() => {
     onLoadMoreListing();
@@ -68,7 +75,7 @@ const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
         >
           <Search />
           <Wave />
-          <CategoryTabs category={category} categoryList={categoryList} onChange={setCategory} />
+          <CategoryTabs category={category} categoryList={categories} onChange={setCategory} />
         </View>
       }
       ListFooterComponent={

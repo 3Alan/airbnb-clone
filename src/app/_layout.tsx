@@ -7,6 +7,7 @@ import { SplashScreen, Stack, useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ToastProvider } from 'react-native-toast-notifications';
 import { Provider } from 'react-redux';
@@ -72,24 +73,30 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
-        <BottomSheetModalProvider>
-          <ToastProvider
-            duration={2000}
-            offsetBottom={bottom + tabBarHeight + 16}
-            renderType={{
-              save: options => (
-                <Toast type="save" img={options.data.img} listName={options.message as string} />
-              ),
-              delete: options => (
-                <Toast type="delete" img={options.data.img} listName={options.message as string} />
-              )
-            }}
-          >
-            <RootLayoutNav />
-          </ToastProvider>
-        </BottomSheetModalProvider>
-      </ClerkProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
+          <BottomSheetModalProvider>
+            <ToastProvider
+              duration={2000}
+              offsetBottom={bottom + tabBarHeight + 16}
+              renderType={{
+                save: options => (
+                  <Toast type="save" img={options.data.img} listName={options.message as string} />
+                ),
+                delete: options => (
+                  <Toast
+                    type="delete"
+                    img={options.data.img}
+                    listName={options.message as string}
+                  />
+                )
+              }}
+            >
+              <RootLayoutNav />
+            </ToastProvider>
+          </BottomSheetModalProvider>
+        </ClerkProvider>
+      </GestureHandlerRootView>
     </Provider>
   );
 }
