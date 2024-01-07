@@ -1,32 +1,31 @@
+import { Listing } from '@prisma/client';
 import React, { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import ListingCard from './ListingCard';
 
-import { ListingItem } from '@/interface/Listing';
-
 interface ListingGroupProps {
-  list: ListingItem[];
+  items: Listing[];
 }
 
-const ListingGroup: FC<ListingGroupProps> = ({ list }) => {
+const ListingGroup: FC<ListingGroupProps> = ({ items }) => {
   return (
     <View style={styles.container}>
       <ListingCard
         height={310}
-        item={list[0]}
+        item={items[0]}
         style={{
           marginBottom: 10
         }}
       />
       <View style={styles.grid}>
         <View style={{ flex: 1, gap: 10 }}>
-          <ListingCard height={230} item={list[1]} />
-          <ListingCard height={260} item={list[3]} />
+          <ListingCard height={230} item={items[1]} />
+          <ListingCard height={260} item={items[3]} />
         </View>
         <View style={{ flex: 1, gap: 10 }}>
-          <ListingCard height={260} item={list[2]} />
-          <ListingCard height={230} item={list[4]} />
+          <ListingCard height={260} item={items[2]} />
+          <ListingCard height={230} item={items[4]} />
         </View>
       </View>
     </View>

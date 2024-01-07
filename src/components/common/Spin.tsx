@@ -1,14 +1,17 @@
+import LottieView from 'lottie-react-native';
 import React from 'react';
-import { Text } from 'react-native';
 const Spin = () => {
   return (
-    <Text>loading</Text>
-    // <LottieView
-    //   ref={animationRef}
-    //   autoPlay
-    //   loop
-    //   source={require('../../../assets/lottie/heart.json')}
-    // />
+    <LottieView
+      style={{
+        width: 50,
+        height: 30
+      }}
+      resizeMode="cover"
+      autoPlay
+      loop
+      source={require('../../../assets/lottie/spin.lottie')}
+    />
   );
 };
 

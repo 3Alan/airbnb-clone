@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { Category } from '@prisma/client';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { FC, useRef } from 'react';
@@ -17,7 +18,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Colors from '../../constants/Colors';
 
-interface CategoryItem {
+export interface CategoryItem {
   name: string;
   icon: string;
   img: string;
@@ -26,7 +27,7 @@ interface CategoryItem {
 
 interface CategoryTabsProps {
   category: string;
-  categoryList: CategoryItem[];
+  categoryList: Category[];
   onChange?: (category: string) => void;
   style?: ViewStyle;
 }

@@ -4,7 +4,8 @@
 
 - Expo
 - Expo Router
-- Redux Toolkit
+- React Query
+- Prisma
 
 ## Data
 

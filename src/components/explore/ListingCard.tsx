@@ -1,8 +1,9 @@
+import { Listing } from '@prisma/client';
 import { Link } from 'expo-router';
-import React, { useMemo } from 'react';
+import { isEmpty } from 'lodash';
+import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
-import { ListingItem } from '../../interface/Listing';
 import Heart from '../common/Heart';
 
 const ListingCard = ({
@@ -10,26 +11,22 @@ const ListingCard = ({
   style,
   height
 }: {
-  item: ListingItem;
+  item: Listing;
   height: number;
   style?: ViewStyle;
 }) => {
-  const mockHeight = useMemo(() => height + Math.random() * 10 || 300, []);
-  const mockBeautifulImg = `https://source.unsplash.com/random/200x${mockHeight}/?room`;
+  if (isEmpty(item)) {
+    return null;
+  }
 
   return (
     <Link href={`/detail/${item.id}`} asChild>
       <TouchableOpacity activeOpacity={0.8}>
         <View style={[styles.card, style]}>
-          <Image resizeMode="cover" source={{ uri: mockBeautifulImg }} height={height} />
-          <Heart
-            id={item.id}
-            img={item.thumbnail_url}
-            active={item.favorite}
-            style={{ position: 'absolute', right: 6, top: 6 }}
-          />
+          <Image resizeMode="cover" source={{ uri: item.img }} height={height} />
+          <Heart id={item.id} img={item.img} style={{ position: 'absolute', right: 6, top: 6 }} />
           <Text numberOfLines={2} style={styles.desc}>
-            {item.name}
+            {item.title}
           </Text>
         </View>
       </TouchableOpacity>

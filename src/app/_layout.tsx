@@ -2,11 +2,13 @@ import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack, useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ToastProvider } from 'react-native-toast-notifications';
 import { Provider } from 'react-redux';
@@ -16,6 +18,14 @@ import { store } from '../store/store';
 import Toast from '@/components/common/Toast';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retryDelay: 6000
+    }
+  }
+});
 
 const tokenCache = {
   async getToken(key: string) {
@@ -71,26 +81,38 @@ export default function RootLayout() {
   }
 
   return (
-    <Provider store={store}>
-      <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
-        <BottomSheetModalProvider>
-          <ToastProvider
-            duration={2000}
-            offsetBottom={bottom + tabBarHeight + 16}
-            renderType={{
-              save: options => (
-                <Toast type="save" img={options.data.img} listName={options.message as string} />
-              ),
-              delete: options => (
-                <Toast type="delete" img={options.data.img} listName={options.message as string} />
-              )
-            }}
-          >
-            <RootLayoutNav />
-          </ToastProvider>
-        </BottomSheetModalProvider>
-      </ClerkProvider>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
+            <BottomSheetModalProvider>
+              <ToastProvider
+                duration={2000}
+                offsetBottom={bottom + tabBarHeight + 16}
+                renderType={{
+                  save: options => (
+                    <Toast
+                      type="save"
+                      img={options.data.img}
+                      listName={options.message as string}
+                    />
+                  ),
+                  delete: options => (
+                    <Toast
+                      type="delete"
+                      img={options.data.img}
+                      listName={options.message as string}
+                    />
+                  )
+                }}
+              >
+                <RootLayoutNav />
+              </ToastProvider>
+            </BottomSheetModalProvider>
+          </ClerkProvider>
+        </GestureHandlerRootView>
+      </Provider>
+    </QueryClientProvider>
   );
 }
 

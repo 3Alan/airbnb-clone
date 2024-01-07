@@ -1,12 +1,12 @@
 import { Stack } from 'expo-router';
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import listingData from '../../../assets/data/airbnb-listings.json';
 import FilterHeader from '../../components/common/FilterHeader';
 import FilterBar from '../../components/search/FilterBar';
 import Listing from '../../components/search/Listing';
-import categoryList from '../../constants/catetoryList';
+
+import listingData from '@/data/airbnb-listings.json';
 
 const list = listingData.map(item => ({
   id: item.id,
@@ -18,8 +18,6 @@ const list = listingData.map(item => ({
 }));
 
 const Search = () => {
-  const [category, setCategory] = useState<string>(categoryList[0].name);
-
   return (
     <View style={{ flex: 1 }}>
       {/* <Map
