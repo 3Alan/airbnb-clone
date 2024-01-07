@@ -21,6 +21,8 @@
     "@react-navigation/native": "^6.0.2",
     "@reduxjs/toolkit": "^1.9.7",
     "@shopify/flash-list": "1.6.3",
+    "@tanstack/react-query": "^5.17.7",
+    "axios": "^1.6.5",
     "dayjs": "^1.11.10",
     "expo": "^50.0.0-preview.8",
     "expo-auth-session": "~5.4.0",
@@ -35,8 +37,10 @@
     "expo-status-bar": "~1.11.1",
     "expo-system-ui": "~2.9.2",
     "expo-web-browser": "~12.8.1",
+    "lodash": "^4.17.21",
     "lottie-react-native": "6.4.1",
     "prisma": "^5.7.1",
+    "qs": "^6.11.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.73.1",
@@ -54,6 +58,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@types/lodash": "^4.14.202",
+    "@types/qs": "^6.9.11",
     "@types/react": "~18.2.45",
     "eslint": "^8.56.0",
     "eslint-config-universe": "^12.0.0",
@@ -64,5 +70,8 @@
     "react-test-renderer": "18.2.0",
     "typescript": "^5.3.0"
   },
-  "private": true
+  "private": true,
+  "prisma": {
+    "schema": "src/server/schema.prisma"
+  }
 }

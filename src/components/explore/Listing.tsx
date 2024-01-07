@@ -1,58 +1,37 @@
 import { FlashList } from '@shopify/flash-list';
 import React, { forwardRef, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import ListingGroup from './ListingGroup';
 import Search from './Search';
 import Wave from './Wave';
-import { ListingItem } from '../../interface/Listing';
 import CategoryTabs from '../common/CategoryTabs';
 import Spin from '../common/Spin';
 
-import listingData from '@/data/airbnb-listings.json';
-import { useGetCategoriesQuery } from '@/store/services/api';
+import Colors from '@/constants/Colors';
+import useCategories from '@/queries/categories';
+import { useListings } from '@/queries/listings';
 
 interface ListingProps {
   onScroll?: (y: number) => void;
 }
 
-const simpleListingData = listingData.map(item => ({
-  id: item.id,
-  name: item.name,
-  thumbnail_url: item.thumbnail_url
-}));
-
 const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
-  const [listing, setListing] = useState<ListingItem[][]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const { data: categories = [] } = useGetCategoriesQuery();
+  const { data: categories = [] } = useCategories();
+  const { data: listings, fetchNextPage, isFetching, hasNextPage } = useListings();
   const [category, setCategory] = useState<string>('');
 
   useEffect(() => {
-    if (categories.length > 0) {
+    if (categories?.length > 0) {
       setCategory(categories[0]?.name);
     }
   }, [categories]);
 
-  useEffect(() => {
-    onLoadMoreListing();
-  }, []);
-
   const onLoadMoreListing = () => {
-    const start = (currentPage - 1) * 5;
-    const newListing = simpleListingData.slice(start, start + 5) as ListingItem[];
-    setListing([...listing, newListing]);
-    setCurrentPage(currentPage + 1);
-  };
-
-  const onRefresh = () => {
-    const newListing = simpleListingData.slice(0, 5) as ListingItem[];
-    setListing([newListing]);
-    setCurrentPage(1);
-  };
-
-  const renderItem = ({ item }: any) => {
-    return <ListingGroup list={item} />;
+    if (isFetching || !hasNextPage) {
+      return;
+    }
+    fetchNextPage();
   };
 
   const handleScroll = (event: any) => {
@@ -60,10 +39,14 @@ const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
     onScroll?.(scrollPosition);
   };
 
+  const renderItem = ({ item }: any) => {
+    return <ListingGroup items={item.items} />;
+  };
+
   return (
     <FlashList
       ref={ref as any}
-      keyExtractor={(item: any) => item[0].id}
+      keyExtractor={(item: any) => item.id}
       estimatedItemSize={820}
       scrollEventThrottle={100}
       onScroll={handleScroll}
@@ -80,7 +63,7 @@ const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
       }
       ListFooterComponent={
         <View style={{ backgroundColor: '#fff', alignItems: 'center', paddingVertical: 15 }}>
-          <Spin />
+          {hasNextPage ? <Spin /> : <Text style={{ color: Colors.grey }}>没有更多了</Text>}
         </View>
       }
       contentContainerStyle={{
@@ -88,7 +71,7 @@ const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
       }}
       showsVerticalScrollIndicator={false}
       onEndReached={onLoadMoreListing}
-      data={listing}
+      data={listings?.pages}
       renderItem={renderItem}
     />
   );

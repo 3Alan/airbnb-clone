@@ -23,7 +23,7 @@ import Features from '@/components/detail/Features';
 import DetailFooter from '@/components/detail/Footer';
 import HostInfo from '@/components/detail/HostInfo';
 import OverView from '@/components/detail/OverView';
-import { useGetListingQuery } from '@/store/services/api';
+import { useListing } from '@/queries/listings';
 
 const CAROUSEL_HEIGHT = 240;
 
@@ -32,7 +32,7 @@ const Detail = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   // 骨架屏优化一下
-  const { data = {} } = useGetListingQuery(id);
+  const { data } = useListing(id);
 
   const { width } = useWindowDimensions();
   const scrollViewRef = React.useRef<Animated.ScrollView>(null);

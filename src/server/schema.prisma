@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  password  String
+  phone     String
+  email     String
+  img       String
+  createdAt DateTime @default(now())
+
+  listings Listing[]
+  Review   Review[]
+}
+
+// 房源分类
+model Category {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  img   String
+  icon  String
+  color String
+
+  listings Listing[]
+}
+
+// 评论
+model Review {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  comment   String
+  rating    Float
+  createdAt DateTime @default(now())
+
+  listingId String @db.ObjectId
+  userId    String @db.ObjectId
+
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// 房源
+model Listing {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  img           String
+  roomCount     Int
+  bathRoomCount Int
+  bedCount      Int
+  guestCount    Int
+  rating        Float
+  price         Int
+  createdAt     DateTime @default(now())
+
+  categoryId String @db.ObjectId
+  userId     String @db.ObjectId
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Review   Review[]
+}

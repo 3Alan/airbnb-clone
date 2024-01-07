@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { Category } from '@prisma/client';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { FC, useRef } from 'react';
@@ -26,7 +27,7 @@ export interface CategoryItem {
 
 interface CategoryTabsProps {
   category: string;
-  categoryList: CategoryItem[];
+  categoryList: Category[];
   onChange?: (category: string) => void;
   style?: ViewStyle;
 }
