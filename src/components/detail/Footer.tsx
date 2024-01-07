@@ -1,27 +1,22 @@
 import { Ionicons } from '@expo/vector-icons';
+import { Listing } from '@prisma/client';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/Colors';
-import { ListingItem } from '../../interface/Listing';
-import getPriceInfo from '../../utils/getPriceInfo';
 import Button from '../common/Button';
 
-const DetailFooter = ({ item }: { item: ListingItem }) => {
-  const { price, unit } = getPriceInfo(item);
-
+const DetailFooter = ({ item }: { item: Listing }) => {
   return (
     <View style={styles.footer}>
       <View>
         <View style={styles.priceContainer}>
-          <Text style={styles.price}>￥{price}</Text>
-          <Text style={styles.priceUnit}>/{unit}</Text>
+          <Text style={styles.price}>￥{item.price}</Text>
+          <Text style={styles.priceUnit}>/晚</Text>
         </View>
         <View style={styles.reviewContainer}>
           <Ionicons color="#fd3b5e" name="star" size={12} />
-          <Text style={styles.reviewRate}>
-            {item.review_scores_rating ? item.review_scores_rating / 20 : ''}
-          </Text>
+          <Text style={styles.reviewRate}>{item.rating}</Text>
           <Text style={styles.reviewNumber}>({item.number_of_reviews}条评论)</Text>
         </View>
       </View>

@@ -36,9 +36,11 @@ export function useListing(id: string) {
   return useQuery({
     queryKey: ['listing', id],
     queryFn: async () => {
-      const res = await request(`/listing/${id}`);
+      const res = await request(`/listings/${id}`);
       return res.data;
     },
-    placeholderData: {}
+    placeholderData: {
+      user: {}
+    }
   });
 }

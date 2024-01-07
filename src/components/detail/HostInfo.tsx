@@ -1,11 +1,11 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { User } from '@prisma/client';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/Colors';
-import { ListingItem } from '../../interface/Listing';
 
-function getYearsSince(date: string) {
+function getYearsSince(date: Date) {
   const currentDate = new Date();
   const specifiedDate = new Date(date);
   const timeDifference = currentDate.getTime() - specifiedDate.getTime();
@@ -30,7 +30,13 @@ function HostDetailItem({
   );
 }
 
-const HostInfo = ({ item }: { item: ListingItem }) => {
+interface HostInfoProps {
+  item: User & {
+    listingCount: number;
+  };
+}
+
+const HostInfo = ({ item }: HostInfoProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>你的房东</Text>
@@ -41,10 +47,10 @@ const HostInfo = ({ item }: { item: ListingItem }) => {
             <View style={styles.hostVerify}>
               <MaterialIcons name="verified-user" size={18} color="#fff" />
             </View>
-            <Image style={styles.hostImg} source={{ uri: item.host_thumbnail_url }} />
+            <Image style={styles.hostImg} source={{ uri: item.img }} />
           </View>
 
-          <Text style={styles.hostName}>{item.host_name}</Text>
+          <Text style={styles.hostName}>{item.name}</Text>
           <Text>房东</Text>
         </View>
         <View style={styles.hostCardRight}>
@@ -53,8 +59,8 @@ const HostInfo = ({ item }: { item: ListingItem }) => {
             value={`${item.host_response_rate ? `${item.host_response_rate}%` : ''}`}
             hasBorder
           />
-          <HostDetailItem desc="房源数" value={`${item.host_total_listings_count}`} hasBorder />
-          <HostDetailItem desc="年出租经验" value={`${getYearsSince(item.host_since)}`} />
+          <HostDetailItem desc="房源数" value={`${item.listingCount}`} hasBorder />
+          <HostDetailItem desc="年出租经验" value={`${getYearsSince(item.createdAt)}`} />
         </View>
       </View>
 

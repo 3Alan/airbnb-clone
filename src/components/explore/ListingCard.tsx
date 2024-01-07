@@ -1,3 +1,4 @@
+import { Entypo, Ionicons } from '@expo/vector-icons';
 import { Listing } from '@prisma/client';
 import { Link } from 'expo-router';
 import { isEmpty } from 'lodash';
@@ -27,6 +28,11 @@ const ListingCard = ({
           <Heart id={item.id} img={item.img} style={{ position: 'absolute', right: 6, top: 6 }} />
           <Text numberOfLines={2} style={styles.desc}>
             {item.title}
+            <Entypo name="dot-single" />
+            {item.roomCount}室{item.bedCount}床{item.guestCount}人<Entypo name="dot-single" />
+            <Ionicons size={10} name="star" />
+            {item.rating}
+            <Entypo name="dot-single" />￥{item.price}
           </Text>
         </View>
       </TouchableOpacity>
@@ -46,10 +52,11 @@ const styles = StyleSheet.create({
     paddingTop: 4,
     paddingHorizontal: 4,
     paddingBottom: 10,
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '500',
     position: 'absolute',
     bottom: 0,
-    color: '#fff'
+    color: '#fff',
+    lineHeight: 18
   }
 });

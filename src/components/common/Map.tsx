@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 import { ListingItem } from '../../interface/Listing';
-import getPriceInfo from '../../utils/getPriceInfo';
 
 interface MapProps {
   initialRegion: {
@@ -37,7 +36,7 @@ const Map: FC<MapProps> = ({ initialRegion, listing }) => {
         >
           <View style={styles.marker}>
             <Text style={styles.unit}>￥</Text>
-            <Text style={styles.price}>{getPriceInfo(item).price}</Text>
+            <Text style={styles.price}>{item.price}</Text>
           </View>
         </Marker>
       ))}

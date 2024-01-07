@@ -16,7 +16,6 @@ import Carousel from 'react-native-reanimated-carousel';
 
 import Colors from '../../constants/Colors';
 import { ListingItem } from '../../interface/Listing';
-import getPriceInfo from '../../utils/getPriceInfo';
 
 const FeatureItem = ({ text, type }: { text: string; type: 'primary' | 'standard' }) => {
   return (
@@ -40,7 +39,6 @@ const ListingCard = ({ item }: { item: ListingItem; style?: StyleProp<ViewStyle>
   const { width } = useWindowDimensions();
   const height = Math.floor(Math.random() * (300 - 100 + 1)) + 180;
   const mockBeautifulImg = `https://source.unsplash.com/random/200x${height}/?room`;
-  const { price, unit } = getPriceInfo(item);
 
   return (
     <Link href={`/detail/${item.id}`} asChild>
@@ -136,7 +134,7 @@ const ListingCard = ({ item }: { item: ListingItem; style?: StyleProp<ViewStyle>
                 color: Colors.textColor
               }}
             >
-              ￥{price}
+              ￥{item.price}
             </Text>
             <Text
               style={{
@@ -146,7 +144,7 @@ const ListingCard = ({ item }: { item: ListingItem; style?: StyleProp<ViewStyle>
                 paddingLeft: 6
               }}
             >
-              /￥{unit}
+              /晚
             </Text>
           </View>
         </View>

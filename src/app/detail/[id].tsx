@@ -85,7 +85,7 @@ const Detail = () => {
           pagingEnabled
           width={width}
           height={CAROUSEL_HEIGHT}
-          data={[data?.xl_picture_url]}
+          data={[data.img]}
           renderItem={({ item }) => {
             return (
               <Image
@@ -109,7 +109,7 @@ const Detail = () => {
           </View>
 
           <OverView item={data} />
-          <HostInfo item={data} />
+          <HostInfo item={data?.user} />
         </View>
       </Animated.ScrollView>
 

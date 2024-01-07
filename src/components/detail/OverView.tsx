@@ -1,9 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
+import { Listing } from '@prisma/client';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/Colors';
-import { ListingItem } from '../../interface/Listing';
 
 function OverviewItem({ name, text }: { name: any; text: string }) {
   return (
@@ -14,21 +14,21 @@ function OverviewItem({ name, text }: { name: any; text: string }) {
   );
 }
 
-const OverView = ({ item }: { item: ListingItem }) => {
+const OverView = ({ item }: { item: Listing }) => {
   return (
     <View style={styles.overviewContainer}>
       <Text style={styles.title}>房源概览</Text>
       <View style={styles.overview}>
-        <OverviewItem name="home-outline" text={`${item.bedrooms} 间卧室`} />
-        <OverviewItem name="bed-outline" text={`${item.beds} 张床`} />
-        <OverviewItem name="home-outline" text={`${item.bathrooms} 个卫生间`} />
-        <OverviewItem name="people-outline" text={`宜住${item.accommodates} 个人`} />
+        <OverviewItem name="home-outline" text={`${item.roomCount} 间卧室`} />
+        <OverviewItem name="bed-outline" text={`${item.bedCount} 张床`} />
+        <OverviewItem name="home-outline" text={`${item.bathRoomCount} 个卫生间`} />
+        <OverviewItem name="people-outline" text={`宜住${item.guestCount} 个人`} />
       </View>
 
-      {item.summary && (
+      {item.description && (
         <>
           <Text style={styles.title}>房源描述</Text>
-          <Text style={styles.summary}>{item.summary}</Text>
+          <Text style={styles.summary}>{item.description}</Text>
         </>
       )}
     </View>

@@ -14,13 +14,13 @@ model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   password  String
-  phone     String
-  email     String
+  phone     String   @unique
+  email     String   @unique
   img       String
   createdAt DateTime @default(now())
 
   listings Listing[]
-  Review   Review[]
+  reviews  Review[]
 }
 
 // 房源分类
@@ -67,5 +67,5 @@ model Listing {
 
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Review   Review[]
+  reviews  Review[]
 }
