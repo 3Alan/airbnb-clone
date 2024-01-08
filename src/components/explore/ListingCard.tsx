@@ -25,7 +25,13 @@ const ListingCard = ({
     <Link href={`/detail/${item.id}`} asChild>
       <TouchableOpacity activeOpacity={0.8}>
         <View style={[styles.card, style]}>
-          <Image resizeMode="cover" source={{ uri: item.imgs[0] }} height={height} />
+          <Image
+            resizeMode="cover"
+            source={{ uri: item.imgs[0] }}
+            style={{
+              height
+            }}
+          />
           <Heart
             id={item.id}
             img={item.imgs[0]}
@@ -35,7 +41,7 @@ const ListingCard = ({
             start={{ x: 0.5, y: 1 }}
             end={{ x: 0.5, y: 0 }}
             style={styles.descContainer}
-            colors={['rgba(0,0,0,0.5)', 'rgba(0,0,0,0.0)']}
+            colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,0.0)']}
           >
             <Text numberOfLines={2} style={styles.desc}>
               {item.title}

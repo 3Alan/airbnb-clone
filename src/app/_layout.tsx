@@ -7,7 +7,7 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack, useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Platform, TouchableOpacity } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ToastProvider } from 'react-native-toast-notifications';
@@ -31,6 +31,10 @@ const queryClient = new QueryClient({
 const tokenCache = {
   async getToken(key: string) {
     try {
+      if (Platform.OS === 'web') {
+        return localStorage.getItem(key);
+      }
+
       return SecureStore.getItemAsync(key);
     } catch (error) {
       return null;
@@ -38,6 +42,10 @@ const tokenCache = {
   },
   async saveToken(key: string, value: string) {
     try {
+      if (Platform.OS === 'web') {
+        return localStorage.setItem(key, value);
+      }
+
       return SecureStore.setItemAsync(key, value);
     } catch (error) {}
   }

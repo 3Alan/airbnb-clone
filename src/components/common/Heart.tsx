@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { FC, useEffect, useState } from 'react';
-import { TouchableOpacity, ViewStyle } from 'react-native';
+import { GestureResponderEvent, TouchableOpacity, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { useToast } from 'react-native-toast-notifications';
 
@@ -22,7 +22,9 @@ const Heart: FC<HeartProps> = ({ active: activeProps, img, listName, onChange, s
     setActive(activeProps);
   }, [activeProps]);
 
-  const handlePress = () => {
+  const handlePress = (e: GestureResponderEvent) => {
+    // stopPropagation on web
+    e.preventDefault();
     setActive(!active);
     onChange?.(!active);
 

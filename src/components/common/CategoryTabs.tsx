@@ -13,7 +13,8 @@ import {
   ScrollView,
   View,
   ViewStyle,
-  Pressable
+  Pressable,
+  Platform
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -106,8 +107,10 @@ const CategoryTabs: FC<CategoryTabsProps> = ({
       });
     }
 
-    // 点击震动效果
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    if (Platform.OS !== 'web') {
+      // 点击震动效果
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
   };
 
   const handleViewMorePress = () => {
