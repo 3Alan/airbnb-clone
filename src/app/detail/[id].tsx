@@ -12,10 +12,12 @@ import {
 } from 'react-native';
 import Animated, {
   interpolate,
+  useAnimatedScrollHandler,
   useAnimatedStyle,
-  useScrollViewOffset
+  useSharedValue
 } from 'react-native-reanimated';
 import Carousel from 'react-native-reanimated-carousel';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Colors from '../../constants/Colors';
 
@@ -29,18 +31,23 @@ import { useListing } from '@/queries/listings';
 const CAROUSEL_HEIGHT = 240;
 
 const Detail = () => {
+  const { top } = useSafeAreaInsets();
   const navigation = useNavigation();
   const { id } = useLocalSearchParams<{ id: string }>();
+
+  console.log(top);
 
   // 骨架屏优化一下
   const { data } = useListing(id);
 
   const { width } = useWindowDimensions();
-  const scrollViewRef = React.useRef<Animated.ScrollView>(null);
-  const scrollHandler = useScrollViewOffset(scrollViewRef);
+  const translationY = useSharedValue(0);
+  const scrollHandler = useAnimatedScrollHandler(event => {
+    translationY.value = event.contentOffset.y;
+  });
   const headerAnimatedStyle = useAnimatedStyle(() => {
     return {
-      opacity: interpolate(scrollHandler.value, [0, CAROUSEL_HEIGHT], [0, 1])
+      opacity: interpolate(translationY.value, [0, CAROUSEL_HEIGHT], [0, 1])
     };
   }, []);
 
@@ -52,14 +59,24 @@ const Detail = () => {
   };
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Stack.Screen
         options={{
           animation: 'slide_from_right',
           animationDuration: 0.05,
           headerTransparent: true,
           headerTitle: '',
-          headerBackground: () => <Animated.View style={[headerAnimatedStyle, styles.header]} />,
+          headerBackground: () => (
+            <Animated.View
+              style={[
+                headerAnimatedStyle,
+                {
+                  backgroundColor: '#fff',
+                  height: top + 54
+                }
+              ]}
+            />
+          ),
           headerLeft: () => (
             <TouchableOpacity style={styles.barIcon} onPress={() => navigation.goBack()}>
               <Ionicons name="arrow-back" size={18} />
@@ -79,7 +96,7 @@ const Detail = () => {
       />
 
       <Animated.ScrollView
-        ref={scrollViewRef}
+        onScroll={scrollHandler}
         contentContainerStyle={{ paddingBottom: 90, backgroundColor: '#f7f7f7' }}
       >
         <View style={styles.imgContainer}>
@@ -154,10 +171,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#386bbc'
   },
-  header: {
-    backgroundColor: '#fff',
-    height: 100
-  },
   navBar: {
     flexDirection: 'row'
   },
@@ -168,6 +181,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     padding: 4,
-    borderRadius: 30
+    borderRadius: 15
   }
 });

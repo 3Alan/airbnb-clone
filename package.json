@@ -14,11 +14,11 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@clerk/clerk-expo": "^0.19.17",
     "@expo/vector-icons": "^14.0.0",
     "@gorhom/bottom-sheet": "5.0.0-alpha.6",
     "@prisma/client": "5.7.1",
-    "@react-navigation/native": "^6.0.2",
     "@reduxjs/toolkit": "^1.9.7",
     "@shopify/flash-list": "1.6.3",
     "@tanstack/react-query": "^5.17.7",
