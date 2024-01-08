@@ -19,6 +19,7 @@ import Carousel from 'react-native-reanimated-carousel';
 
 import Colors from '../../constants/Colors';
 
+import Avatar from '@/components/common/Avatar';
 import Features from '@/components/detail/Features';
 import DetailFooter from '@/components/detail/Footer';
 import HostInfo from '@/components/detail/HostInfo';
@@ -77,40 +78,46 @@ const Detail = () => {
         }}
       />
 
-      <Animated.ScrollView ref={scrollViewRef} contentContainerStyle={{ paddingBottom: 90 }}>
-        <Carousel
-          loop
-          autoPlayInterval={4000}
-          snapEnabled
-          pagingEnabled
-          width={width}
-          height={CAROUSEL_HEIGHT}
-          data={[data.img]}
-          renderItem={({ item }) => {
-            return (
-              <Image
-                style={{
-                  height: 240
-                }}
-                source={{
-                  uri: item
-                }}
-              />
-            );
-          }}
-        />
-
-        <View>
-          <View style={styles.intro}>
-            <Text style={styles.roomType}>{`${data.smart_location} 的 ${data.room_type}`}</Text>
-            <Text style={styles.name}>{data.name}</Text>
-
-            <Features item={data} />
-          </View>
-
-          <OverView item={data} />
-          <HostInfo item={data?.user} />
+      <Animated.ScrollView
+        ref={scrollViewRef}
+        contentContainerStyle={{ paddingBottom: 90, backgroundColor: '#f7f7f7' }}
+      >
+        <View style={styles.imgContainer}>
+          <Carousel
+            loop
+            autoPlayInterval={4000}
+            snapEnabled
+            pagingEnabled
+            width={width}
+            height={CAROUSEL_HEIGHT}
+            data={[data.img]}
+            renderItem={({ item }) => {
+              return (
+                <Image
+                  style={{
+                    height: 240,
+                    borderBottomLeftRadius: 2,
+                    borderBottomRightRadius: 2
+                  }}
+                  source={{
+                    uri: item
+                  }}
+                />
+              );
+            }}
+          />
+          <Avatar style={styles.avatar} img={data?.user?.img} />
         </View>
+
+        <View style={styles.intro}>
+          <Text style={styles.roomType}>上海 · 公寓型住宅里的独立房间</Text>
+          <Text style={styles.name}>{data.title}</Text>
+
+          <Features item={data} />
+        </View>
+
+        <OverView item={data} />
+        <HostInfo item={data?.user} />
       </Animated.ScrollView>
 
       <DetailFooter item={data} />
@@ -121,6 +128,16 @@ const Detail = () => {
 export default Detail;
 
 const styles = StyleSheet.create({
+  imgContainer: {
+    paddingBottom: 25,
+    backgroundColor: '#fff'
+  },
+  avatar: {
+    position: 'absolute',
+    right: 16,
+    bottom: 0,
+    zIndex: 3
+  },
   name: {
     fontFamily: 'Mon',
     fontWeight: 'bold',
@@ -128,7 +145,7 @@ const styles = StyleSheet.create({
     color: Colors.textColor
   },
   intro: {
-    paddingVertical: 12,
+    paddingBottom: 12,
     paddingHorizontal: 12,
     backgroundColor: '#fff'
   },

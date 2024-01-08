@@ -64,7 +64,7 @@ const HostInfo = ({ item }: HostInfoProps) => {
         </View>
       </View>
 
-      <Text style={styles.hostAbout}>{item.host_about}</Text>
+      <Text style={styles.hostAbout}>{item.about}</Text>
     </View>
   );
 };

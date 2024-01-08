@@ -10,7 +10,8 @@ export async function GET(_request: ExpoRequest, { id }: { id: string }) {
     select: {
       id: true,
       name: true,
-      img: true
+      img: true,
+      about: true
     }
   });
 

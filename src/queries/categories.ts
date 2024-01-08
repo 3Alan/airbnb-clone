@@ -5,7 +5,7 @@ import request from '@/utils/request';
 
 export const fetchCategories = async () => {
   const res = await request('/categories');
-  return res.data as Category[];
+  return [{ name: '全部', icon: 'home-outline' }, ...res.data] as Category[];
 };
 
 export default function useCategories() {

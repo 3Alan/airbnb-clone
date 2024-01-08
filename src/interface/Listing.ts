@@ -1,3 +1,5 @@
+import { Listing as ListingModel } from '@prisma/client';
+
 export interface ListingItem {
   id: string;
   listing_url: string;
@@ -103,4 +105,8 @@ export interface ListingItem {
   };
   features: string[];
   favorite?: boolean;
+}
+
+export interface Listing extends ListingModel {
+  reviewCount?: number;
 }

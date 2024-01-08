@@ -1,4 +1,5 @@
 import { Entypo } from '@expo/vector-icons';
+import { FlashList } from '@shopify/flash-list';
 import { Stack } from 'expo-router';
 import React, { useRef } from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
@@ -10,7 +11,7 @@ import Listing from '../../components/explore/Listing';
 
 export default function Page() {
   const translationY = useSharedValue(0);
-  const listingRef = useRef(null);
+  const listingRef = useRef<FlashList<any>>(null);
 
   const handleScroll = (y: number) => {
     translationY.value = y;
@@ -42,7 +43,13 @@ export default function Page() {
       <Listing onScroll={handleScroll} ref={listingRef} />
 
       <Animated.View style={[styles.scrollTop, scrollTopAnimatedStyle]}>
-        <Pressable onPress={() => listingRef.current.scrollTo({ x: 0, y: 0, animated: true })}>
+        <Pressable
+          onPress={() =>
+            listingRef.current?.scrollToOffset({
+              offset: 0
+            })
+          }
+        >
           <Entypo name="align-top" size={24} color="black" />
         </Pressable>
       </Animated.View>

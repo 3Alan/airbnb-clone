@@ -17,6 +17,7 @@ model User {
   phone     String   @unique
   email     String   @unique
   img       String
+  about     String?
   createdAt DateTime @default(now())
 
   listings Listing[]

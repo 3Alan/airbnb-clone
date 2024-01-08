@@ -1,10 +1,17 @@
 import { Listing } from '@prisma/client';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { isEmpty } from 'lodash';
 
 import request from '@/utils/request';
 
-export const fetchListings = async ({ pageParam }: { pageParam: number }) => {
-  const res = await request(`/listings?page=${pageParam}&num=5`);
+export const fetchListings = async ({ pageParam }: { pageParam: number }, category: string) => {
+  const res = await request('/listings', {
+    params: {
+      page: pageParam,
+      num: 5,
+      category: isEmpty(category) || category === '全部' ? undefined : category
+    }
+  });
   const data = res.data as {
     listings: Listing[];
     hasNextPage: boolean;
@@ -17,10 +24,10 @@ export const fetchListings = async ({ pageParam }: { pageParam: number }) => {
   };
 };
 
-export function useListings() {
+export function useListings(category: string) {
   return useInfiniteQuery({
-    queryKey: ['listings'],
-    queryFn: fetchListings,
+    queryKey: ['listings', category],
+    queryFn: context => fetchListings(context, category),
     placeholderData: {
       pages: [],
       pageParams: [1]

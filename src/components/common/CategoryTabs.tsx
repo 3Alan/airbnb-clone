@@ -4,6 +4,7 @@ import { Category } from '@prisma/client';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { FC, useRef } from 'react';
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
 import {
   Image,
   StyleSheet,
@@ -28,6 +29,7 @@ export interface CategoryItem {
 interface CategoryTabsProps {
   category: string;
   categoryList: Category[];
+  isLoading?: boolean;
   onChange?: (category: string) => void;
   style?: ViewStyle;
 }
@@ -76,7 +78,13 @@ const cardStyles = StyleSheet.create({
   }
 });
 
-const CategoryTabs: FC<CategoryTabsProps> = ({ category, categoryList, style, onChange }) => {
+const CategoryTabs: FC<CategoryTabsProps> = ({
+  category,
+  categoryList,
+  isLoading,
+  style,
+  onChange
+}) => {
   const itemsRef = useRef<{ [category: string]: TouchableOpacity | null }>({});
   const scrollRef = useRef<ScrollView>(null);
   const sheetRef = useRef<BottomSheetModal>(null);
@@ -123,26 +131,54 @@ const CategoryTabs: FC<CategoryTabsProps> = ({ category, categoryList, style, on
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.container}
       >
-        {categoryList.map(item => (
-          <TouchableOpacity
-            ref={el => (itemsRef.current[item.name] = el)}
-            key={item.name}
-            style={[styles.tab, category === item.name ? styles.activeTab : null]}
-            onPress={() => onCategoryPress(item.name)}
-          >
-            <Ionicons
-              name={item.icon as any}
-              size={20}
-              style={[styles.tabIcon, category === item.name ? styles.activeIcon : null]}
-            />
-            <Text style={[styles.tabText, category === item.name ? styles.activeText : null]}>
-              {item.name}
-            </Text>
-          </TouchableOpacity>
-        ))}
+        {isLoading ? (
+          <>
+            {new Array(8).fill(0).map((_item, index) => (
+              <ContentLoader
+                key={index}
+                speed={2}
+                width={60}
+                height={45}
+                viewBox="0 0 65 45"
+                backgroundColor="#ebeaea"
+                foregroundColor="#dedede"
+              >
+                <Circle cx="30" cy="11" r="10" />
+                <Rect x="5" y="28" rx="4" ry="4" width="50" height="12" />
+              </ContentLoader>
+            ))}
+          </>
+        ) : (
+          <>
+            {categoryList.map(item => (
+              <TouchableOpacity
+                ref={el => (itemsRef.current[item.name] = el)}
+                key={item.name}
+                style={styles.tab}
+                onPress={() => onCategoryPress(item.name)}
+              >
+                <Ionicons
+                  name={item.icon as any}
+                  size={20}
+                  style={[styles.tabIcon, category === item.name ? styles.activeIcon : null]}
+                />
+                <View style={[category === item.name ? styles.activeTab : null, { flex: 1 }]}>
+                  <Text style={[styles.tabText, category === item.name ? styles.activeText : null]}>
+                    {item.name}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </>
+        )}
       </ScrollView>
       <View style={styles.more}>
-        <TouchableOpacity activeOpacity={0.9} style={styles.moreIcon} onPress={handleViewMorePress}>
+        <TouchableOpacity
+          disabled={isLoading}
+          activeOpacity={0.9}
+          style={styles.moreIcon}
+          onPress={handleViewMorePress}
+        >
           <Ionicons name="chevron-down" size={22} color="#222222" />
         </TouchableOpacity>
       </View>
@@ -205,6 +241,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.borderColor
   },
   container: {
+    height: 50,
     paddingHorizontal: 16,
     backgroundColor: '#fff',
     gap: 16
@@ -236,8 +273,7 @@ const styles = StyleSheet.create({
   tab: {
     alignItems: 'center',
     paddingHorizontal: 8,
-    minWidth: 60,
-    paddingBottom: 10
+    minWidth: 60
   },
   activeTab: {
     borderBottomColor: '#000',

@@ -14,6 +14,7 @@ export async function GET(_request: ExpoRequest, { id }: { id: string }) {
           id: true,
           name: true,
           img: true,
+          about: true,
           createdAt: true
         }
       }
@@ -29,11 +30,16 @@ export async function GET(_request: ExpoRequest, { id }: { id: string }) {
       userId: listing.user.id
     }
   });
+  const reviewCount = await prisma.review.count({
+    where: {
+      listingId: id
+    }
+  });
 
   const user = {
     ...listing.user,
     listingCount: userListingCount
   };
 
-  return ExpoResponse.json({ ...listing, user });
+  return ExpoResponse.json({ ...listing, reviewCount, user });
 }

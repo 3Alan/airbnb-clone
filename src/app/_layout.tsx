@@ -22,7 +22,8 @@ const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retryDelay: 6000
+      retryDelay: 6000,
+      retry: false
     }
   }
 });

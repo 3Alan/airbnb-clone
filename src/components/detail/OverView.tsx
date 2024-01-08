@@ -39,8 +39,9 @@ export default OverView;
 
 const styles = StyleSheet.create({
   overviewContainer: {
+    marginTop: 20,
     backgroundColor: '#fff',
-    paddingHorizontal: 12
+    padding: 12
   },
   title: {
     fontSize: 17,
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
   },
   overview: {
     flexDirection: 'row',
+    paddingTop: 10,
     paddingBottom: 24,
     marginBottom: 24,
     borderBottomWidth: 1,

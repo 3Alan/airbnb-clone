@@ -17,9 +17,9 @@ interface ListingProps {
 }
 
 const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
-  const { data: categories = [] } = useCategories();
-  const { data: listings, fetchNextPage, isFetching, hasNextPage } = useListings();
-  const [category, setCategory] = useState<string>('');
+  const { data: categories = [], isFetching: isLoadingCategories } = useCategories();
+  const [category, setCategory] = useState<string>('全部');
+  const { data: listings, fetchNextPage, isFetching, hasNextPage } = useListings(category);
 
   useEffect(() => {
     if (categories?.length > 0) {
@@ -46,7 +46,7 @@ const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
   return (
     <FlashList
       ref={ref as any}
-      keyExtractor={(item: any) => item.id}
+      keyExtractor={(item: any) => item?.id}
       estimatedItemSize={820}
       scrollEventThrottle={100}
       onScroll={handleScroll}
@@ -58,12 +58,21 @@ const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
         >
           <Search />
           <Wave />
-          <CategoryTabs category={category} categoryList={categories} onChange={setCategory} />
+          <CategoryTabs
+            isLoading={isLoadingCategories}
+            category={category}
+            categoryList={categories}
+            onChange={setCategory}
+          />
         </View>
       }
       ListFooterComponent={
         <View style={{ backgroundColor: '#fff', alignItems: 'center', paddingVertical: 15 }}>
-          {hasNextPage ? <Spin /> : <Text style={{ color: Colors.grey }}>没有更多了</Text>}
+          {isFetching ? (
+            <Spin />
+          ) : (
+            !hasNextPage && <Text style={{ color: Colors.grey }}>没有更多了</Text>
+          )}
         </View>
       }
       contentContainerStyle={{

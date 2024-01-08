@@ -16,6 +16,7 @@ import Carousel from 'react-native-reanimated-carousel';
 
 import Colors from '../../constants/Colors';
 import { ListingItem } from '../../interface/Listing';
+import Avatar from '../common/Avatar';
 
 const FeatureItem = ({ text, type }: { text: string; type: 'primary' | 'standard' }) => {
   return (
@@ -80,9 +81,7 @@ const ListingCard = ({ item }: { item: ListingItem; style?: StyleProp<ViewStyle>
               );
             }}
           />
-          <View style={styles.avatar}>
-            <Image style={styles.avatarImg} source={{ uri: item.host_thumbnail_url }} />
-          </View>
+          <Avatar img={item.host_thumbnail_url} style={styles.avatar} />
           <View style={styles.tag}>
             <Text>房客推荐</Text>
           </View>
@@ -183,16 +182,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 10,
     top: 175,
-    borderWidth: 2,
-    borderRadius: 30,
-    overflow: 'hidden',
-    borderColor: '#fff',
-    backgroundColor: '#eee',
     zIndex: 3
-  },
-  avatarImg: {
-    width: 50,
-    height: 50
   },
   name: {
     fontFamily: 'Mon',
