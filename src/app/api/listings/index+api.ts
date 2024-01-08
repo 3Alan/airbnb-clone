@@ -36,7 +36,7 @@ export async function POST(request: ExpoRequest) {
   const {
     title,
     description,
-    img,
+    imgs,
     roomCount,
     bathRoomCount,
     bedCount,
@@ -51,7 +51,7 @@ export async function POST(request: ExpoRequest) {
     data: {
       title,
       description,
-      img,
+      imgs,
       roomCount,
       bathRoomCount,
       bedCount,
