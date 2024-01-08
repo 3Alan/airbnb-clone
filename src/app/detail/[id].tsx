@@ -47,7 +47,7 @@ const Detail = () => {
   const handleShare = async () => {
     await Share.share({
       title: data.name,
-      url: data.listing_url
+      url: `http://localhost:8081/detail/${data.id}`
     });
   };
 
@@ -84,13 +84,12 @@ const Detail = () => {
       >
         <View style={styles.imgContainer}>
           <Carousel
-            loop
             autoPlayInterval={4000}
             snapEnabled
             pagingEnabled
             width={width}
             height={CAROUSEL_HEIGHT}
-            data={[data.img]}
+            data={data.imgs as string[]}
             renderItem={({ item }) => {
               return (
                 <Image
@@ -99,6 +98,7 @@ const Detail = () => {
                     borderBottomLeftRadius: 2,
                     borderBottomRightRadius: 2
                   }}
+                  resizeMode="cover"
                   source={{
                     uri: item
                   }}
