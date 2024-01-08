@@ -35,8 +35,6 @@ const Detail = () => {
   const navigation = useNavigation();
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  console.log(top);
-
   // 骨架屏优化一下
   const { data } = useListing(id);
 
