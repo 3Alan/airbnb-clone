@@ -1,7 +1,7 @@
 import { Listing } from '@prisma/client';
 import { ExpoRequest, ExpoResponse } from 'expo-router/server';
 
-import { prisma } from '@/server/db';
+import prisma from '@/server/db';
 import getApiParams from '@/utils/getApiParams';
 
 export async function GET(request: ExpoRequest) {
