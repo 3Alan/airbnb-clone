@@ -4,7 +4,7 @@
   "functions": {
     "api/index.js": {
       "runtime": "@vercel/node@3.0.11",
-      "includeFiles": "dist/server/**"
+      "includeFiles": "{dist/server/**,node_modules/.prisma/client/**}"
     }
   },
   "rewrites": [
