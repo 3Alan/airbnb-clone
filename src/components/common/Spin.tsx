@@ -3,7 +3,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 const Spin = () => {
   if (Platform.OS === 'web') {
-    return <img src="../../../assets/images/web-spin.gif" />;
+    return <img src={require('../../../assets/images/web-spin.gif')} />;
   }
 
   return (
