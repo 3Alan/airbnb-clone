@@ -12,5 +12,16 @@
       "source": "/(.*)",
       "destination": "/api/index.js"
     }
+  ],
+  "headers": [
+    {
+      "source": "/api/*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=432000"
+        }
+      ]
+    }
   ]
 }
