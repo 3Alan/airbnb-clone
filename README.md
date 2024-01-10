@@ -12,7 +12,16 @@ It is for learning purpose only. All image from unsplash.(https://source.unsplas
 
 ## Screenshots
 
-<img src="./screenshots/首页1.png" width="280" /><img src="./screenshots/首页2.png" width="280" /><img src="./screenshots/首页3.png" width="280" /><img src="./screenshots/calendar.png" width="280" /><img src="./screenshots/categorySheet.png" width="280" /><img src="./screenshots/search.png" width="280" /><img src="./screenshots/详情页1.png" width="280" /><img src="./screenshots/详情页2.png" width="280" />
+<div style="display: flex; flex-direction: 'row'; flex-wrap: wrap;">
+<img src="./screenshots/首页1.png" width="30%" />
+<img src="./screenshots/首页2.png" width="30%" />
+<img src="./screenshots/首页3.png" width="30%" />
+<img src="./screenshots/calendar.png" width="30%" />
+<img src="./screenshots/categorySheet.png" width="30%" />
+<img src="./screenshots/search.png" width="30%" />
+<img src="./screenshots/详情页1.png" width="30%" />
+<img src="./screenshots/详情页2.png" width="30%" />
+</div>
 
 ## Local Development
 
