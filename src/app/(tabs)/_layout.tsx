@@ -57,6 +57,7 @@ export default function Layout() {
         name="profile"
         options={{
           tabBarLabel: '我的',
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-circle-outline" color={color} size={size} />
           )
