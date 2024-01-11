@@ -1,10 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Listing } from '@prisma/client';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/Colors';
 import Button from '../common/Button';
+
+import { Listing } from '@/interface/Listing';
 
 const DetailFooter = ({ item }: { item: Listing }) => {
   return (
@@ -17,7 +18,7 @@ const DetailFooter = ({ item }: { item: Listing }) => {
         <View style={styles.reviewContainer}>
           <Ionicons color="#fd3b5e" name="star" size={12} />
           <Text style={styles.reviewRate}>{item.rating}</Text>
-          <Text style={styles.reviewNumber}>({item.number_of_reviews}条评论)</Text>
+          <Text style={styles.reviewNumber}>({item.reviewCount}条评论)</Text>
         </View>
       </View>
 

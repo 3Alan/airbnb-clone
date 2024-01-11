@@ -19,9 +19,10 @@ const ExploreBackground = () => {
         'https://source.unsplash.com/random/?forest house',
         'https://source.unsplash.com/random/?Mountain green'
       ]}
-      renderItem={({ item }) => {
+      renderItem={({ item, index }) => {
         return (
           <Image
+            priority={index === 0 ? 'high' : 'normal'}
             contentFit="cover"
             style={{
               width: '100%',
