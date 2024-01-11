@@ -1,10 +1,11 @@
+import { Image } from 'expo-image';
 import React from 'react';
-import { Image, StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 
 const Avatar = ({ img, style }: { img: string; style?: ViewStyle }) => {
   return (
     <View style={[styles.avatar, style]}>
-      <Image style={styles.avatarImg} source={{ uri: img }} />
+      <Image contentFit="cover" style={styles.avatarImg} source={{ uri: img }} />
     </View>
   );
 };

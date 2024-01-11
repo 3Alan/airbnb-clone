@@ -1,5 +1,6 @@
+import { Image } from 'expo-image';
 import React from 'react';
-import { StyleSheet, Image, useWindowDimensions } from 'react-native';
+import { StyleSheet, useWindowDimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 
 const ExploreBackground = () => {
@@ -21,6 +22,7 @@ const ExploreBackground = () => {
       renderItem={({ item }) => {
         return (
           <Image
+            contentFit="cover"
             style={{
               width: '100%',
               height: 280

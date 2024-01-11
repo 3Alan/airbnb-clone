@@ -1,5 +1,6 @@
+import { Image } from 'expo-image';
 import React, { FC } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 interface ToastProps {
   img: string;
@@ -10,7 +11,7 @@ interface ToastProps {
 const Toast: FC<ToastProps> = ({ img, listName, type }) => {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: img }} style={styles.img} />
+      <Image contentFit="cover" source={{ uri: img }} style={styles.img} />
 
       {type === 'save' && (
         <Text style={styles.text} numberOfLines={2}>

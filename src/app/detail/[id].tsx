@@ -1,15 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
 import { Stack, useLocalSearchParams, useNavigation } from 'expo-router';
 import React from 'react';
-import {
-  Image,
-  Share,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  useWindowDimensions
-} from 'react-native';
+import { Share, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedScrollHandler,
@@ -113,7 +106,7 @@ const Detail = () => {
                     borderBottomLeftRadius: 2,
                     borderBottomRightRadius: 2
                   }}
-                  resizeMode="cover"
+                  contentFit="cover"
                   source={{
                     uri: item
                   }}

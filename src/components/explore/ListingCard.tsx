@@ -1,10 +1,11 @@
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { Listing } from '@prisma/client';
+import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link } from 'expo-router';
 import { isEmpty } from 'lodash';
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import Heart from '../common/Heart';
 
@@ -26,7 +27,7 @@ const ListingCard = ({
       <TouchableOpacity activeOpacity={0.8}>
         <View style={[styles.card, style]}>
           <Image
-            resizeMode="cover"
+            contentFit="cover"
             source={{ uri: item.imgs[0] }}
             style={{
               height

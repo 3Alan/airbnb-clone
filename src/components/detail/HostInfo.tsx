@@ -1,7 +1,8 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { User } from '@prisma/client';
+import { Image } from 'expo-image';
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/Colors';
 
@@ -47,7 +48,7 @@ const HostInfo = ({ item }: HostInfoProps) => {
             <View style={styles.hostVerify}>
               <MaterialIcons name="verified-user" size={18} color="#fff" />
             </View>
-            <Image style={styles.hostImg} source={{ uri: item.img }} />
+            <Image contentFit="cover" style={styles.hostImg} source={{ uri: item.img }} />
           </View>
 
           <Text style={styles.hostName}>{item.name}</Text>

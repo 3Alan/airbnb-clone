@@ -2,11 +2,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Category } from '@prisma/client';
 import * as Haptics from 'expo-haptics';
+import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { FC, useRef } from 'react';
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
 import {
-  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -50,7 +50,7 @@ const CategoryCard: FC<
           <Text>{name}</Text>
           <Ionicons name={icon as any} size={16} />
         </View>
-        <Image style={cardStyles.img} source={{ uri: img }} />
+        <Image contentFit="cover" style={cardStyles.img} source={{ uri: img }} />
       </Pressable>
     </LinearGradient>
   );

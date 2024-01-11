@@ -1,8 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import React from 'react';
 import {
-  Image,
   StyleProp,
   StyleSheet,
   Text,

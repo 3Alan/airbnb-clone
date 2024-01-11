@@ -69,21 +69,21 @@ export default function Login() {
       <View style={{ gap: 20 }}>
         <Button
           theme="standard"
-          icon={<Ionicons size={24} name="md-logo-github" />}
+          icon={<Ionicons size={24} name="logo-github" />}
           onPress={() => onLogin(AuthType.Github)}
         >
           Continue with Github
         </Button>
         <Button
           theme="standard"
-          icon={<Ionicons size={24} name="md-logo-google" />}
+          icon={<Ionicons size={24} name="logo-google" />}
           onPress={() => onLogin(AuthType.Google)}
         >
           Continue with Google
         </Button>
         <Button
           theme="standard"
-          icon={<Ionicons size={24} name="md-logo-facebook" />}
+          icon={<Ionicons size={24} name="logo-facebook" />}
           onPress={() => Linking.openURL('https://www.facebook.com/')}
         >
           Continue with Facebook

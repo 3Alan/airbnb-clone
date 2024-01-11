@@ -1,5 +1,6 @@
 import { useAuth } from '@clerk/clerk-expo';
 import { FontAwesome, Ionicons, Octicons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link } from 'expo-router';
 import React from 'react';
@@ -13,6 +14,7 @@ const Profile = () => {
   const { signOut, isSignedIn } = useAuth();
   return (
     <SafeAreaView style={styles.container}>
+      <BlurView />
       <View style={styles.header}>
         <Pressable>
           <Ionicons size={20} color="#4b4646" name="notifications-outline" />
@@ -104,16 +106,7 @@ const Profile = () => {
 
           <Text style={styles.itemText}>行程/体验订单</Text>
         </Pressable>
-        <WebLink
-          href="https://github.com/3Alan/airbnb-clone"
-
-          // onPress={() =>
-          //   router.navigate({
-          //     pathname: '/webview',
-          //     params: { uri: 'https://github.com/3Alan/airbnb-clone' }
-          //   })
-          // }
-        >
+        <WebLink href="https://github.com/3Alan/airbnb-clone">
           <View style={styles.toolItem}>
             <View style={styles.iconItemEllipse}>
               <Octicons color={Colors.textColor} size={20} name="mark-github" />

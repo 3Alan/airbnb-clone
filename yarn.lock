@@ -5282,6 +5282,11 @@ expo-auth-session@~5.4.0:
     expo-web-browser "~12.8.0"
     invariant "^2.2.4"
 
+expo-blur@~12.9.1:
+  version "12.9.1"
+  resolved "https://registry.npmjs.org/expo-blur/-/expo-blur-12.9.1.tgz#899c3c627ceb483d29131d4bd97dfd508a56b456"
+  integrity sha512-Motzx1vp73qLtEJ1UFVgn2KMyohsl0UM7sUwHoSqBc/BEkaaHS4+FxHt/6+1Tscfwrg/bZ6gv52+TbgGyQPXOA==
+
 expo-constants@~15.4.0:
   version "15.4.2"
   resolved "https://registry.npmjs.org/expo-constants/-/expo-constants-15.4.2.tgz#e62201d973b9c5bf0686169f77604058597fa425"
@@ -5347,6 +5352,13 @@ expo-haptics@~12.8.1:
   version "12.8.1"
   resolved "https://registry.npmjs.org/expo-haptics/-/expo-haptics-12.8.1.tgz#42b996763be33d661bd33bbc3b3958c3f2734b9d"
   integrity sha512-ntLsHkfle8K8w9MW8pZEw92ZN3sguaGUSSIxv30fPKNeQFu7Cq/h47Qv3tONv2MO3wU48N9FbKnant6XlfptpA==
+
+expo-image@~1.10.2:
+  version "1.10.2"
+  resolved "https://registry.npmjs.org/expo-image/-/expo-image-1.10.2.tgz#0da120095da72fe77f5b67ab67aec21a03b9ed2a"
+  integrity sha512-vdGFq5bJyoGmdwBZKVSEEIH6AyW/WISOQrxVBB9/pytrTknMxlE8ejSrWC1A7wj1GNd51mc2ANKc9sWapvZBqw==
+  dependencies:
+    "@react-native/assets-registry" "~0.73.1"
 
 expo-json-utils@~0.12.0:
   version "0.12.1"
