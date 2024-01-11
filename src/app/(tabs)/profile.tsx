@@ -1,20 +1,38 @@
 import { useAuth } from '@clerk/clerk-expo';
 import { FontAwesome, Ionicons, Octicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
+import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link } from 'expo-router';
 import React from 'react';
-import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button, Dimensions, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import WebLink from '@/components/common/WebLink';
 import Colors from '@/constants/Colors';
 
 const Profile = () => {
+  const { top } = useSafeAreaInsets();
   const { signOut, isSignedIn } = useAuth();
   return (
-    <SafeAreaView style={styles.container}>
-      <BlurView />
+    <View style={[styles.container, { paddingTop: top }]}>
+      {/* background: radial-gradient(
+          farthest-side at 75% 30%,
+          rgba(254, 208, 209, 1) 0%,
+          #ffece6 40%,
+          rgba(255, 255, 255, 0.1) 100%
+        ); */}
+      <Image
+        style={[
+          {
+            width: Dimensions.get('window').width,
+            height: 320
+          },
+          StyleSheet.absoluteFill
+        ]}
+        source={require('../../../assets/images/profile-bg.png')}
+      />
+
       <View style={styles.header}>
         <Pressable>
           <Ionicons size={20} color="#4b4646" name="notifications-outline" />
@@ -26,7 +44,7 @@ const Profile = () => {
       {isSignedIn ? (
         <Button title="Log out" onPress={() => signOut()} />
       ) : (
-        <View style={styles.userCard}>
+        <BlurView style={styles.userCard} intensity={100}>
           <View style={{ paddingRight: 20 }}>
             <Link style={styles.loginText} href="/(modals)/login">
               注册/登录
@@ -47,7 +65,7 @@ const Profile = () => {
           >
             <FontAwesome color="#fff" size={36} name="user" />
           </LinearGradient>
-        </View>
+        </BlurView>
       )}
 
       <View style={styles.card}>
@@ -57,15 +75,15 @@ const Profile = () => {
         </Pressable>
         <Pressable style={styles.iconItem}>
           <Octicons color={Colors.textColor} size={20} name="checklist" />
-          <Text style={styles.itemText}>全部订单</Text>
+          <Text style={styles.itemText}>有效订单</Text>
         </Pressable>
         <Pressable style={styles.iconItem}>
           <Octicons color={Colors.textColor} size={20} name="credit-card" />
-          <Text style={styles.itemText}>全部订单</Text>
+          <Text style={styles.itemText}>待支付订单</Text>
         </Pressable>
         <Pressable style={styles.iconItem}>
           <Octicons color={Colors.textColor} size={20} name="history" />
-          <Text style={styles.itemText}>全部订单</Text>
+          <Text style={styles.itemText}>历史足迹</Text>
         </Pressable>
       </View>
 
@@ -74,7 +92,7 @@ const Profile = () => {
           fontWeight: 'bold',
           fontSize: 18,
           color: Colors.textColor,
-          paddingBottom: 20
+          padding: 20
         }}
       >
         工具
@@ -106,16 +124,17 @@ const Profile = () => {
 
           <Text style={styles.itemText}>行程/体验订单</Text>
         </Pressable>
-        <WebLink href="https://github.com/3Alan/airbnb-clone">
-          <View style={styles.toolItem}>
+
+        <View style={styles.toolItem}>
+          <WebLink href="https://github.com/3Alan/airbnb-clone">
             <View style={styles.iconItemEllipse}>
               <Octicons color={Colors.textColor} size={20} name="mark-github" />
             </View>
-            <Text style={styles.itemText}>项目地址</Text>
-          </View>
-        </WebLink>
+          </WebLink>
+          <Text style={styles.itemText}>项目地址</Text>
+        </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -123,14 +142,15 @@ export default Profile;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    padding: 20
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    gap: 30
+    gap: 30,
+    paddingTop: 16
   },
   emptyAvatar: {
     width: 50,
@@ -147,7 +167,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: 22,
     color: Colors.textColor,
     paddingBottom: 10
   },
@@ -170,20 +190,23 @@ const styles = StyleSheet.create({
     fontSize: 12
   },
   userCard: {
-    backgroundColor: '#fff',
+    // for borderRadius
+    overflow: 'hidden',
+    borderRadius: 16,
+    backgroundColor: 'rgba(255,255,255,0.7)',
     paddingHorizontal: 16,
     paddingVertical: 24,
-    borderRadius: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 30,
+    // TODO: 阴影不生效
     shadowColor: '#888',
-    shadowRadius: 6,
+    shadowRadius: 10,
     shadowOpacity: 0.1,
-    elevation: 6,
+    elevation: 10,
     shadowOffset: {
-      width: 4,
-      height: 4
+      width: 0,
+      height: 6
     }
   },
   card: {
@@ -196,12 +219,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 30,
     shadowColor: '#888',
-    shadowRadius: 6,
+    shadowRadius: 10,
     shadowOpacity: 0.1,
-    elevation: 6,
+    elevation: 10,
     shadowOffset: {
-      width: 4,
-      height: 4
+      width: 0,
+      height: 6
     }
   }
 });
