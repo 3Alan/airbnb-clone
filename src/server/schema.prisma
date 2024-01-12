@@ -14,11 +14,12 @@ model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   password  String
-  phone     String   @unique
+  phone     String?  @unique
   email     String   @unique
-  img       String
+  img       String?
   about     String?
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   listings Listing[]
   reviews  Review[]
@@ -41,6 +42,7 @@ model Review {
   comment   String
   rating    Float
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   listingId String @db.ObjectId
   userId    String @db.ObjectId
