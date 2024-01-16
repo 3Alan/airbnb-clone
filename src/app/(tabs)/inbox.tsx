@@ -4,9 +4,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import LoginButton from '@/components/common/LoginButton';
 import Colors from '@/constants/Colors';
+import useAuth from '@/hooks/useAuth';
 
 export default function Inbox() {
+  const { isLogin } = useAuth();
   const { top } = useSafeAreaInsets();
 
   return (
@@ -15,13 +18,23 @@ export default function Inbox() {
         estimatedItemSize={10}
         ListHeaderComponent={<Text style={styles.title}>收件箱</Text>}
         ListEmptyComponent={
-          <View style={styles.empty}>
-            <Ionicons name="chatbox-ellipses-outline" size={36} />
-            <Text style={styles.emptyTitle}>没有新信息</Text>
-            <Text style={styles.emptyDesc}>
-              如果你联系了房东/体验大人或者发送了预定申请，你会在这里看到这些信息
-            </Text>
-          </View>
+          isLogin ? (
+            <View style={styles.empty}>
+              <Ionicons name="chatbox-ellipses-outline" size={36} />
+              <Text style={styles.emptyTitle}>没有新信息</Text>
+              <Text style={styles.emptyDesc}>
+                如果你联系了房东/体验大人或者发送了预定申请，你会在这里看到这些信息
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.emptyWithoutLogin}>
+              <Text style={styles.emptyTitleWithoutLogin}>请登录以查看消息</Text>
+              <Text style={styles.emptyDescWithoutLogin}>
+                登录后，您将会在这里找到来自房东/体验达人的消息
+              </Text>
+              <LoginButton />
+            </View>
+          )
         }
         data={[]}
         renderItem={() => <Text>1</Text>}
@@ -43,6 +56,13 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: Colors.textColor
   },
+  emptyWithoutLogin: {
+    marginTop: 30,
+    borderTopColor: Colors.borderColor,
+    borderTopWidth: 1,
+    paddingTop: 40,
+    alignItems: 'flex-start'
+  },
   empty: {
     paddingTop: 320,
     alignItems: 'center'
@@ -57,5 +77,15 @@ const styles = StyleSheet.create({
   emptyDesc: {
     fontSize: 16,
     textAlign: 'center'
+  },
+  emptyTitleWithoutLogin: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: Colors.textColor
+  },
+  emptyDescWithoutLogin: {
+    paddingTop: 10,
+    paddingBottom: 20,
+    color: Colors.grey
   }
 });

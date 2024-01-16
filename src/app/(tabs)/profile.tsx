@@ -1,19 +1,21 @@
-import { useAuth } from '@clerk/clerk-expo';
 import { FontAwesome, Ionicons, Octicons } from '@expo/vector-icons';
+import dayjs from 'dayjs';
 import { BlurView } from 'expo-blur';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link } from 'expo-router';
 import React from 'react';
-import { Button, Dimensions, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import Avatar from '@/components/common/Avatar';
 import WebLink from '@/components/common/WebLink';
 import Colors from '@/constants/Colors';
+import useAuth from '@/hooks/useAuth';
 
 const Profile = () => {
   const { top } = useSafeAreaInsets();
-  const { signOut, isSignedIn } = useAuth();
+  const { isLogin, user } = useAuth();
   return (
     <View style={[styles.container, { paddingTop: top }]}>
       {/* background: radial-gradient(
@@ -41,22 +43,41 @@ const Profile = () => {
           <Ionicons size={20} color="#4b4646" name="settings-outline" />
         </Pressable>
       </View>
-      {isSignedIn ? (
-        <Button title="Log out" onPress={() => signOut()} />
-      ) : (
-        <BlurView style={styles.userCard} intensity={100}>
-          <View style={{ paddingRight: 20 }}>
-            <Link style={styles.loginText} href="/(modals)/login">
-              注册/登录
-            </Link>
-            <Text
-              style={{
-                color: '#979291'
-              }}
-            >
-              注册爱彼迎，开启不一样的旅行体验
-            </Text>
+
+      <BlurView style={styles.userCard} intensity={100}>
+        <View style={{ paddingRight: 20 }}>
+          {isLogin ? (
+            <>
+              <Text style={styles.userName}>{user?.name}</Text>
+              <Text
+                style={{
+                  color: '#979291'
+                }}
+              >
+                今天是爱彼迎陪伴你的第{dayjs().diff(dayjs(user?.createdAt), 'day')}天
+              </Text>
+            </>
+          ) : (
+            <>
+              <Link style={styles.userName} href="/(modals)/login">
+                注册/登录
+              </Link>
+              <Text
+                style={{
+                  color: '#979291'
+                }}
+              >
+                注册爱彼迎，开启不一样的旅行体验
+              </Text>
+            </>
+          )}
+        </View>
+
+        {isLogin ? (
+          <View style={styles.avatar}>
+            <Avatar img={user?.img as string} />
           </View>
+        ) : (
           <LinearGradient
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 0.5 }}
@@ -65,8 +86,8 @@ const Profile = () => {
           >
             <FontAwesome color="#fff" size={36} name="user" />
           </LinearGradient>
-        </BlurView>
-      )}
+        )}
+      </BlurView>
 
       <View style={styles.card}>
         <Pressable style={styles.iconItem}>
@@ -152,6 +173,11 @@ const styles = StyleSheet.create({
     gap: 30,
     paddingTop: 16
   },
+  avatar: {
+    borderRadius: 40,
+    borderWidth: 3,
+    borderColor: '#d40a64'
+  },
   emptyAvatar: {
     width: 50,
     height: 50,
@@ -165,7 +191,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center'
   },
-  loginText: {
+  userName: {
     fontWeight: 'bold',
     fontSize: 22,
     color: Colors.textColor,

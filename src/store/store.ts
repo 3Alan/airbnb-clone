@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+// TODO: 将不再使用 Redux
+
 import filterReducer from './slices/filterSlice';
 
 export const store = configureStore({

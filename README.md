@@ -2,13 +2,23 @@
 
 It is for learning purpose only. All image from unsplash.(https://source.unsplash.com/random)
 
+## Demo
+
+https://airbnb.alanwang.site/
+
+The Demo is read only. You can't create, update or delete any data.
+
 ## Tech Stack
 
 - Expo SDK 50
 - Expo Router V3
-- React Query
-- MongoDB
-- Prisma
+- Expo API Route
+- **MongoDB** for database
+- **Zod** for schema validation
+- **Prisma** for ORM
+- **React Query** for async state management
+- **Zustand** for global state management
+- **React Hook Form** for form validation
 
 ## Screenshots
 

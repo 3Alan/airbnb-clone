@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+// TODO: 将不再使用 Redux
+
 export interface GuestNumber {
   adultNumber: number;
   childrenNumber: number;
