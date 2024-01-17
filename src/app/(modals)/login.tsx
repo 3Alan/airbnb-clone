@@ -88,9 +88,7 @@ export default function Login() {
         )}
       />
 
-      <Button colors={['#e51e4d', '#d70465']} onPress={handleSubmit(onLogin)}>
-        继续
-      </Button>
+      <Button onPress={handleSubmit(onLogin)}>继续</Button>
 
       <View style={styles.separatorContainer}>
         <View
@@ -113,7 +111,7 @@ export default function Login() {
       </View>
 
       <View style={{ gap: 20 }}>
-        <Button theme="standard" icon={<Ionicons size={24} name="logo-google" />}>
+        <Button theme="tertiary" icon={<Ionicons size={24} name="logo-google" />}>
           使用 Google 账号登录
         </Button>
       </View>

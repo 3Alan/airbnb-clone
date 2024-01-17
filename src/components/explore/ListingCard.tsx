@@ -23,7 +23,16 @@ const ListingCard = ({
   }
 
   return (
-    <Link href={`/detail/${item.id}`} asChild>
+    <Link
+      href={{
+        pathname: '/detail/[id]',
+        params: {
+          id: item.id,
+          img: item.imgs[0]
+        }
+      }}
+      asChild
+    >
       <TouchableOpacity activeOpacity={0.8}>
         <View style={[styles.card, style]}>
           <Image

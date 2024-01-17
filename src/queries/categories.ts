@@ -19,7 +19,6 @@ export const fetchCategories = async () => {
 export default function useCategories() {
   return useQuery({
     queryKey: ['categories'],
-    queryFn: fetchCategories,
-    placeholderData: []
+    queryFn: fetchCategories
   });
 }

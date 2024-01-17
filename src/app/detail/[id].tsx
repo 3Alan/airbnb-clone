@@ -15,6 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Colors from '../../constants/Colors';
 
 import Avatar from '@/components/common/Avatar';
+import Spin from '@/components/common/Spin';
 import Features from '@/components/detail/Features';
 import DetailFooter from '@/components/detail/Footer';
 import HostInfo from '@/components/detail/HostInfo';
@@ -23,13 +24,17 @@ import { useListing } from '@/queries/listings';
 
 const CAROUSEL_HEIGHT = 240;
 
+type URLParams = {
+  id: string;
+  img?: string;
+};
+
 const Detail = () => {
   const { top } = useSafeAreaInsets();
   const navigation = useNavigation();
-  const { id } = useLocalSearchParams<{ id: string }>();
-
-  // 骨架屏优化一下
-  const { data } = useListing(id);
+  // 提升用户体验
+  const { id, img } = useLocalSearchParams<URLParams>();
+  const { data = {}, isSuccess, isPending } = useListing(id);
 
   const { width } = useWindowDimensions();
   const translationY = useSharedValue(0);
@@ -87,8 +92,9 @@ const Detail = () => {
       />
 
       <Animated.ScrollView
+        style={{ backgroundColor: '#fff' }}
         onScroll={scrollHandler}
-        contentContainerStyle={{ paddingBottom: 90, backgroundColor: '#f7f7f7' }}
+        contentContainerStyle={{ backgroundColor: '#f7f7f7' }}
       >
         <View style={styles.imgContainer}>
           <Carousel
@@ -97,7 +103,7 @@ const Detail = () => {
             pagingEnabled
             width={width}
             height={CAROUSEL_HEIGHT}
-            data={data.imgs as string[]}
+            data={data?.imgs ? data.imgs : [img]}
             renderItem={({ item }) => {
               return (
                 <Image
@@ -108,27 +114,40 @@ const Detail = () => {
                   }}
                   contentFit="cover"
                   source={{
-                    uri: item
+                    uri: item as string
                   }}
                 />
               );
             }}
           />
-          <Avatar style={styles.avatar} img={data?.user?.img} />
+          {isSuccess && <Avatar style={styles.avatar} img={data?.user?.img} />}
         </View>
 
-        <View style={styles.intro}>
-          <Text style={styles.roomType}>上海 · 公寓型住宅里的独立房间</Text>
-          <Text style={styles.name}>{data.title}</Text>
+        {isPending ? (
+          <View
+            style={{
+              backgroundColor: '#fff',
+              alignItems: 'center',
+              flex: 1
+            }}
+          >
+            <Spin />
+          </View>
+        ) : (
+          <>
+            <View style={styles.intro}>
+              <Text style={styles.roomType}>上海 · 公寓型住宅里的独立房间</Text>
+              <Text style={styles.name}>{data.title}</Text>
 
-          <Features item={data} />
-        </View>
-
-        <OverView item={data} />
-        <HostInfo item={data?.user} />
+              <Features item={data} />
+            </View>
+            <OverView item={data} />
+            {data.user && <HostInfo item={data?.user} />}
+          </>
+        )}
       </Animated.ScrollView>
 
-      <DetailFooter item={data} />
+      <DetailFooter item={data} isLoading={isPending} />
     </View>
   );
 };

@@ -7,22 +7,26 @@ import Button from '../common/Button';
 
 import { Listing } from '@/interface/Listing';
 
-const DetailFooter = ({ item }: { item: Listing }) => {
+const DetailFooter = ({ item, isLoading }: { item: Listing; isLoading?: boolean }) => {
   return (
     <View style={styles.footer}>
       <View>
-        <View style={styles.priceContainer}>
-          <Text style={styles.price}>￥{item.price}</Text>
-          <Text style={styles.priceUnit}>/晚</Text>
-        </View>
-        <View style={styles.reviewContainer}>
-          <Ionicons color="#fd3b5e" name="star" size={12} />
-          <Text style={styles.reviewRate}>{item.rating}</Text>
-          <Text style={styles.reviewNumber}>({item.reviewCount}条评论)</Text>
-        </View>
+        {!isLoading && (
+          <>
+            <View style={styles.priceContainer}>
+              <Text style={styles.price}>￥{item.price}</Text>
+              <Text style={styles.priceUnit}>/晚</Text>
+            </View>
+            <View style={styles.reviewContainer}>
+              <Ionicons color="#fd3b5e" name="star" size={12} />
+              <Text style={styles.reviewRate}>{item.rating}</Text>
+              <Text style={styles.reviewNumber}>({item.reviewCount}条评论)</Text>
+            </View>
+          </>
+        )}
       </View>
 
-      <Button style={styles.button} textStyle={styles.buttonText} colors={['#e51e4d', '#d70465']}>
+      <Button style={styles.button} isLoading={isLoading}>
         查看可定状态
       </Button>
     </View>
@@ -33,10 +37,6 @@ export default DetailFooter;
 
 const styles = StyleSheet.create({
   footer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
     backgroundColor: '#fff',
     paddingHorizontal: 14,
     height: 90,
@@ -48,9 +48,6 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingHorizontal: 14
-  },
-  buttonText: {
-    fontWeight: '100'
   },
   priceContainer: {
     flexDirection: 'row',

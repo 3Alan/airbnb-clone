@@ -41,3 +41,7 @@ yarn-error.*
 expo-env.d.ts
 # @end expo-cli
 .vercel
+
+# mongodb dump
+# mongodump --uri=mongodb://localhost:27017/airbnb
+dump

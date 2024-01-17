@@ -45,9 +45,6 @@ export function useListing(id: string) {
     queryFn: async () => {
       const res = await request(`/listings/${id}`);
       return res.data;
-    },
-    placeholderData: {
-      user: {}
     }
   });
 }

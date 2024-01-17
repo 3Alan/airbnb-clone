@@ -17,7 +17,7 @@ interface ListingProps {
 }
 
 const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
-  const { data: categories = [], isFetching: isLoadingCategories } = useCategories();
+  const { data: categories = [], isPending: isLoadingCategories } = useCategories();
   const [category, setCategory] = useState<string>('全部');
   const { data: listings, fetchNextPage, isFetching, hasNextPage } = useListings(category);
 

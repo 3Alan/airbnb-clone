@@ -36,7 +36,6 @@ const Search = () => {
         <Button
           style={styles.searchBtn}
           iconCenter
-          colors={['#e51e4d', '#d70465']}
           onPress={handleSearch}
           icon={
             <Ionicons
