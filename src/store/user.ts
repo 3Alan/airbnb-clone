@@ -12,9 +12,8 @@ interface UserState {
   logout: () => void;
 }
 
-export const useUserStore = create<UserState>(
-  // @ts-ignore
-  persist(
+export const useUserStore = create(
+  persist<UserState>(
     set => ({
       user: null,
       login: user => set({ user }),

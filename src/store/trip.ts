@@ -31,9 +31,8 @@ const defaultState = {
   }
 };
 
-export const useTrip = create<TripState & Actions>(
-  // @ts-ignore
-  persist(
+export const useTrip = create(
+  persist<TripState & Actions>(
     set => ({
       ...defaultState,
       setDateRange: (dateRange: string[]) => set({ dateRange }),

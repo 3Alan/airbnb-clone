@@ -5,10 +5,6 @@ import { z } from 'zod';
 
 import prisma from '@/server/db';
 
-// console.log(
-//   jwt.verify(request.headers.get('Authorization')?.split(' ')[1], process.env.JWT_SECRET)
-// );
-
 export async function POST(request: ExpoRequest) {
   const body = await request.json();
   const schema = z.object({

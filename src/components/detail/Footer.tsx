@@ -1,13 +1,40 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useMutation } from '@tanstack/react-query';
+import dayjs from 'dayjs';
+import { isEmpty } from 'lodash';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { useToast } from 'react-native-toast-notifications';
 
 import Colors from '../../constants/Colors';
 import Button from '../common/Button';
 
 import { Listing } from '@/interface/Listing';
+import { useTrip } from '@/store/trip';
+import authAction from '@/utils/authAction';
+import request from '@/utils/request';
 
 const DetailFooter = ({ item, isLoading }: { item: Listing; isLoading?: boolean }) => {
+  const toast = useToast();
+  const dateRange = useTrip(state => state.dateRange);
+  const mutation = useMutation({
+    mutationFn: (data: any) => {
+      return request.post('/reservation', data);
+    }
+  });
+
+  const handleReservePress = async () => {
+    const res = await mutation.mutateAsync({
+      listingId: item.id,
+      startDate: dayjs(dateRange[0]),
+      endDate: dayjs(dateRange[1])
+    });
+
+    if (res.data.isSuccess) {
+      toast.show('预定成功');
+    }
+  };
+
   return (
     <View style={styles.footer}>
       <View>
@@ -26,9 +53,19 @@ const DetailFooter = ({ item, isLoading }: { item: Listing; isLoading?: boolean 
         )}
       </View>
 
-      <Button style={styles.button} isLoading={isLoading}>
-        查看可定状态
-      </Button>
+      {isEmpty(dateRange) ? (
+        <Button isLoading={isLoading}>查看可定状态</Button>
+      ) : (
+        <Button
+          style={{
+            width: 100
+          }}
+          isLoading={isLoading}
+          onPress={authAction(handleReservePress)}
+        >
+          预定
+        </Button>
+      )}
     </View>
   );
 };
@@ -45,9 +82,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopWidth: 1,
     borderTopColor: '#e4e4e4'
-  },
-  button: {
-    paddingHorizontal: 14
   },
   priceContainer: {
     flexDirection: 'row',

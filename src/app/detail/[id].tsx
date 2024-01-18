@@ -14,13 +14,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Colors from '../../constants/Colors';
 
+import { useListing } from '@/actions/listings';
 import Avatar from '@/components/common/Avatar';
 import Spin from '@/components/common/Spin';
 import Features from '@/components/detail/Features';
 import DetailFooter from '@/components/detail/Footer';
 import HostInfo from '@/components/detail/HostInfo';
 import OverView from '@/components/detail/OverView';
-import { useListing } from '@/queries/listings';
 
 const CAROUSEL_HEIGHT = 240;
 

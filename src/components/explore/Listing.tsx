@@ -8,9 +8,9 @@ import Wave from './Wave';
 import CategoryTabs from '../common/CategoryTabs';
 import Spin from '../common/Spin';
 
+import useCategories from '@/actions/categories';
+import { useListings } from '@/actions/listings';
 import Colors from '@/constants/Colors';
-import useCategories from '@/queries/categories';
-import { useListings } from '@/queries/listings';
 
 interface ListingProps {
   onScroll?: (y: number) => void;
