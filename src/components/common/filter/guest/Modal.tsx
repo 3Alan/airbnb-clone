@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import GuestItem from './GuestItem';
 import FilterModal from '../Modal';
 
-import { GuestNumber } from '@/store/slices/filterSlice';
+import { GuestNumber } from '@/store/trip';
 
 interface GuestModalProps {
   visible: boolean;

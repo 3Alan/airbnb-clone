@@ -1,8 +1,8 @@
 import { User } from '@prisma/client';
-import * as SecureStore from 'expo-secure-store';
-import { Platform } from 'react-native';
 import { create } from 'zustand';
-import { StateStorage, createJSONStorage, persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
+
+import storageAdapter from './storageAdapter';
 
 type UserInfo = User & { token: string };
 
@@ -11,24 +11,6 @@ interface UserState {
   login: (user: UserInfo) => void;
   logout: () => void;
 }
-
-const storage: StateStorage = {
-  getItem: async (name: string): Promise<string | null> => {
-    if (Platform.OS === 'web') return localStorage.getItem(name);
-
-    return (await SecureStore.getItemAsync(name)) || null;
-  },
-  setItem: async (name: string, value: string): Promise<void> => {
-    if (Platform.OS === 'web') localStorage.setItem(name, value);
-
-    await SecureStore.setItemAsync(name, value);
-  },
-  removeItem: async (name: string): Promise<void> => {
-    if (Platform.OS === 'web') localStorage.removeItem(name);
-
-    await SecureStore.deleteItemAsync(name);
-  }
-};
 
 export const useUserStore = create<UserState>(
   // @ts-ignore
@@ -40,7 +22,7 @@ export const useUserStore = create<UserState>(
     }),
     {
       name: 'user-storage',
-      storage: createJSONStorage(() => storage)
+      storage: createJSONStorage(() => storageAdapter)
     }
   )
 );

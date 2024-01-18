@@ -9,9 +9,6 @@ import { TouchableOpacity } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ToastProvider } from 'react-native-toast-notifications';
-import { Provider } from 'react-redux';
-
-import { store } from '../store/store';
 
 import Toast from '@/components/common/Toast';
 
@@ -64,30 +61,24 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <BottomSheetModalProvider>
-            <ToastProvider
-              duration={2000}
-              offsetBottom={bottom + tabBarHeight + 16}
-              renderType={{
-                save: options => (
-                  <Toast type="save" img={options.data.img} listName={options.message as string} />
-                ),
-                delete: options => (
-                  <Toast
-                    type="delete"
-                    img={options.data.img}
-                    listName={options.message as string}
-                  />
-                )
-              }}
-            >
-              <RootLayoutNav />
-            </ToastProvider>
-          </BottomSheetModalProvider>
-        </GestureHandlerRootView>
-      </Provider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
+          <ToastProvider
+            duration={2000}
+            offsetBottom={bottom + tabBarHeight + 16}
+            renderType={{
+              save: options => (
+                <Toast type="save" img={options.data.img} listName={options.message as string} />
+              ),
+              delete: options => (
+                <Toast type="delete" img={options.data.img} listName={options.message as string} />
+              )
+            }}
+          >
+            <RootLayoutNav />
+          </ToastProvider>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
     </QueryClientProvider>
   );
 }

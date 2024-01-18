@@ -1,12 +1,10 @@
 import React, { FC, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 
 import GuestModal from './Modal';
 
 import Colors from '@/constants/Colors';
-import { GuestNumber, changeGuestNumber } from '@/store/slices/filterSlice';
-import { RootState } from '@/store/store';
+import { GuestNumber, useTrip } from '@/store/trip';
 
 interface GuestInputProps {
   contentStyle?: ViewStyle;
@@ -17,8 +15,7 @@ interface GuestInputProps {
 
 const GuestInput: FC<GuestInputProps> = ({ contentStyle }) => {
   const [showModal, setShowModal] = useState(false);
-  const dispatch = useDispatch();
-  const { guestNumber } = useSelector((state: RootState) => state.filter);
+  const { guestNumber, setGuestNumber } = useTrip(state => state);
 
   const hasGuest =
     guestNumber.adultNumber + guestNumber.childrenNumber + guestNumber.infantNumber > 0;
@@ -28,7 +25,7 @@ const GuestInput: FC<GuestInputProps> = ({ contentStyle }) => {
   };
 
   const handleGuestChange = (value: GuestNumber) => {
-    dispatch(changeGuestNumber(value));
+    setGuestNumber(value);
   };
 
   return (

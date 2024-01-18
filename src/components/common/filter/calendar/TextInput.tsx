@@ -1,12 +1,11 @@
 import dayjs from 'dayjs';
 import React, { FC, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 
 import CalendarModal from './Modal';
 import Colors from '../../../../constants/Colors';
-import { changeDateRange } from '../../../../store/slices/filterSlice';
-import { RootState } from '../../../../store/store';
+
+import { useTrip } from '@/store/trip';
 
 interface DateTextInputProps {
   contentStyle?: ViewStyle;
@@ -22,8 +21,7 @@ const DateTextInput: FC<DateTextInputProps> = ({
   rangeStyle
 }) => {
   const [showCalendar, setShowCalendar] = useState(false);
-  const dispatch = useDispatch();
-  const { dateRange } = useSelector((state: RootState) => state.filter);
+  const { dateRange, setDateRange } = useTrip(state => state);
 
   const handleDatePress = () => {
     setShowCalendar(true);
@@ -53,9 +51,7 @@ const DateTextInput: FC<DateTextInputProps> = ({
       <CalendarModal
         date={dateRange}
         visible={showCalendar}
-        onChange={date => {
-          dispatch(changeDateRange(date));
-        }}
+        onChange={setDateRange}
         onClose={() => setShowCalendar(false)}
       />
     </>
