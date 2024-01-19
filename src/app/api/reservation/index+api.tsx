@@ -15,8 +15,6 @@ export async function POST(request: ExpoRequest) {
   });
   const parsedRes = schema.safeParse(body);
 
-  console.log(parsedRes);
-
   // TODO: middleware
   if (!parsedRes.success) {
     return new ExpoResponse(parsedRes.error.message, {
@@ -56,4 +54,37 @@ export async function POST(request: ExpoRequest) {
   });
 
   return ExpoResponse.json({ isSuccess: !!listingAndReservation });
+}
+
+export async function GET(request: ExpoRequest) {
+  const user = await getCurrentUser(request);
+
+  const result = await prisma.reservation.findMany({
+    where: {
+      userId: user.id
+    },
+    include: {
+      listing: {
+        select: {
+          imgs: true,
+          title: true,
+          user: {
+            select: {
+              name: true
+            }
+          }
+        }
+      }
+    }
+  });
+
+  // TODO: graphql 可以解决这种问题？
+  const reservationList = result.map(item => ({
+    ...item,
+    title: item.listing.title,
+    listingImg: item.listing.imgs[0],
+    hostName: item.listing.user.name
+  }));
+
+  return ExpoResponse.json(reservationList);
 }

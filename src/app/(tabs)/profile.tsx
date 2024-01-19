@@ -48,7 +48,7 @@ const Profile = () => {
         <View style={{ paddingRight: 20 }}>
           {isLogin ? (
             <>
-              <Text style={styles.userName}>{user?.name}</Text>
+              <Text style={styles.userName}>Hi {user?.name}</Text>
               <Text
                 style={{
                   color: '#979291'

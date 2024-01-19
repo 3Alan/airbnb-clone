@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
   tertiaryBtn: {
     backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: Colors.shade02,
-    color: Colors.shade02
+    borderColor: Colors.text,
+    color: Colors.text
   },
   text: {
     color: '#fff',

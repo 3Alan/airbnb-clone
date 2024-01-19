@@ -39,7 +39,8 @@ export default function Layout() {
       <Tabs.Screen
         name="trips"
         options={{
-          tabBarLabel: '社区',
+          headerShown: false,
+          tabBarLabel: '行程',
           tabBarIcon: ({ color, size }) => <FontAwesome5 name="airbnb" color={color} size={size} />
         }}
       />

@@ -9,7 +9,7 @@ export default {
   // https://www.figma.com/community/file/1206705782258966386
   shade01: '#ffffff',
   /** Most text */
-  shade02: 'rgba(34, 34, 34)',
+  text: 'rgba(34, 34, 34)',
   shade025: 'rgba(34, 34, 34, 0.05)',
   shade0230: 'rgba(34, 34, 34, 0.3)',
   neutral01: '#f7f7f7',
