@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Toast } from 'react-native-toast-notifications';
 
 import { useUserStore } from '@/store/user';
 
@@ -30,6 +31,7 @@ request.interceptors.response.use(
     if (error.response.status === 401) {
     }
 
+    Toast.show('something went wrong');
     return Promise.reject(error);
   }
 );

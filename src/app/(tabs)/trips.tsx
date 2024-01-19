@@ -67,12 +67,7 @@ export default function Trips() {
     <View style={[styles.container, { paddingTop: top }]}>
       <FlashList
         estimatedItemSize={10}
-        ListHeaderComponent={
-          <>
-            <Text style={styles.title}>Trips</Text>
-            <Text style={styles.subTitle}>Your reservation</Text>
-          </>
-        }
+        ListHeaderComponent={<Text style={styles.title}>Trips</Text>}
         ListEmptyComponent={
           isLogin ? (
             <View style={styles.empty}>
@@ -84,15 +79,14 @@ export default function Trips() {
             </View>
           ) : (
             <View style={styles.emptyWithoutLogin}>
-              <Text style={styles.emptyTitleWithoutLogin}>请登录以查看消息</Text>
-              <Text style={styles.emptyDescWithoutLogin}>
-                登录后，您将会在这里找到来自房东/体验达人的消息
-              </Text>
+              <Text style={styles.emptyTitleWithoutLogin}>请登录以查看行程</Text>
+              <Text style={styles.emptyDescWithoutLogin}>登录后，您将会在这里看到行程信息</Text>
               <LoginButton />
             </View>
           )
         }
         data={data}
+        // <Text style={styles.subTitle}>Your reservation</Text>
         renderItem={({ item }) => <Card item={item} />}
       />
     </View>
