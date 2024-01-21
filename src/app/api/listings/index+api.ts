@@ -5,14 +5,48 @@ import prisma from '@/server/db';
 import getApiParams from '@/utils/getApiParams';
 
 export async function GET(request: ExpoRequest) {
-  const { page = 1, num = 5, category } = getApiParams(request);
+  const { page = 1, num = 5, category, startDate, endDate, guestCount } = getApiParams(request);
+
+  const filterParams: any = {
+    guestCount: {
+      gte: Number(guestCount) || 0
+    },
+    category: {
+      name: category
+    }
+  };
+
+  if (!startDate && !endDate) {
+    filterParams.reservation = {
+      none: {
+        OR: [
+          {
+            startDate: {
+              gt: endDate
+            }
+          },
+          {
+            endDate: {
+              lt: startDate
+            }
+          }
+        ]
+      }
+    };
+  }
 
   const listings = await prisma.listing.findMany({
     skip: (Number(page) - 1) * Number(num),
     take: Number(num),
-    where: {
-      category: {
-        name: category
+    where: filterParams,
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+          img: true,
+          email: true
+        }
       }
     }
   });
@@ -21,11 +55,7 @@ export async function GET(request: ExpoRequest) {
     (await prisma.listing.count({
       skip: Number(page) * Number(num),
       take: Number(num),
-      where: {
-        category: {
-          name: category
-        }
-      }
+      where: filterParams
     })) > 0;
 
   return ExpoResponse.json({ listings, hasNextPage });

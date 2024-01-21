@@ -9,7 +9,7 @@ import CategoryTabs from '../common/CategoryTabs';
 import Spin from '../common/Spin';
 
 import useCategories from '@/actions/categories';
-import { useListings } from '@/actions/listings';
+import { useHomeListings } from '@/actions/listings';
 import Colors from '@/constants/Colors';
 
 interface ListingProps {
@@ -19,7 +19,7 @@ interface ListingProps {
 const Listing = forwardRef<unknown, ListingProps>(({ onScroll }, ref) => {
   const { data: categories = [], isPending: isLoadingCategories } = useCategories();
   const [category, setCategory] = useState<string>('全部');
-  const { data: listings, fetchNextPage, isFetching, hasNextPage } = useListings(category);
+  const { data: listings, fetchNextPage, isFetching, hasNextPage } = useHomeListings({ category });
 
   useEffect(() => {
     if (categories?.length > 0) {

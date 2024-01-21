@@ -4,12 +4,13 @@ import { isEmpty } from 'lodash';
 
 import request from '@/utils/request';
 
-export const fetchListings = async ({ pageParam }: { pageParam: number }, category: string) => {
+export const fetchHomeListings = async ({ pageParam }: { pageParam: number }, params: any) => {
   const res = await request('/listings', {
     params: {
       page: pageParam,
       num: 5,
-      category: isEmpty(category) || category === '全部' ? undefined : category
+      ...params,
+      category: isEmpty(params.category) || params.category === '全部' ? undefined : params.category
     }
   });
   const data = res.data as {
@@ -24,10 +25,46 @@ export const fetchListings = async ({ pageParam }: { pageParam: number }, catego
   };
 };
 
-export function useListings(category: string) {
+export const fetchSearchListings = async ({ pageParam }: { pageParam: number }, params: any) => {
+  const res = await request('/listings', {
+    params: {
+      page: pageParam,
+      num: 5,
+      ...params
+    }
+  });
+
+  const data = res.data as {
+    listings: Listing[];
+    hasNextPage: boolean;
+  };
+
+  return {
+    id: data.listings[0].id,
+    items: data.listings,
+    nextPage: data.hasNextPage ? pageParam + 1 : undefined
+  };
+};
+
+export function useHomeListings(params: any) {
   return useInfiniteQuery({
-    queryKey: ['listings', category],
-    queryFn: context => fetchListings(context, category),
+    queryKey: ['home-listings', params],
+    queryFn: context => fetchHomeListings(context, params),
+    placeholderData: {
+      pages: [],
+      pageParams: [1]
+    },
+    initialPageParam: 1,
+    getNextPageParam: lastPage => {
+      return lastPage.nextPage;
+    }
+  });
+}
+
+export function useSearchListings(params: any) {
+  return useInfiniteQuery({
+    queryKey: ['search-listings', params],
+    queryFn: context => fetchSearchListings(context, params),
     placeholderData: {
       pages: [],
       pageParams: [1]

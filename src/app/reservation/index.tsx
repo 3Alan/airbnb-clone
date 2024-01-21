@@ -10,7 +10,7 @@ import { useReservationConfirmation } from '@/actions/reservation';
 import Button from '@/components/common/Button';
 import Spin from '@/components/common/Spin';
 import Colors from '@/constants/Colors';
-import { useTrip } from '@/store/trip';
+import { useGuestCount, useTrip } from '@/store/trip';
 import authAction from '@/utils/authAction';
 import request from '@/utils/request';
 
@@ -19,7 +19,8 @@ export default function Reservation() {
   const { data, isPending } = useReservationConfirmation(params as any);
   const toast = useToast();
   const router = useRouter();
-  const { dateRange, guestNumber } = useTrip(state => state);
+  const { dateRange } = useTrip(state => state);
+  const guestCount = useGuestCount();
 
   const mutation = useMutation({
     mutationFn: (data: any) => {
@@ -35,9 +36,9 @@ export default function Reservation() {
   const handleReservePress = async () => {
     const res = await mutation.mutateAsync({
       listingId: params.listingId,
-      startDate: dayjs(dateRange[0]),
-      endDate: dayjs(dateRange[1]),
-      guestCount: guestNumber.adultNumber + guestNumber.childrenNumber + guestNumber.infantNumber
+      startDate: new Date(dateRange[0]),
+      endDate: new Date(dateRange[1]),
+      guestCount
     });
 
     if (res.data.isSuccess) {

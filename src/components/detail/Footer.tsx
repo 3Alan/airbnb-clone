@@ -8,12 +8,13 @@ import Colors from '../../constants/Colors';
 import Button from '../common/Button';
 
 import { Listing } from '@/interface/Listing';
-import { useTrip } from '@/store/trip';
+import { useGuestCount, useTrip } from '@/store/trip';
 import authAction from '@/utils/authAction';
 
 const DetailFooter = ({ item, isLoading }: { item: Listing; isLoading?: boolean }) => {
   const router = useRouter();
-  const { dateRange, guestNumber } = useTrip(state => state);
+  const { dateRange } = useTrip(state => state);
+  const guestCount = useGuestCount();
 
   const handleReservePress = async () => {
     router.push<any>({
@@ -22,7 +23,7 @@ const DetailFooter = ({ item, isLoading }: { item: Listing; isLoading?: boolean 
         listingId: item.id,
         startDate: dateRange[0],
         endDate: dateRange[1],
-        guestCount: guestNumber.adultNumber + guestNumber.childrenNumber + guestNumber.infantNumber
+        guestCount
       }
     });
   };

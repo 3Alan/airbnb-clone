@@ -15,31 +15,12 @@ import Animated from 'react-native-reanimated';
 import Carousel from 'react-native-reanimated-carousel';
 
 import Colors from '../../constants/Colors';
-import { ListingItem } from '../../interface/Listing';
+import { Listing } from '../../interface/Listing';
 import Avatar from '../common/Avatar';
+import Features from '../detail/Features';
 
-const FeatureItem = ({ text, type }: { text: string; type: 'primary' | 'standard' }) => {
-  return (
-    <Text
-      style={{
-        paddingHorizontal: 4,
-        borderRadius: 4,
-        fontSize: 12,
-        fontWeight: '500',
-        color: type === 'primary' ? '#b05f30' : '#a9a9a9',
-        borderWidth: 1,
-        borderColor: type === 'primary' ? '#c7b39e' : '#f1f1f1'
-      }}
-    >
-      {text}
-    </Text>
-  );
-};
-
-const ListingCard = ({ item }: { item: ListingItem; style?: StyleProp<ViewStyle> }) => {
+const ListingCard = ({ item }: { item: Listing; style?: StyleProp<ViewStyle> }) => {
   const { width } = useWindowDimensions();
-  const height = Math.floor(Math.random() * (300 - 100 + 1)) + 180;
-  const mockBeautifulImg = `https://source.unsplash.com/random/200x${height}/?room`;
 
   return (
     <Link href={`/detail/${item.id}`} asChild>
@@ -49,22 +30,22 @@ const ListingCard = ({ item }: { item: ListingItem; style?: StyleProp<ViewStyle>
             style={{ borderRadius: 16 }}
             width={width - 40}
             height={200}
-            data={[
-              'https://source.unsplash.com/random/?forest house',
-              'https://source.unsplash.com/random/?Mountain green'
-            ]}
+            data={item.imgs}
             // 解决和scrollView滚动手势冲突
-            panGestureHandlerProps={{ activeOffsetX: [-10, 10] }}
-            renderItem={({ item, index }) => {
+            panGestureHandlerProps={{ activeOffsetX: [-30, 30] }}
+            renderItem={({ item: img, index }) => {
               return (
                 <View>
                   {index === 0 && (
                     <Animated.View style={styles.review}>
                       <Ionicons name="star" size={14} color="#ff385c" />
-                      <Text style={{ fontSize: 13, paddingLeft: 3 }}>5.0</Text>
-                      <Text style={{ fontSize: 12, color: '#898986', paddingLeft: 3 }}>
-                        (116 条评价)
-                      </Text>
+                      <Text style={{ fontSize: 13, paddingLeft: 3 }}>{item.rating}</Text>
+                      {item.reviewCount && (
+                        <Text style={{ fontSize: 12, color: '#898986', paddingLeft: 3 }}>
+                          ({item.reviewCount} 条评价)
+                        </Text>
+                      )}
+
                       <Text style={{ fontSize: 11, paddingLeft: 4 }}>"如此平静的地方"</Text>
                     </Animated.View>
                   )}
@@ -74,14 +55,14 @@ const ListingCard = ({ item }: { item: ListingItem; style?: StyleProp<ViewStyle>
                       height: 200
                     }}
                     source={{
-                      uri: item
+                      uri: img
                     }}
                   />
                 </View>
               );
             }}
           />
-          <Avatar img={item.host_thumbnail_url} style={styles.avatar} />
+          <Avatar img={item.user?.img || ''} style={styles.avatar} />
           <View style={styles.tag}>
             <Text>房客推荐</Text>
           </View>
@@ -109,21 +90,16 @@ const ListingCard = ({ item }: { item: ListingItem; style?: StyleProp<ViewStyle>
               }}
               numberOfLines={1}
             >
-              农家乐·1室1卫2床·可住4人
+              农家乐·{item.roomCount}室{item.bathRoomCount}卫{item.bedCount}床·可住{item.guestCount}
+              人
             </Text>
           </View>
 
           <Text numberOfLines={1} style={styles.name}>
-            {item.name}
+            {item.title}
           </Text>
 
-          <View style={[styles.row, { columnGap: 10, rowGap: 4, flexWrap: 'wrap' }]}>
-            {item.features.map((feature, index) => {
-              return (
-                <FeatureItem key={index} text={feature} type={index > 1 ? 'standard' : 'primary'} />
-              );
-            })}
-          </View>
+          <Features item={item} />
 
           <View style={[styles.row, { paddingTop: 10 }]}>
             <Text

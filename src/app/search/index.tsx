@@ -1,21 +1,10 @@
 import { Stack } from 'expo-router';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import FilterHeader from '../../components/common/FilterHeader';
 import FilterBar from '../../components/search/FilterBar';
 import Listing from '../../components/search/Listing';
-
-import listingData from '@/data/airbnb-listings.json';
-
-const list = listingData.map(item => ({
-  id: item.id,
-  thumbnail_url: item.thumbnail_url,
-  geolocation: item.geolocation,
-  price: item.price,
-  weekly_price: item.weekly_price,
-  monthly_price: item.monthly_price
-}));
 
 const Search = () => {
   return (
@@ -46,5 +35,3 @@ const Search = () => {
 };
 
 export default Search;
-
-const styles = StyleSheet.create({});

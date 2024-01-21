@@ -1,38 +1,52 @@
 import { FlashList } from '@shopify/flash-list';
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import dayjs from 'dayjs';
+import React, { FC, useEffect } from 'react';
+import { Text, View } from 'react-native';
 
 import ListingCard from './ListingCard';
-import { ListingItem } from '../../interface/Listing';
+import Spin from '../common/Spin';
 
-import listingData from '@/data/airbnb-listings.json';
+import { useSearchListings } from '@/actions/listings';
+import Colors from '@/constants/Colors';
+import { useGuestCount, useTrip } from '@/store/trip';
 
 interface ListingProps {
   onScroll?: (y: number) => void;
 }
 
-const Listing: FC<ListingProps> = ({ onScroll }) => {
-  const [listing, setListing] = useState<ListingItem[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const snapPoints = useMemo(() => ['10%', '100%'], []);
+const Listing: FC<ListingProps> = () => {
+  const { dateRange } = useTrip(state => state);
+  const guestCount = useGuestCount();
+  const {
+    data: listings,
+    fetchNextPage,
+    isFetching,
+    hasNextPage
+  } = useSearchListings({
+    startDate: dayjs(dateRange[0]),
+    endDate: dayjs(dateRange[1]),
+    guestCount
+  });
 
   useEffect(() => {
     onLoadMoreListing();
   }, []);
 
   const onLoadMoreListing = () => {
-    const start = (currentPage - 1) * 20;
-    const newListing = listingData.slice(start, start + 20) as ListingItem[];
-    setListing([...listing, ...newListing]);
-    setCurrentPage(currentPage + 1);
+    if (isFetching || !hasNextPage) {
+      return;
+    }
+    fetchNextPage();
   };
 
   const renderItem = ({ item }: any) => {
-    return <ListingCard item={item} />;
-  };
-
-  const handleScroll = (event: any) => {
-    const scrollPosition = event.nativeEvent.contentOffset.y;
-    onScroll?.(scrollPosition);
+    return (
+      <>
+        {item.items.map((listing: any) => (
+          <ListingCard key={listing.id} item={listing} />
+        ))}
+      </>
+    );
   };
 
   return (
@@ -40,10 +54,19 @@ const Listing: FC<ListingProps> = ({ onScroll }) => {
       contentContainerStyle={{
         backgroundColor: '#fff'
       }}
+      ListFooterComponent={
+        <View style={{ backgroundColor: '#fff', alignItems: 'center', paddingVertical: 15 }}>
+          {isFetching ? (
+            <Spin />
+          ) : (
+            !hasNextPage && <Text style={{ color: Colors.neutral08 }}>没有更多了</Text>
+          )}
+        </View>
+      }
       showsVerticalScrollIndicator={false}
       onEndReached={onLoadMoreListing}
       estimatedItemSize={300}
-      data={listing as ListingItem[]}
+      data={listings?.pages}
       renderItem={renderItem}
     />
   );

@@ -16,7 +16,9 @@ function Feature({ text, type = 'standard' }: { text: string; type?: 'primary' |
 const Features = ({ item }: { item: Listing }) => {
   return (
     <View style={styles.container}>
-      <Feature type="primary" text={`${item.rating}分 · ${item.reviewCount}条评论`} />
+      {/* {item.reviewCount !== 0 && (
+        <Feature type="primary" text={`${item.rating}分 · ${item.reviewCount}条评论`} />
+      )} */}
       <Feature type="primary" text="超赞房东" />
       <Feature type="primary" text="近地铁" />
       <Feature text="免费停车" />

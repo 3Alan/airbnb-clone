@@ -1,4 +1,4 @@
-import { Listing as ListingModel } from '@prisma/client';
+import { Listing as ListingModel, User } from '@prisma/client';
 
 export interface ListingItem {
   id: string;
@@ -109,4 +109,5 @@ export interface ListingItem {
 
 export interface Listing extends ListingModel {
   reviewCount?: number;
+  user?: User;
 }

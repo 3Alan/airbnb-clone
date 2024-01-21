@@ -45,3 +45,9 @@ export const useTrip = create(
     }
   )
 );
+
+export const useGuestCount = () => {
+  const { guestNumber } = useTrip();
+
+  return guestNumber.adultNumber + guestNumber.childrenNumber + guestNumber.infantNumber;
+};

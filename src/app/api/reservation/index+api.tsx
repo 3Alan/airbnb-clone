@@ -77,6 +77,9 @@ export async function GET(request: ExpoRequest) {
           }
         }
       }
+    },
+    orderBy: {
+      startDate: 'asc'
     }
   });
 

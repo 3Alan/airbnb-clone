@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-n
 import GuestModal from './Modal';
 
 import Colors from '@/constants/Colors';
-import { GuestNumber, useTrip } from '@/store/trip';
+import { GuestNumber, useGuestCount, useTrip } from '@/store/trip';
 
 interface GuestInputProps {
   contentStyle?: ViewStyle;
@@ -16,9 +16,9 @@ interface GuestInputProps {
 const GuestInput: FC<GuestInputProps> = ({ contentStyle }) => {
   const [showModal, setShowModal] = useState(false);
   const { guestNumber, setGuestNumber } = useTrip(state => state);
+  const guestCount = useGuestCount();
 
-  const hasGuest =
-    guestNumber.adultNumber + guestNumber.childrenNumber + guestNumber.infantNumber > 0;
+  const hasGuest = guestCount > 0;
 
   const handleGuestPress = () => {
     setShowModal(true);
