@@ -7,7 +7,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { useReservation } from '@/actions/reservation';
+import { useReservations } from '@/actions/reservation';
 import LoginButton from '@/components/common/LoginButton';
 import Colors from '@/constants/Colors';
 import useAuth from '@/hooks/useAuth';
@@ -35,7 +35,8 @@ function Card({ item }: { item: any }) {
 
 const cardStyles = StyleSheet.create({
   card: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop: 20
   },
   img: {
     width: 80,
@@ -61,7 +62,7 @@ const cardStyles = StyleSheet.create({
 export default function Trips() {
   const { isLogin } = useAuth();
   const { top } = useSafeAreaInsets();
-  const { data } = useReservation();
+  const { data } = useReservations();
 
   return (
     <View style={[styles.container, { paddingTop: top }]}>
@@ -72,10 +73,7 @@ export default function Trips() {
           isLogin ? (
             <View style={styles.empty}>
               <Ionicons name="chatbox-ellipses-outline" size={36} />
-              <Text style={styles.emptyTitle}>没有新信息</Text>
-              <Text style={styles.emptyDesc}>
-                如果你联系了房东/体验大人或者发送了预定申请，你会在这里看到这些信息
-              </Text>
+              <Text style={styles.emptyTitle}>没有行程信息</Text>
             </View>
           ) : (
             <View style={styles.emptyWithoutLogin}>
@@ -86,7 +84,6 @@ export default function Trips() {
           )
         }
         data={data}
-        // <Text style={styles.subTitle}>Your reservation</Text>
         renderItem={({ item }) => <Card item={item} />}
       />
     </View>

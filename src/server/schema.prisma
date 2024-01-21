@@ -80,6 +80,7 @@ model Reservation {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   startDate  DateTime
   endDate    DateTime
+  guestCount Int
   totalPrice Int
   createdAt  DateTime @default(now())
 

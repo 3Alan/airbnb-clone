@@ -11,7 +11,8 @@ export async function POST(request: ExpoRequest) {
   const schema = z.object({
     listingId: z.string(),
     startDate: z.string(),
-    endDate: z.string()
+    endDate: z.string(),
+    guestCount: z.number()
   });
   const parsedRes = schema.safeParse(body);
 
@@ -23,7 +24,7 @@ export async function POST(request: ExpoRequest) {
   }
 
   const user = await getCurrentUser(request);
-  const { listingId, startDate, endDate } = parsedRes.data;
+  const { listingId, startDate, endDate, guestCount } = parsedRes.data;
 
   const listing = await prisma.listing.findUnique({
     where: {
@@ -47,6 +48,7 @@ export async function POST(request: ExpoRequest) {
           userId: user.id,
           startDate,
           endDate,
+          guestCount,
           totalPrice: dayjs(endDate).diff(dayjs(startDate), 'day') * listing.price
         }
       }

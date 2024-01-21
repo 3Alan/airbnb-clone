@@ -1,10 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useMutation } from '@tanstack/react-query';
-import dayjs from 'dayjs';
+import { useRouter } from 'expo-router';
 import { isEmpty } from 'lodash';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useToast } from 'react-native-toast-notifications';
 
 import Colors from '../../constants/Colors';
 import Button from '../common/Button';
@@ -12,27 +10,21 @@ import Button from '../common/Button';
 import { Listing } from '@/interface/Listing';
 import { useTrip } from '@/store/trip';
 import authAction from '@/utils/authAction';
-import request from '@/utils/request';
 
 const DetailFooter = ({ item, isLoading }: { item: Listing; isLoading?: boolean }) => {
-  const toast = useToast();
-  const dateRange = useTrip(state => state.dateRange);
-  const mutation = useMutation({
-    mutationFn: (data: any) => {
-      return request.post('/reservation', data);
-    }
-  });
+  const router = useRouter();
+  const { dateRange, guestNumber } = useTrip(state => state);
 
   const handleReservePress = async () => {
-    const res = await mutation.mutateAsync({
-      listingId: item.id,
-      startDate: dayjs(dateRange[0]),
-      endDate: dayjs(dateRange[1])
+    router.push<any>({
+      pathname: '/reservation',
+      params: {
+        listingId: item.id,
+        startDate: dateRange[0],
+        endDate: dateRange[1],
+        guestCount: guestNumber.adultNumber + guestNumber.childrenNumber + guestNumber.infantNumber
+      }
     });
-
-    if (res.data.isSuccess) {
-      toast.show('预定成功');
-    }
   };
 
   return (
