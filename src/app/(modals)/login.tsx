@@ -1,9 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 
 import Button from '../../components/common/Button';
@@ -49,6 +49,21 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+        options={{
+          title: '登录或注册',
+          headerTitleStyle: {
+            fontFamily: 'MonSB'
+          },
+          // 安卓貌似没有
+          presentation: 'modal',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <Ionicons name="close-outline" size={28} />
+            </TouchableOpacity>
+          )
+        }}
+      />
       <Text
         style={{
           fontWeight: 'bold',

@@ -1,16 +1,30 @@
-import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import * as Sentry from '@sentry/react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
-import { SplashScreen, Stack, useRouter } from 'expo-router';
+import { SplashScreen, Stack, useNavigationContainerRef } from 'expo-router';
 import { useEffect } from 'react';
-import { TouchableOpacity } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ToastProvider } from 'react-native-toast-notifications';
 
 import Toast from '@/components/common/Toast';
+
+// Construct a new instrumentation instance. This is needed to communicate between the integration and React
+const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+  integrations: [
+    new Sentry.ReactNativeTracing({
+      // Pass instrumentation to be used as `routingInstrumentation`
+      routingInstrumentation
+      // ...
+    })
+  ]
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,7 +48,8 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function RootLayout() {
+  const ref = useNavigationContainerRef();
   const { bottom } = useSafeAreaInsets();
   const tabBarHeight = 50;
   const [loaded, error] = useFonts({
@@ -43,6 +58,12 @@ export default function RootLayout() {
     MonB: require('../../assets/fonts/Montserrat-Bold.ttf'),
     ...FontAwesome.font
   });
+
+  useEffect(() => {
+    if (ref) {
+      routingInstrumentation.registerNavigationContainer(ref);
+    }
+  }, [ref]);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -75,7 +96,7 @@ export default function RootLayout() {
               )
             }}
           >
-            <RootLayoutNav />
+            <Stack />
           </ToastProvider>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
@@ -83,28 +104,4 @@ export default function RootLayout() {
   );
 }
 
-function RootLayoutNav() {
-  const router = useRouter();
-
-  return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="(modals)/login"
-        options={{
-          title: '登录或注册',
-          headerTitleStyle: {
-            fontFamily: 'MonSB'
-          },
-          // 安卓貌似没有
-          presentation: 'modal',
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()}>
-              <Ionicons name="close-outline" size={28} />
-            </TouchableOpacity>
-          )
-        }}
-      />
-    </Stack>
-  );
-}
+export default Sentry.wrap(RootLayout);
