@@ -15,9 +15,16 @@
       }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://airbnb.alanwang.site"
+      }
     },
-    "production": {}
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://airbnb.alanwang.site"
+      }
+    }
   },
   "submit": {
     "production": {}
