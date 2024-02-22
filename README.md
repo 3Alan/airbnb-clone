@@ -6,6 +6,12 @@ It is for learning purpose only. All image from unsplash.(https://source.unsplas
 
 The Demo is read only. You can't create, update or delete any data.
 
+```
+Account:
+email: alan@test.com
+password: 123456
+```
+
 ### Web
 
 https://airbnb.alanwang.site/
