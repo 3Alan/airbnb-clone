@@ -18,7 +18,7 @@ https://airbnb.alanwang.site/
 
 ### Android APK
 
-[download](/screenshots/build-1706363471056.apk)
+[download](https://github.com/3Alan/airbnb-clone/releases/tag/v0.1.0)
 
 ## Tech Stack
 
