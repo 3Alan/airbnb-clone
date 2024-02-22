@@ -4,9 +4,15 @@ It is for learning purpose only. All image from unsplash.(https://source.unsplas
 
 ## Demo
 
+The Demo is read only. You can't create, update or delete any data.
+
+### Web
+
 https://airbnb.alanwang.site/
 
-The Demo is read only. You can't create, update or delete any data.
+### Android APK
+
+[download](/screenshots/build-1706363471056.apk)
 
 ## Tech Stack
 

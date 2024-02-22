@@ -36,6 +36,8 @@ const ListingCard = ({
       <TouchableOpacity activeOpacity={0.8}>
         <View style={[styles.card, style]}>
           <Image
+            // blurHash设置占位图
+            // placeholder="L9ACMc?^%KHuy@v1EKKu0NK+BqRf"
             contentFit="cover"
             source={{ uri: item.imgs[0] }}
             style={{
