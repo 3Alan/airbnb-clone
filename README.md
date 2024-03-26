@@ -14,11 +14,7 @@ password: 123456
 
 ### Web
 
-https://airbnb.alanwang.site/
-
-### Android APK
-
-[download](https://github.com/3Alan/airbnb-clone/releases/tag/v0.1.0)
+https://trip.alanwang.site/
 
 ## Tech Stack
 

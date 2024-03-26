@@ -17,12 +17,12 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://airbnb.alanwang.site"
+        "EXPO_PUBLIC_API_URL": "https://trip.alanwang.site"
       }
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://airbnb.alanwang.site"
+        "EXPO_PUBLIC_API_URL": "https://trip.alanwang.site"
       }
     }
   },
