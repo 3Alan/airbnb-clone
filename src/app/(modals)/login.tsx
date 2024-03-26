@@ -72,7 +72,7 @@ export default function Login() {
           paddingBottom: 20
         }}
       >
-        爱彼迎欢迎您
+        欢迎您
       </Text>
       <Controller
         control={control}

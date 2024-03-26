@@ -54,7 +54,7 @@ const Profile = () => {
                   color: '#979291'
                 }}
               >
-                今天是爱彼迎陪伴你的第{dayjs().diff(dayjs(user?.createdAt), 'day')}天
+                今天是我们陪伴你的第{dayjs().diff(dayjs(user?.createdAt), 'day')}天
               </Text>
             </>
           ) : (
@@ -67,7 +67,7 @@ const Profile = () => {
                   color: '#979291'
                 }}
               >
-                注册爱彼迎，开启不一样的旅行体验
+                注册开启不一样的旅行体验
               </Text>
             </>
           )}
