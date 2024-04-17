@@ -8749,6 +8749,11 @@ react-native-toast-notifications@^3.4.0:
   resolved "https://registry.npmjs.org/react-native-toast-notifications/-/react-native-toast-notifications-3.4.0.tgz#9f2c79ec80fba4af6b788ecddf704f94cf21dbc2"
   integrity sha512-ZvB//jLhRiBRemtcH7vGP1maiKCikqtW4aDqo+QYvEIOcX0y3GrjxRayVAqI4oh0qJgd/26DkbM8COobj+0MEQ==
 
+react-native-unistyles@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.npmjs.org/react-native-unistyles/-/react-native-unistyles-2.7.0.tgz#4946a17acc9db2f8d5a95e4e47bb6aa3dd910dcf"
+  integrity sha512-bmR7bT7GL/ZKewvtaOljSQ5F+SgfV6vuRBTk6MTyTp+iPJtVWauadqXLNjrSqPK0FYbkUJbe5XXfLLL4wZuOPA==
+
 react-native-web@~0.19.6:
   version "0.19.9"
   resolved "https://registry.npmjs.org/react-native-web/-/react-native-web-0.19.9.tgz#6ee43e6c64d886b1d739f100fed07927541ee003"

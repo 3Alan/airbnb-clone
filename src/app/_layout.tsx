@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ToastProvider } from 'react-native-toast-notifications';
+import '../constants/unistyles';
 
 import Toast from '@/components/common/Toast';
 

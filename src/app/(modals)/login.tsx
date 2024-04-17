@@ -5,15 +5,16 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 import Button from '../../components/common/Button';
 import TextInput from '../../components/common/TextInput';
-import Colors from '../../constants/Colors';
 
 import useAuth from '@/hooks/useAuth';
 import request from '@/utils/request';
 
 export default function Login() {
+  const { styles } = useStyles(stylesheet);
   const toast = useToast();
   const { login } = useAuth();
   const {
@@ -64,16 +65,7 @@ export default function Login() {
           )
         }}
       />
-      <Text
-        style={{
-          fontWeight: 'bold',
-          fontSize: 20,
-          color: Colors.textColor,
-          paddingBottom: 20
-        }}
-      >
-        欢迎您
-      </Text>
+
       <Controller
         control={control}
         name="email"
@@ -106,35 +98,19 @@ export default function Login() {
       <Button onPress={handleSubmit(onLogin)}>继续</Button>
 
       <View style={styles.separatorContainer}>
-        <View
-          style={{
-            flex: 1,
-            borderBottomColor: 'black',
-            // 根据平台设置的最小宽度
-            borderBottomWidth: StyleSheet.hairlineWidth
-          }}
-        />
-        <Text style={styles.separator}>或</Text>
-        <View
-          style={{
-            flex: 1,
-            borderBottomColor: 'black',
-            // 根据平台设置的最小宽度
-            borderBottomWidth: StyleSheet.hairlineWidth
-          }}
-        />
+        <View style={styles.separator} />
+        <Text style={styles.separatorText}>或</Text>
+        <View style={styles.separator} />
       </View>
 
-      <View style={{ gap: 20 }}>
-        <Button theme="tertiary" icon={<Ionicons size={24} name="logo-google" />}>
-          使用 Google 账号登录
-        </Button>
-      </View>
+      <Button theme="tertiary" icon={<Ionicons size={24} name="logo-google" />}>
+        使用 Google 账号登录
+      </Button>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+const stylesheet = createStyleSheet(theme => ({
   container: {
     padding: 26,
     backgroundColor: '#fff',
@@ -147,8 +123,14 @@ const styles = StyleSheet.create({
     gap: 10
   },
   separator: {
+    flex: 1,
+    borderBottomColor: theme.colors.border,
+    // 根据平台设置的最小宽度
+    borderBottomWidth: StyleSheet.hairlineWidth
+  },
+  separatorText: {
     fontFamily: 'MonSB',
-    fontSize: 16,
-    color: Colors.grey
+    fontSize: theme.size.sm,
+    color: theme.colors.gray600
   }
-});
+}));

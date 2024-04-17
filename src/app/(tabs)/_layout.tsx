@@ -3,11 +3,11 @@ import { Stack } from 'expo-router';
 import { Tabs } from 'expo-router/tabs';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
-import Colors from '@/constants/Colors';
+import { useStyles } from 'react-native-unistyles';
 
 export default function Layout() {
   const { bottom } = useSafeAreaInsets();
+  const { theme } = useStyles();
 
   return (
     <>
@@ -18,7 +18,7 @@ export default function Layout() {
             paddingBottom: bottom || 10,
             height: bottom + 54
           },
-          tabBarActiveTintColor: Colors.primary,
+          tabBarActiveTintColor: theme.colors.primary,
           tabBarLabelStyle: {
             fontFamily: 'Mon'
           }
