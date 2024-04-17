@@ -15,7 +15,7 @@ import useAuth from '@/hooks/useAuth';
 
 const Profile = () => {
   const { top } = useSafeAreaInsets();
-  const { isLogin, user } = useAuth();
+  const { isLogin, user, logout } = useAuth();
   return (
     <View style={[styles.container, { paddingTop: top }]}>
       {/* background: radial-gradient(
@@ -39,7 +39,7 @@ const Profile = () => {
         <Pressable>
           <Ionicons size={20} color="#4b4646" name="notifications-outline" />
         </Pressable>
-        <Pressable>
+        <Pressable onPress={logout}>
           <Ionicons size={20} color="#4b4646" name="settings-outline" />
         </Pressable>
       </View>

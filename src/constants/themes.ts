@@ -30,6 +30,17 @@ export const defaultTheme = {
     '3xl': 30,
     '4xl': 36
   },
+  spacing: {
+    '2xs': 4,
+    xs: 8,
+    sm: 12,
+    md: 16,
+    lg: 20,
+    xl: 24,
+    '2xl': 32,
+    '3xl': 40,
+    '4xl': 48
+  },
   opacity: {},
   shadows: {}
 } as const;

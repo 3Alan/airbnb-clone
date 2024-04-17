@@ -17,7 +17,7 @@ export async function GET(request: ExpoRequest) {
   };
 
   if (!startDate && !endDate) {
-    filterParams.reservation = {
+    filterParams.reservations = {
       none: {
         OR: [
           {

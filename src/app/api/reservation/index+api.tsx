@@ -43,7 +43,7 @@ export async function POST(request: ExpoRequest) {
       id: listingId
     },
     data: {
-      reservation: {
+      reservations: {
         create: {
           userId: user.id,
           startDate,

@@ -56,8 +56,6 @@ export default function Login() {
           headerTitleStyle: {
             fontFamily: 'MonSB'
           },
-          // 安卓貌似没有
-          presentation: 'modal',
           headerLeft: () => (
             <TouchableOpacity onPress={() => router.back()}>
               <Ionicons name="close-outline" size={28} />

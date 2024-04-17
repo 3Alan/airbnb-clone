@@ -1,8 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { GestureResponderEvent, TouchableOpacity, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { useToast } from 'react-native-toast-notifications';
+
+import WishSheet, { WishSheetRef } from './WishSheet';
 
 interface HeartProps {
   id: string;
@@ -17,16 +19,21 @@ interface HeartProps {
 const Heart: FC<HeartProps> = ({ active: activeProps, img, listName, onChange, style }) => {
   const toast = useToast();
   const [active, setActive] = useState(activeProps);
+  const sheetRef = useRef<WishSheetRef>(null);
 
   useEffect(() => {
     setActive(activeProps);
   }, [activeProps]);
 
-  const handlePress = (e: GestureResponderEvent) => {
+  const handlePress = async (e: GestureResponderEvent) => {
     // stopPropagation on web
     e.preventDefault();
     setActive(!active);
     onChange?.(!active);
+
+    if (!active) {
+      await sheetRef.current?.open();
+    }
 
     toast.hideAll();
     toast.show('香港,2024', {
@@ -39,15 +46,18 @@ const Heart: FC<HeartProps> = ({ active: activeProps, img, listName, onChange, s
   };
 
   return (
-    <TouchableOpacity onPress={handlePress} style={[style]}>
-      <Animated.View>
-        <Ionicons
-          name={active ? 'heart' : 'heart-outline'}
-          size={28}
-          color={active ? '#ff595d' : '#eee'}
-        />
-      </Animated.View>
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity onPress={handlePress} style={[style]}>
+        <Animated.View>
+          <Ionicons
+            name={active ? 'heart' : 'heart-outline'}
+            size={28}
+            color={active ? '#ff595d' : '#eee'}
+          />
+        </Animated.View>
+      </TouchableOpacity>
+      <WishSheet ref={sheetRef} name={listName} />
+    </>
   );
 };
 
