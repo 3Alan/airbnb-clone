@@ -1,5 +1,7 @@
+import '@tamagui/core/reset.css';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { TamaguiProvider } from '@tamagui/core';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
@@ -7,6 +9,8 @@ import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ToastProvider } from 'react-native-toast-notifications';
+
+import tamaguiConfig from '../../tamagui.config';
 
 import Toast from '@/components/common/Toast';
 
@@ -59,24 +63,30 @@ function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <BottomSheetModalProvider>
-          <ToastProvider
-            duration={2000}
-            offsetBottom={bottom + tabBarHeight + 16}
-            renderType={{
-              save: options => (
-                <Toast type="save" img={options.data.img} listName={options.message as string} />
-              ),
-              delete: options => (
-                <Toast type="delete" img={options.data.img} listName={options.message as string} />
-              )
-            }}
-          >
-            <Stack />
-          </ToastProvider>
-        </BottomSheetModalProvider>
-      </GestureHandlerRootView>
+      <TamaguiProvider config={tamaguiConfig}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <BottomSheetModalProvider>
+            <ToastProvider
+              duration={2000}
+              offsetBottom={bottom + tabBarHeight + 16}
+              renderType={{
+                save: options => (
+                  <Toast type="save" img={options.data.img} listName={options.message as string} />
+                ),
+                delete: options => (
+                  <Toast
+                    type="delete"
+                    img={options.data.img}
+                    listName={options.message as string}
+                  />
+                )
+              }}
+            >
+              <Stack />
+            </ToastProvider>
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
+      </TamaguiProvider>
     </QueryClientProvider>
   );
 }

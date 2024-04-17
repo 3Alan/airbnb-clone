@@ -3,7 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start -c",
     "lint": "eslint .",
     "android": "expo run:android",
     "ios": "expo run:ios",
@@ -19,9 +19,10 @@
     "@expo/vector-icons": "^14.0.0",
     "@gorhom/bottom-sheet": "5.0.0-alpha.6",
     "@prisma/client": "5.7.1",
-    "@reduxjs/toolkit": "^1.9.7",
     "@sentry/react-native": "5.17.0",
     "@shopify/flash-list": "1.6.3",
+    "@tamagui/config": "^1.94.5",
+    "@tamagui/metro-plugin": "^1.94.5",
     "@tanstack/react-query": "^5.17.7",
     "axios": "^1.6.5",
     "bcryptjs": "^2.4.3",
@@ -62,6 +63,7 @@
     "react-native-toast-notifications": "^3.4.0",
     "react-native-web": "~0.19.6",
     "react-native-webview": "13.6.4",
+    "tamagui": "^1.94.5",
     "zod": "^3.22.4",
     "zustand": "^4.4.7"
   },

@@ -45,3 +45,5 @@ expo-env.d.ts
 # mongodb dump
 # mongodump --uri=mongodb://localhost:27017/airbnb
 dump
+
+.tamagui
