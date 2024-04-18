@@ -1,7 +1,11 @@
 import { FlashList } from '@shopify/flash-list';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
+
+import { useWishLists } from '../../actions/wishlist';
+import { WishListItem, WishListItemProps } from '../../components/common/wishList';
 
 import LoginButton from '@/components/common/LoginButton';
 import Colors from '@/constants/Colors';
@@ -10,6 +14,8 @@ import useAuth from '@/hooks/useAuth';
 export default function Wishlists() {
   const { isLogin } = useAuth();
   const { top } = useSafeAreaInsets();
+  const { data } = useWishLists();
+  const { styles } = useStyles(styleSheet);
 
   return (
     <View style={[styles.container, { paddingTop: top }]}>
@@ -24,8 +30,12 @@ export default function Wishlists() {
         </TouchableOpacity>
       </View>
 
-      <FlashList
+      <FlashList<WishListItemProps>
         estimatedItemSize={10}
+        numColumns={2}
+        contentContainerStyle={{
+          padding: 2
+        }}
         ListHeaderComponent={<Text style={styles.title}>心愿单</Text>}
         ListEmptyComponent={
           <View style={styles.empty}>
@@ -45,14 +55,23 @@ export default function Wishlists() {
             )}
           </View>
         }
-        data={[]}
-        renderItem={() => <Text>1</Text>}
+        data={data}
+        renderItem={({ item, index }) => (
+          <WishListItem
+            style={{
+              paddingLeft: index % 2 === 0 ? 0 : 10,
+              paddingRight: index % 2 === 1 ? 0 : 10,
+              paddingBottom: 10
+            }}
+            {...item}
+          />
+        )}
       />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+const styleSheet = createStyleSheet(theme => ({
   container: {
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -63,7 +82,8 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     fontSize: 28,
     fontWeight: '500',
-    color: Colors.textColor
+    color: Colors.textColor,
+    paddingBottom: theme.spacing.lg
   },
   edit: {
     textDecorationLine: 'underline'
@@ -82,4 +102,4 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     color: Colors.grey
   }
-});
+}));

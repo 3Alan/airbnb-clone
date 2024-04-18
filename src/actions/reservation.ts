@@ -9,7 +9,7 @@ export function useReservations() {
   return useQuery({
     queryKey: ['reservations', user?.id],
     queryFn: async () => {
-      const res = await request(`/reservation`);
+      const res = await request(`/reservations`);
       return res.data;
     }
   });
@@ -24,7 +24,7 @@ export function useReservationConfirmation(params: {
   return useQuery({
     queryKey: ['reservation-confirmation', params],
     queryFn: async () => {
-      const res = await request(`/reservation/confirmation`, {
+      const res = await request(`/reservations/confirmation`, {
         params
       });
       return res.data;

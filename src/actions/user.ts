@@ -6,7 +6,7 @@ export function useUser(id: string) {
   return useQuery({
     queryKey: ['user', id],
     queryFn: async () => {
-      const res = await request(`/user/${id}`);
+      const res = await request(`/users/${id}`);
       return res.data;
     },
     placeholderData: {}

@@ -17,6 +17,7 @@ export const defaultTheme = {
   colors: {
     ...baseColors,
     typography: baseColors.gray700,
+    desc: baseColors.gray600,
     border: baseColors.gray400
   },
   size: {
@@ -42,5 +43,16 @@ export const defaultTheme = {
     '4xl': 48
   },
   opacity: {},
-  shadows: {}
+  shadows: {
+    shadow100: {
+      shadowColor: baseColors.gray800,
+      shadowRadius: 4,
+      shadowOpacity: 0.1,
+      elevation: 2,
+      shadowOffset: {
+        width: 0,
+        height: 2
+      }
+    }
+  }
 } as const;

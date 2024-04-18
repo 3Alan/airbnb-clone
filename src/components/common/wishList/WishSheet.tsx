@@ -1,13 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal, BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet';
+import { useMutation } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import { isEmpty } from 'lodash';
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
+import { useToast } from 'react-native-toast-notifications';
 import { UnistylesRuntime, createStyleSheet, useStyles } from 'react-native-unistyles';
 
-import Button from './Button';
-import TextInput from './TextInput';
-import request from '../../utils/request';
+import request from '../../../utils/request';
+import Button from '../Button';
+import TextInput from '../TextInput';
 
 export interface WishSheetRef {
   open: () => Promise<void>;
@@ -16,12 +20,25 @@ export interface WishSheetRef {
 
 interface WishSheetProps {
   name?: string;
+  listId: string;
 }
 
-const WishSheet = forwardRef(({ name }: WishSheetProps, ref) => {
+const WishSheet = forwardRef(({ name, listId }: WishSheetProps, ref) => {
   const { styles } = useStyles(styleSheet);
+  const toast = useToast();
   const createSheet = useRef<BottomSheetModal>(null);
   const listSheet = useRef<BottomSheetModal>(null);
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      name: name ? `${name} ${dayjs().year()}` : ''
+    }
+  });
+
+  const mutation = useMutation({
+    mutationFn: data => {
+      return request.post('/wishlists', data);
+    }
+  });
 
   const handleOpenListSheet = () => {
     listSheet.current?.present();
@@ -41,10 +58,23 @@ const WishSheet = forwardRef(({ name }: WishSheetProps, ref) => {
 
   const handleOpenModalSheet = async () => {
     handleOpenListSheet();
-    const { data } = await request('/wishlist');
+    const { data } = await request('/wishlists');
 
     if (isEmpty(data)) {
       handleOpenCreateSheet();
+    }
+  };
+
+  const onCreateList = async (data: any) => {
+    const res = await mutation.mutateAsync(data);
+    console.log(res);
+
+    if (res.data.success) {
+      createSheet.current?.dismiss();
+    } else {
+      toast.show(res.data.message, {
+        type: 'danger'
+      });
     }
   };
 
@@ -85,11 +115,19 @@ const WishSheet = forwardRef(({ name }: WishSheetProps, ref) => {
       >
         <BottomSheetView style={styles.createContainer}>
           <View style={styles.formContainer}>
-            <TextInput defaultValue={name} />
+            <Controller
+              control={control}
+              name="name"
+              render={({ field: { onChange, value } }) => (
+                <TextInput value={value} onChangeText={onChange} />
+              )}
+            />
           </View>
 
           <View style={styles.bottomContainer}>
-            <Button theme="secondary">创建</Button>
+            <Button theme="secondary" onPress={handleSubmit(onCreateList)}>
+              创建
+            </Button>
           </View>
         </BottomSheetView>
       </BottomSheetModal>

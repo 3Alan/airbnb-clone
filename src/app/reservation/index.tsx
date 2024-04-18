@@ -24,7 +24,7 @@ export default function Reservation() {
 
   const mutation = useMutation({
     mutationFn: (data: any) => {
-      return request.post('/reservation', data);
+      return request.post('/reservations', data);
     }
   });
   const days = useMemo(() => {

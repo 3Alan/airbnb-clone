@@ -4,7 +4,7 @@ import { GestureResponderEvent, TouchableOpacity, ViewStyle } from 'react-native
 import Animated from 'react-native-reanimated';
 import { useToast } from 'react-native-toast-notifications';
 
-import WishSheet, { WishSheetRef } from './WishSheet';
+import WishSheet, { WishSheetRef } from './wishList/WishSheet';
 
 interface HeartProps {
   id: string;
@@ -16,7 +16,7 @@ interface HeartProps {
 }
 
 // TODO: 动画
-const Heart: FC<HeartProps> = ({ active: activeProps, img, listName, onChange, style }) => {
+const Heart: FC<HeartProps> = ({ id, active: activeProps, img, listName, onChange, style }) => {
   const toast = useToast();
   const [active, setActive] = useState(activeProps);
   const sheetRef = useRef<WishSheetRef>(null);
@@ -56,7 +56,7 @@ const Heart: FC<HeartProps> = ({ active: activeProps, img, listName, onChange, s
           />
         </Animated.View>
       </TouchableOpacity>
-      <WishSheet ref={sheetRef} name={listName} />
+      <WishSheet ref={sheetRef} name={listName} listId={id} />
     </>
   );
 };

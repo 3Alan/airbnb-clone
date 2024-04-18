@@ -47,6 +47,7 @@ const ListingCard = ({
           <Heart
             id={item.id}
             img={item.imgs[0]}
+            listName={item.title}
             style={{ position: 'absolute', right: 6, top: 6 }}
           />
           <LinearGradient
