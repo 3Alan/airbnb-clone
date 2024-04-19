@@ -1,11 +1,9 @@
-import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
-import { useWishLists } from '../../actions/wishlist';
-import { WishListItem, WishListItemProps } from '../../components/common/wishList';
+import { WishList } from '../../components/common/wishList';
 
 import LoginButton from '@/components/common/LoginButton';
 import Colors from '@/constants/Colors';
@@ -14,7 +12,6 @@ import useAuth from '@/hooks/useAuth';
 export default function Wishlists() {
   const { isLogin } = useAuth();
   const { top } = useSafeAreaInsets();
-  const { data } = useWishLists();
   const { styles } = useStyles(styleSheet);
 
   return (
@@ -29,14 +26,9 @@ export default function Wishlists() {
           <Text style={styles.edit}>编辑</Text>
         </TouchableOpacity>
       </View>
+      <Text style={styles.title}>心愿单</Text>
 
-      <FlashList<WishListItemProps>
-        estimatedItemSize={10}
-        numColumns={2}
-        contentContainerStyle={{
-          padding: 2
-        }}
-        ListHeaderComponent={<Text style={styles.title}>心愿单</Text>}
+      <WishList
         ListEmptyComponent={
           <View style={styles.empty}>
             {isLogin ? (
@@ -55,17 +47,6 @@ export default function Wishlists() {
             )}
           </View>
         }
-        data={data}
-        renderItem={({ item, index }) => (
-          <WishListItem
-            style={{
-              paddingLeft: index % 2 === 0 ? 0 : 10,
-              paddingRight: index % 2 === 1 ? 0 : 10,
-              paddingBottom: 10
-            }}
-            {...item}
-          />
-        )}
       />
     </View>
   );

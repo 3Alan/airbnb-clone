@@ -5,6 +5,7 @@ import Animated from 'react-native-reanimated';
 import { useToast } from 'react-native-toast-notifications';
 
 import WishSheet, { WishSheetRef } from './wishList/WishSheet';
+import request from '../../utils/request';
 
 interface HeartProps {
   id: string;
@@ -25,24 +26,55 @@ const Heart: FC<HeartProps> = ({ id, active: activeProps, img, listName, onChang
     setActive(activeProps);
   }, [activeProps]);
 
+  const handleAddToWishList = async () => {
+    const { data } = await request.post('/wish-items', {
+      listingId: id
+    });
+
+    if (data.isEmpty || data.hasAddToWishList) {
+      await sheetRef.current?.open();
+    } else if (data.success) {
+      toast.hideAll();
+      toast.show(data.wishListName, {
+        type: 'save',
+        data: {
+          img,
+          listName
+        }
+      });
+    }
+  };
+
+  const handleRemoveFromWishList = async () => {
+    // 通过listingId删除
+    const { data } = await request.delete(`/wish-items/listing/${id}`);
+    console.log(data);
+
+    if (data.success) {
+      toast.hideAll();
+      toast.show(data.wishListName, {
+        type: 'delete',
+        data: {
+          img,
+          listName
+        }
+      });
+    } else {
+      toast.show(data.message);
+    }
+  };
+
   const handlePress = async (e: GestureResponderEvent) => {
     // stopPropagation on web
     e.preventDefault();
     setActive(!active);
     onChange?.(!active);
 
-    if (!active) {
-      await sheetRef.current?.open();
+    if (active) {
+      await handleRemoveFromWishList();
+    } else {
+      await handleAddToWishList();
     }
-
-    toast.hideAll();
-    toast.show('香港,2024', {
-      type: active ? 'delete' : 'save',
-      data: {
-        img,
-        listName
-      }
-    });
   };
 
   return (

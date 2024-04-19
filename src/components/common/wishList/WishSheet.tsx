@@ -67,8 +67,6 @@ const WishSheet = forwardRef(({ name, listId }: WishSheetProps, ref) => {
 
   const onCreateList = async (data: any) => {
     const res = await mutation.mutateAsync(data);
-    console.log(res);
-
     if (res.data.success) {
       createSheet.current?.dismiss();
     } else {

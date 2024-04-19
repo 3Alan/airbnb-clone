@@ -13,25 +13,41 @@ export async function GET(request: ExpoRequest) {
       userId: user.id
     },
     include: {
-      wishItems: true
+      wishItems: {
+        orderBy: {
+          createdAt: 'desc'
+        }
+      }
     },
     orderBy: {
-      updatedAt: 'asc'
+      updatedAt: 'desc'
     }
   });
 
-  // const result = await prisma.wishList.findMany({
-  //   where: {
-  //     userId: user.id
-  //   },
-  //   include: {
-  //     wishItem: {
-  //       include: {
+  for (const wishList of result) {
+    const itemsCount = wishList.wishItems.length;
+    let img = '';
 
-  //       }
-  //     }
-  //   },
-  // });
+    if (itemsCount > 0) {
+      const latestItem = wishList.wishItems[0];
+      const listing = await prisma.listing.findUnique({
+        where: {
+          id: latestItem.listingId
+        },
+        select: {
+          imgs: true
+        }
+      });
+      img = listing?.imgs[0] || '';
+    }
+
+    // @ts-ignore
+    wishList.wishItemCount = itemsCount;
+    // @ts-ignore
+    wishList.img = img;
+    // @ts-ignore
+    delete wishList.wishItems;
+  }
 
   return ExpoResponse.json(result);
 }

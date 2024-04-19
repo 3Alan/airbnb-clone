@@ -9,6 +9,7 @@ export interface WishListItemProps {
   img: string;
   name: string;
   count: number;
+  wishItemCount: number;
   style?: ViewStyle;
 }
 
