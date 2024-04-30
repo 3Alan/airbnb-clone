@@ -1,4 +1,5 @@
 import { FontAwesome, Ionicons, Octicons } from '@expo/vector-icons';
+import { useFeatureIsOn } from '@growthbook/growthbook-react';
 import dayjs from 'dayjs';
 import { BlurView } from 'expo-blur';
 import { Image } from 'expo-image';
@@ -16,6 +17,7 @@ import useAuth from '@/hooks/useAuth';
 const Profile = () => {
   const { top } = useSafeAreaInsets();
   const { isLogin, user, logout } = useAuth();
+  const enabledNewUI = useFeatureIsOn('new-home-ui');
   return (
     <View style={[styles.container, { paddingTop: top }]}>
       {/* background: radial-gradient(
@@ -42,6 +44,7 @@ const Profile = () => {
         <Pressable onPress={logout}>
           <Ionicons size={20} color="#4b4646" name="settings-outline" />
         </Pressable>
+        <Text>{enabledNewUI ? 'new UI' : 'old UI'}</Text>
       </View>
 
       <BlurView style={styles.userCard} intensity={100}>

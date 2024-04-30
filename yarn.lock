@@ -1798,6 +1798,20 @@
   resolved "https://registry.npmjs.org/@graphql-typed-document-node/core/-/core-3.2.0.tgz#5f3d96ec6b2354ad6d8a28bf216a1d97b5426861"
   integrity sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==
 
+"@growthbook/growthbook-react@^0.26.0":
+  version "0.26.0"
+  resolved "https://registry.npmjs.org/@growthbook/growthbook-react/-/growthbook-react-0.26.0.tgz#819b51637381640f57ae3277fa3211c56218aefa"
+  integrity sha512-H3cXXjdlBPAJLbtlzP67lsD468Tt99frBIDpCivUWmLTduUIzOZmZgDdyrbPERMpBAALrPDdHHFt1PGjXLDKgA==
+  dependencies:
+    "@growthbook/growthbook" "^0.36.0"
+
+"@growthbook/growthbook@^0.36.0":
+  version "0.36.0"
+  resolved "https://registry.npmjs.org/@growthbook/growthbook/-/growthbook-0.36.0.tgz#84d704bb8beae68db592b8f979f36d0f85202d6b"
+  integrity sha512-5u1x34H7pg5zS5db3UZ1Pn5hL/jj1EOWdUuz5tSIDUfW49TOWtxtrOAx0Qu1B+UmrIcZKE5XJr6TmWdmdOK12g==
+  dependencies:
+    dom-mutator "^0.6.0"
+
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
   resolved "https://registry.npmjs.org/@hapi/hoek/-/hoek-9.3.0.tgz#8368869dcb735be2e7f5cb7647de78e167a251fb"
@@ -4556,6 +4570,11 @@ doctrine@^3.0.0:
   integrity sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
   dependencies:
     esutils "^2.0.2"
+
+dom-mutator@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/dom-mutator/-/dom-mutator-0.6.0.tgz#079d7a4b3e8981a562cd777548b99baab51d65c5"
+  integrity sha512-iCt9o0aYfXMUkz/43ZOAUFQYotjGB+GNbYJiJdz4TgXkyToXbbRy5S6FbTp72lRBtfpUMwEc1KmpFEU4CZeoNg==
 
 dom-serializer@^2.0.0:
   version "2.0.0"
