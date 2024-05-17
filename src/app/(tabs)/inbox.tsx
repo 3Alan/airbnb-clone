@@ -1,8 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import { FlashList } from '@shopify/flash-list';
+import Typography from '@ui/Typography';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 import LoginButton from '@/components/common/LoginButton';
 import Colors from '@/constants/Colors';
@@ -11,12 +13,17 @@ import useAuth from '@/hooks/useAuth';
 export default function Inbox() {
   const { isLogin } = useAuth();
   const { top } = useSafeAreaInsets();
+  const { styles } = useStyles(styleSheet);
 
   return (
     <View style={[styles.container, { paddingTop: top }]}>
       <FlashList
         estimatedItemSize={10}
-        ListHeaderComponent={<Text style={styles.title}>收件箱</Text>}
+        ListHeaderComponent={
+          <Typography variant="h1" style={styles.title}>
+            收件箱
+          </Typography>
+        }
         ListEmptyComponent={
           isLogin ? (
             <View style={styles.empty}>
@@ -43,7 +50,7 @@ export default function Inbox() {
   );
 }
 
-const styles = StyleSheet.create({
+const styleSheet = createStyleSheet(theme => ({
   container: {
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -51,10 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   title: {
-    paddingTop: 14,
-    fontSize: 28,
-    fontWeight: '500',
-    color: Colors.textColor
+    paddingTop: theme.spacing['2xl']
   },
   emptyWithoutLogin: {
     marginTop: 30,
@@ -88,4 +92,4 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     color: Colors.grey
   }
-});
+}));

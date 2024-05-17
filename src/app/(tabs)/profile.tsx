@@ -1,12 +1,15 @@
 import { FontAwesome, Ionicons, Octicons } from '@expo/vector-icons';
+import Typography from '@ui/Typography';
 import dayjs from 'dayjs';
 import { BlurView } from 'expo-blur';
-import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link } from 'expo-router';
-import React from 'react';
-import { Dimensions, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Link, useRouter } from 'expo-router';
+import React, { Fragment } from 'react';
+import { Pressable, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
+
+import Button from '../../components/common/Button';
 
 import Avatar from '@/components/common/Avatar';
 import WebLink from '@/components/common/WebLink';
@@ -16,33 +19,44 @@ import useAuth from '@/hooks/useAuth';
 const Profile = () => {
   const { top } = useSafeAreaInsets();
   const { isLogin, user, logout } = useAuth();
-  return (
-    <View style={[styles.container, { paddingTop: top }]}>
-      {/* background: radial-gradient(
-          farthest-side at 75% 30%,
-          rgba(254, 208, 209, 1) 0%,
-          #ffece6 40%,
-          rgba(255, 255, 255, 0.1) 100%
-        ); */}
-      <Image
-        style={[
-          {
-            width: Dimensions.get('window').width,
-            height: 320
-          },
-          StyleSheet.absoluteFill
-        ]}
-        source={require('../../../assets/images/profile-bg.png')}
-      />
+  const { styles, theme } = useStyles(styleSheet);
+  const router = useRouter();
 
-      <View style={styles.header}>
+  return (
+    <View style={[styles.container, { paddingTop: top + theme.spacing['2xl'] }]}>
+      {isLogin ? (
+        <View style={styles.header}>
+          <Typography variant="h1">个人资料</Typography>
+          <Pressable onPress={logout}>
+            <Ionicons size={24} color="#4b4646" name="notifications-outline" />
+          </Pressable>
+        </View>
+      ) : (
+        <>
+          <Typography variant="h1" style={styles.title}>
+            您的个人资料
+          </Typography>
+          <Typography variant="subtitle">马上登录，开始规划下一趟旅程</Typography>
+          <Button onPress={() => router.push('/(modals)/login')} style={styles.btn}>
+            登录
+          </Button>
+          <View style={styles.registerWrap}>
+            <Text style={styles.registerText}>还没有账号？</Text>
+            <Link style={styles.registerLink} href="/(modals)/login">
+              注册
+            </Link>
+          </View>
+        </>
+      )}
+
+      {/* <View style={styles.header}>
         <Pressable>
           <Ionicons size={20} color="#4b4646" name="notifications-outline" />
         </Pressable>
         <Pressable onPress={logout}>
           <Ionicons size={20} color="#4b4646" name="settings-outline" />
         </Pressable>
-      </View>
+      </View> */}
 
       <BlurView style={styles.userCard} intensity={100}>
         <View style={{ paddingRight: 20 }}>
@@ -161,17 +175,36 @@ const Profile = () => {
 
 export default Profile;
 
-const styles = StyleSheet.create({
+const styleSheet = createStyleSheet(theme => ({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     padding: 20
   },
+  title: {
+    paddingBottom: theme.spacing.sm
+  },
+  btn: {
+    marginTop: theme.spacing['3xl']
+  },
+  registerWrap: {
+    flexDirection: 'row',
+    marginTop: theme.spacing.md,
+    fontSize: theme.size.xs
+  },
+  registerText: {
+    fontSize: theme.size.xs
+  },
+  registerLink: {
+    fontSize: theme.size.xs,
+    textDecorationLine: 'underline',
+    fontWeight: '500'
+  },
   header: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    gap: 30,
-    paddingTop: 16
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: theme.spacing.sm
   },
   avatar: {
     borderRadius: 40,
@@ -253,4 +286,4 @@ const styles = StyleSheet.create({
       height: 6
     }
   }
-});
+}));

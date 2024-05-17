@@ -1,11 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { FlashList } from '@shopify/flash-list';
+import Typography from '@ui/Typography';
 import dayjs from 'dayjs';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 import { useReservations } from '@/actions/reservation';
 import LoginButton from '@/components/common/LoginButton';
@@ -63,12 +65,17 @@ export default function Trips() {
   const { isLogin } = useAuth();
   const { top } = useSafeAreaInsets();
   const { data } = useReservations();
+  const { styles } = useStyles(styleSheet);
 
   return (
     <View style={[styles.container, { paddingTop: top }]}>
       <FlashList
         estimatedItemSize={10}
-        ListHeaderComponent={<Text style={styles.title}>Trips</Text>}
+        ListHeaderComponent={
+          <Typography variant="h1" style={styles.title}>
+            行程
+          </Typography>
+        }
         ListEmptyComponent={
           isLogin ? (
             <View style={styles.empty}>
@@ -77,8 +84,10 @@ export default function Trips() {
             </View>
           ) : (
             <View style={styles.emptyWithoutLogin}>
-              <Text style={styles.emptyTitleWithoutLogin}>请登录以查看行程</Text>
-              <Text style={styles.emptyDescWithoutLogin}>登录后，您将会在这里看到行程信息</Text>
+              <Text style={styles.emptyTitleWithoutLogin}>尚无行程</Text>
+              <Text style={styles.emptyDescWithoutLogin}>
+                当您准备好规划下一行程时，我们会为您提供帮助
+              </Text>
               <LoginButton />
             </View>
           )
@@ -90,7 +99,7 @@ export default function Trips() {
   );
 }
 
-const styles = StyleSheet.create({
+const styleSheet = createStyleSheet(theme => ({
   container: {
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -98,10 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   title: {
-    paddingTop: 14,
-    fontSize: 28,
-    fontWeight: '500',
-    color: Colors.text
+    paddingTop: theme.spacing['2xl']
   },
   subTitle: {
     paddingTop: 20,
@@ -142,4 +148,4 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     color: Colors.grey
   }
-});
+}));

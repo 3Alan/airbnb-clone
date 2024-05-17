@@ -29,7 +29,8 @@ export const defaultTheme = {
     xl: 20,
     '2xl': 24,
     '3xl': 30,
-    '4xl': 36
+    '4xl': 32,
+    '5xl': 36
   },
   spacing: {
     '2xs': 4,
