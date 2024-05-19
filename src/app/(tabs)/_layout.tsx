@@ -5,7 +5,10 @@ import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStyles } from 'react-native-unistyles';
 
+import useAuth from '../../hooks/useAuth';
+
 export default function Layout() {
+  const { isLogin } = useAuth();
   const { bottom } = useSafeAreaInsets();
   const { theme } = useStyles();
 
@@ -18,10 +21,7 @@ export default function Layout() {
             paddingBottom: bottom || 10,
             height: bottom + 54
           },
-          tabBarActiveTintColor: theme.colors.primary,
-          tabBarLabelStyle: {
-            fontFamily: 'Mon'
-          }
+          tabBarActiveTintColor: theme.colors.primary
         }}
       >
         <Tabs.Screen
@@ -62,7 +62,7 @@ export default function Layout() {
         <Tabs.Screen
           name="profile"
           options={{
-            tabBarLabel: '我的',
+            tabBarLabel: isLogin ? '个人资料' : '登录',
             headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="person-circle-outline" color={color} size={size} />

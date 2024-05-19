@@ -95,6 +95,7 @@ const Detail = () => {
         style={{ backgroundColor: '#fff' }}
         onScroll={scrollHandler}
         contentContainerStyle={{ backgroundColor: '#f7f7f7' }}
+        showsVerticalScrollIndicator={false}
       >
         <View style={styles.imgContainer}>
           <Carousel

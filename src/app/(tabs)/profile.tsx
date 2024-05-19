@@ -1,174 +1,121 @@
-import { FontAwesome, Ionicons, Octicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons, Octicons } from '@expo/vector-icons';
 import Typography from '@ui/Typography';
-import dayjs from 'dayjs';
-import { BlurView } from 'expo-blur';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useRouter } from 'expo-router';
-import React, { Fragment } from 'react';
-import { Pressable, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import React from 'react';
+import { Pressable, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { UnistylesRuntime, createStyleSheet, useStyles } from 'react-native-unistyles';
 
 import Button from '../../components/common/Button';
+import { MenuItem, MenuList } from '../../components/common/menu';
 
 import Avatar from '@/components/common/Avatar';
-import WebLink from '@/components/common/WebLink';
 import Colors from '@/constants/Colors';
 import useAuth from '@/hooks/useAuth';
 
 const Profile = () => {
-  const { top } = useSafeAreaInsets();
   const { isLogin, user, logout } = useAuth();
   const { styles, theme } = useStyles(styleSheet);
   const router = useRouter();
 
   return (
-    <View style={[styles.container, { paddingTop: top + theme.spacing['2xl'] }]}>
-      {isLogin ? (
-        <View style={styles.header}>
-          <Typography variant="h1">个人资料</Typography>
-          <Pressable onPress={logout}>
-            <Ionicons size={24} color="#4b4646" name="notifications-outline" />
-          </Pressable>
-        </View>
-      ) : (
-        <>
-          <Typography variant="h1" style={styles.title}>
-            您的个人资料
-          </Typography>
-          <Typography variant="subtitle">马上登录，开始规划下一趟旅程</Typography>
-          <Button onPress={() => router.push('/(modals)/login')} style={styles.btn}>
-            登录
-          </Button>
-          <View style={styles.registerWrap}>
-            <Text style={styles.registerText}>还没有账号？</Text>
-            <Link style={styles.registerLink} href="/(modals)/login">
-              注册
-            </Link>
-          </View>
-        </>
-      )}
-
-      {/* <View style={styles.header}>
-        <Pressable>
-          <Ionicons size={20} color="#4b4646" name="notifications-outline" />
-        </Pressable>
-        <Pressable onPress={logout}>
-          <Ionicons size={20} color="#4b4646" name="settings-outline" />
-        </Pressable>
-      </View> */}
-
-      <BlurView style={styles.userCard} intensity={100}>
-        <View style={{ paddingRight: 20 }}>
-          {isLogin ? (
-            <>
-              <Text style={styles.userName}>Hi {user?.name}</Text>
-              <Text
-                style={{
-                  color: '#979291'
-                }}
-              >
-                今天是我们陪伴你的第{dayjs().diff(dayjs(user?.createdAt), 'day')}天
-              </Text>
-            </>
-          ) : (
-            <>
-              <Link style={styles.userName} href="/(modals)/login">
-                注册/登录
-              </Link>
-              <Text
-                style={{
-                  color: '#979291'
-                }}
-              >
-                注册开启不一样的旅行体验
-              </Text>
-            </>
-          )}
-        </View>
-
+    <View style={styles.container}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={[styles.scrollContainer, { paddingTop: theme.spacing['2xl'] }]}
+        contentContainerStyle={{ paddingBottom: theme.spacing['3xl'] }}
+      >
         {isLogin ? (
-          <View style={styles.avatar}>
-            <Avatar img={user?.img as string} />
+          <View style={styles.header}>
+            <Typography variant="h1">个人资料</Typography>
+            <Pressable>
+              <Ionicons size={24} color="#4b4646" name="notifications-outline" />
+            </Pressable>
           </View>
         ) : (
-          <LinearGradient
-            start={{ x: 0, y: 0.5 }}
-            end={{ x: 1, y: 0.5 }}
-            colors={['#ee7854', '#bb4bce']}
-            style={styles.emptyAvatar}
-          >
-            <FontAwesome color="#fff" size={36} name="user" />
-          </LinearGradient>
-        )}
-      </BlurView>
-
-      <View style={styles.card}>
-        <Pressable style={styles.iconItem}>
-          <Octicons color={Colors.textColor} size={20} name="log" />
-          <Text style={styles.itemText}>全部订单</Text>
-        </Pressable>
-        <Pressable style={styles.iconItem}>
-          <Octicons color={Colors.textColor} size={20} name="checklist" />
-          <Text style={styles.itemText}>有效订单</Text>
-        </Pressable>
-        <Pressable style={styles.iconItem}>
-          <Octicons color={Colors.textColor} size={20} name="credit-card" />
-          <Text style={styles.itemText}>待支付订单</Text>
-        </Pressable>
-        <Pressable style={styles.iconItem}>
-          <Octicons color={Colors.textColor} size={20} name="history" />
-          <Text style={styles.itemText}>历史足迹</Text>
-        </Pressable>
-      </View>
-
-      <Text
-        style={{
-          fontWeight: 'bold',
-          fontSize: 18,
-          color: Colors.textColor,
-          padding: 20
-        }}
-      >
-        工具
-      </Text>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          gap: 10,
-          justifyContent: 'space-between'
-        }}
-      >
-        <Pressable style={styles.toolItem}>
-          <View style={styles.iconItemEllipse}>
-            <Octicons color={Colors.textColor} size={20} name="people" />
-          </View>
-          <Text style={styles.itemText}>邻里支持</Text>
-        </Pressable>
-        <Pressable style={styles.toolItem}>
-          <View style={styles.iconItemEllipse}>
-            <Octicons color={Colors.textColor} size={20} name="question" />
-          </View>
-          <Text style={styles.itemText}>获得帮助</Text>
-        </Pressable>
-        <Pressable style={styles.toolItem}>
-          <View style={styles.iconItemEllipse}>
-            <Octicons color={Colors.textColor} size={20} name="briefcase" />
-          </View>
-
-          <Text style={styles.itemText}>行程/体验订单</Text>
-        </Pressable>
-
-        <View style={styles.toolItem}>
-          <WebLink href="https://github.com/3Alan/airbnb-clone">
-            <View style={styles.iconItemEllipse}>
-              <Octicons color={Colors.textColor} size={20} name="mark-github" />
+          <>
+            <Typography variant="h1" style={styles.title}>
+              您的个人资料
+            </Typography>
+            <Typography variant="subtitle">马上登录，开始规划下一趟旅程</Typography>
+            <Button onPress={() => router.push('/(modals)/login')} style={styles.btn}>
+              登录
+            </Button>
+            <View style={styles.registerWrap}>
+              <Text style={styles.registerText}>还没有账号？</Text>
+              <Link style={styles.registerLink} href="/(modals)/login">
+                注册
+              </Link>
             </View>
-          </WebLink>
-          <Text style={styles.itemText}>项目地址</Text>
-        </View>
-      </View>
+          </>
+        )}
+
+        {isLogin ? (
+          <>
+            <MenuItem
+              href=""
+              name={user?.name || ''}
+              desc="显示个人资料"
+              icon={<Avatar img={user?.img as string} />}
+            />
+            <MenuList
+              title="设置"
+              options={[
+                {
+                  name: '个人信息',
+                  icon: <Octicons size={24} name="person" />,
+                  href: '/(modals)/profile'
+                },
+                {
+                  name: '登录和安全',
+                  icon: <AntDesign size={24} name="Safety" />,
+                  href: '/(modals)/profile'
+                },
+                {
+                  name: '付款和收款',
+                  icon: <AntDesign size={24} name="creditcard" />,
+                  href: '/(modals)/profile'
+                },
+                {
+                  name: '通知',
+                  icon: <Ionicons size={24} name="notifications-outline" />,
+                  href: '/(modals)/profile'
+                }
+              ]}
+            />
+
+            <MenuList
+              title="关于"
+              options={[
+                {
+                  name: '项目地址',
+                  icon: <Octicons color={Colors.textColor} size={20} name="mark-github" />,
+                  href: 'https://github.com/3Alan/airbnb-clone',
+                  isWebLink: true
+                }
+              ]}
+            />
+            <TouchableOpacity onPress={logout}>
+              <Text style={styles.logout}>退出</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <MenuList
+            options={[
+              {
+                name: '设置',
+                icon: <Ionicons size={20} color="#4b4646" name="settings-outline" />,
+                href: '/(modals)/profile'
+              },
+              {
+                name: '项目地址',
+                icon: <Octicons color={Colors.textColor} size={20} name="mark-github" />,
+                href: 'https://github.com/3Alan/airbnb-clone',
+                isWebLink: true
+              }
+            ]}
+          />
+        )}
+      </ScrollView>
     </View>
   );
 };
@@ -176,10 +123,17 @@ const Profile = () => {
 export default Profile;
 
 const styleSheet = createStyleSheet(theme => ({
+  logout: {
+    textDecorationLine: 'underline',
+    paddingVertical: theme.spacing.md
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20
+    paddingTop: UnistylesRuntime.insets.top
+  },
+  scrollContainer: {
+    paddingHorizontal: 20
   },
   title: {
     paddingBottom: theme.spacing.sm
@@ -193,7 +147,8 @@ const styleSheet = createStyleSheet(theme => ({
     fontSize: theme.size.xs
   },
   registerText: {
-    fontSize: theme.size.xs
+    fontSize: theme.size.xs,
+    paddingBottom: theme.spacing['2xl']
   },
   registerLink: {
     fontSize: theme.size.xs,
@@ -206,84 +161,7 @@ const styleSheet = createStyleSheet(theme => ({
     alignItems: 'center',
     paddingBottom: theme.spacing.sm
   },
-  avatar: {
-    borderRadius: 40,
-    borderWidth: 3,
-    borderColor: '#d40a64'
-  },
-  emptyAvatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 2,
-    overflow: 'hidden'
-  },
-  toolItem: {
-    flex: 1,
-    alignItems: 'center'
-  },
-  userName: {
-    fontWeight: 'bold',
-    fontSize: 22,
-    color: Colors.textColor,
-    paddingBottom: 10
-  },
   iconItem: {
     alignItems: 'center'
-  },
-  iconItemEllipse: {
-    alignItems: 'center',
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#f0f0f0'
-  },
-  itemText: {
-    paddingTop: 10,
-    fontWeight: 'bold',
-    color: Colors.textColor,
-    fontSize: 12
-  },
-  userCard: {
-    // for borderRadius
-    overflow: 'hidden',
-    borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 16,
-    paddingVertical: 24,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 30,
-    // TODO: 阴影不生效
-    shadowColor: '#888',
-    shadowRadius: 10,
-    shadowOpacity: 0.1,
-    elevation: 10,
-    shadowOffset: {
-      width: 0,
-      height: 6
-    }
-  },
-  card: {
-    marginBottom: 30,
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingVertical: 24,
-    borderRadius: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 30,
-    shadowColor: '#888',
-    shadowRadius: 10,
-    shadowOpacity: 0.1,
-    elevation: 10,
-    shadowOffset: {
-      width: 0,
-      height: 6
-    }
   }
 }));

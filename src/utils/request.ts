@@ -6,6 +6,7 @@ import { useUserStore } from '@/store/user';
 const isDev = process.env.NODE_ENV === 'development';
 
 const request = axios.create({
+  // baseURL: isDev ? 'http://192.168.1.134:8081/api' : `${process.env.EXPO_PUBLIC_API_URL || ''}/api`
   baseURL: isDev ? 'http://localhost:8081/api' : `${process.env.EXPO_PUBLIC_API_URL || ''}/api`
 });
 

@@ -19,6 +19,7 @@ const WebLink = ({ href, children }: { href: string | Href<unknown>; children: R
           uri: href
         }
       }}
+      asChild
     >
       {children}
     </Link>
